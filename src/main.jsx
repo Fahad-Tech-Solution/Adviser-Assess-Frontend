@@ -7,6 +7,7 @@ import { ConfigProvider, notification } from 'antd'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ResourceBlock from './assets/ResourceBlock/ResourceBlock.jsx'
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Flex, List, Result, Splitter, Typography } from 'antd';
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import DynamicComp from './DynamicComp';
@@ -79,11 +79,19 @@ const NotFound = () => (
     />
 );
 
-
-
-
 const ResourceBlock = () => {
     let { listOfItems } = DynamicComp
+    let Nav = useNavigate()
+
+    useEffect(() => {
+
+        if (localStorage.getItem("User") !== "Dev021") {
+            Nav('/')
+        }
+    }, [])
+
+
+
     return (
         <Splitter
             style={{
@@ -105,25 +113,25 @@ const ResourceBlock = () => {
 
                 <Routes>
                     {listOfItems.map((elem, index) => {
-                        let { styles, extra, callBackFunction, text, type, variant } = elem.Props || {};
                         return (
                             <Route
                                 key={index}
                                 path={elem.route}
-                                element={<div className='d-flex h-100 w-100 justify-content-center align-items-center'>
-                                    <div>
-                                        {elem.component ? (
-                                            React.cloneElement(elem.component, {
-                                                styles, extra, callBackFunction, text, type, variant
-                                            })
-                                        ) : (
-                                            "No Child exists"
-                                        )}
+                                element={
+                                    <div className='d-flex h-100 w-100 justify-content-center align-items-center'>
+                                        <div>
+                                            {elem.component ? (
+                                                React.cloneElement(elem.component, {
+                                                    ...(elem.Props || {}), // Spread the entire Props object
+                                                })
+                                            ) : (
+                                                "No Child exists"
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                                } // Call the function here
+                                }
                             />
-                        )
+                        );
                     })}
                     <Route path="*" element={<NotFound />} />
                 </Routes>
