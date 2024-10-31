@@ -1,16 +1,12 @@
-import { useField } from 'formik';
-import React from 'react'
+import React from "react";
 
-const CInput = ({ label, ...props }) => {
-    const [field, meta, helpers] = useField(props);
-
+const CInput = ({ label, meta, className, ...props }) => {
     return (
         <div className="input-wrapper">
             {label && <label htmlFor={props.id || props.name}>{label}</label>}
             <input
-                {...field}
                 {...props}
-                className={`form-control ${props.className || ""} ${meta.touched && meta.error ? "is-invalid" : ""
+                className={`form-control ${className || ""} ${meta.touched && meta.error ? "is-invalid" : ""
                     }`}
             />
             {meta.touched && meta.error ? (
@@ -20,6 +16,4 @@ const CInput = ({ label, ...props }) => {
     );
 };
 
-
-
-export default CInput
+export default CInput;

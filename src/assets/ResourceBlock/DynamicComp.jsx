@@ -53,11 +53,30 @@ const DynamicComp = {
 
         },
         {
-            component: "",
+            component: <CButton />,
             Title: "From",
             subDescription: "",
-            textLog: "",
-            route: "/Form"
+            textLog: `
+                <Formik
+                  initialValues={{ inputName: "", inputNumber: "" }}
+                  validationSchema={Yup.object({ /* validation rules */ })}
+                  onSubmit={(values) => console.log(values)}
+                >
+                  <Form>
+                    <Field name="inputName" component={CInput} placeholder="Enter name..." />
+                    <Field name="inputNumber" component={CInput} placeholder="Enter number..." />
+                    <button type="submit">Submit</button>
+                  </Form>
+                </Formik>`,
+            route: "/Form",
+            Props: {
+                style: {},
+                extra: "",
+                callBackFunction: () => { alert("button Clicked") },
+                text: "button",
+                type: "primary",
+                variant: "text",
+            }
         },
         {
             component: "",

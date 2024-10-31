@@ -2,7 +2,7 @@ import { Field, Formik, Form } from "formik";
 import * as Yup from "yup";
 import CInput from "./CInput";
 
-const FormComponent = (props) => {
+const FormComponent = () => {
   return (
     <Formik
       initialValues={{ inputName: "", inputNumber: "" }}
@@ -16,23 +16,31 @@ const FormComponent = (props) => {
         console.log(values);
       }}
     >
-      {({ setFieldValue }) => (
-        <Form className=" d-flex justify-content-center align-items-center flex-column">
-          <Field
-            name="inputName"
-            component={CInput}
-            type="text"
-            placeholder="Enter name..."
-            className="inputDesignDoubleInput"
-          />
+      {() => (
+        <Form className="d-flex justify-content-center align-items-center flex-column">
+          <Field name="inputName">
+            {({ field, meta }) => (
+              <CInput
+                {...field}
+                meta={meta}
+                type="text"
+                placeholder="Enter name..."
+                className="inputDesignDoubleInput"
+              />
+            )}
+          </Field>
 
-          <Field
-            name="inputNumber"
-            component={CInput}
-            type="number"
-            placeholder="Enter number..."
-            className="inputDesignDoubleInput"
-          />
+          <Field name="inputNumber">
+            {({ field, meta }) => (
+              <CInput
+                {...field}
+                meta={meta}
+                type="number"
+                placeholder="Enter number..."
+                className="inputDesignDoubleInput"
+              />
+            )}
+          </Field>
 
           <button type="submit" className="btn btn-primary">
             Submit
@@ -44,4 +52,3 @@ const FormComponent = (props) => {
 };
 
 export default FormComponent;
-
