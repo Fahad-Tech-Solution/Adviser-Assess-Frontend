@@ -6,13 +6,16 @@ import Questions from './Questions';
 import Content from '../assets/Content';
 import * as Yup from "yup";
 import Disclosure from './Disclosure';
+import PersonalDetails from './PersonalDetails';
 
 
 const Starter = () => {
 
     let { Pages } = Content;
 
-    let initialValues = {};
+    let initialValues = {
+        disclosureAccept: false
+    };
     let validationSchema = Yup.object({
         inputName: Yup.string().required("Text Input is required"),
         inputNumber: Yup.number()
@@ -41,7 +44,7 @@ const Starter = () => {
                                 return (<Route key={index} path="/" element={<LandingPage elem={elem} />} />)
                             }
                             if (index === 1) {
-                                return (<Route key={index} path="/Disclosure" element={<Disclosure elem={elem} />} />)
+                                return (<Route key={index} path="/Disclosure" element={<Disclosure values={values} elem={elem} />} />)
                             }
                             else {
                                 return (<Route key={index} path={elem.route} element={<Questions elem={elem} />} />)

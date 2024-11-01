@@ -5,12 +5,24 @@ const Content = {
         {
             img: logo,
             Question: "-2",
-            route: "/"
+            route: "/",
+            condition: (CRObject) => true
+
         },
         {
             img: logo,
             Question: "-1",
-            route: "/Disclosure"
+            route: "/Disclosure",
+            condition: (CRObject) => true
+
+        },
+        {
+            subTitle: 'Financial Institutions',
+            statusStep: 0,
+            icon: 'RiCoinsFill',
+            route: '/PersonalDetails',
+            key: "PersonalDetails",
+            condition: (CRObject) => true
         }
     ]
 
