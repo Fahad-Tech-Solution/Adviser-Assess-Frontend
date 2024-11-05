@@ -4,6 +4,7 @@
 
 :root {
   --ColorPrime: #36b446;
+  --ColorLightGreen: #e0f6e3;
   --ColorPrimeHover: #257d31;
 }
 
@@ -23,9 +24,60 @@
   }
 }
 
+.bgColorIncome2 {
+  background-color: var(--ColorPrime) !important;
+}
+
+.bgColorIncomeBlack {
+  background-color: #1b1b1b;
+}
+
+/* Adjust the icon container size */
+/* .custom-steps .ant-steps-item .ant-steps-item-container .ant-steps-item-icon {
+  width: 48px; 
+  height: 48px;
+  font-size: 24px;
+} */
+
+/* Adjust the space between items and align the progress line */
+.custom-steps
+  .ant-steps-item
+  .ant-steps-item-container
+  .ant-steps-item-tail::after {
+  top: 50px !important;
+  left: 80px !important;
+  width: 2.5px !important;
+  height: 55px !important;
+  margin-left: 0.2rem;
+}
+
+.custom-anchor .ant-anchor-link.active-step .ant-anchor-link-title {
+  color: green; /* Green text for active step */
+  font-weight: 700; /* Bold text for active step */
+}
+
+.custom-anchor .ant-anchor-link.active-step {
+  border-left: 3px solid green; /* Green side line for active step */
+  padding-left: 8px; /* Add spacing to avoid text overlap with side line */
+}
+
+.custom-anchor .ant-anchor-link-title {
+  transition: color 0.3s;
+}
+
+.FullHeight {
+  height: 100vh;
+}
+.bg-lightGreen {
+  background-color: var(--ColorLightGreen) !important;
+}
 
 @media only screen and (max-width: 761px) {
-    .Head1 {
-        font-size: 21px !important;
-    }
+  .Head1 {
+    font-size: 21px !important;
   }
+
+  .FullHeight {
+    height: fit-content;
+  }
+}

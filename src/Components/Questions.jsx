@@ -1,28 +1,39 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import SideSteps from './SideSteps'
+import Content from '../assets/Content';
+import QuestionsSet from './QuestionsSet';
 
 const Questions = (props) => {
-    return (
-        <div className='container-fluid p-0 d-flex flex-row'>
-            {/* Side Menu */}
-            <SideSteps />
-            <div className="flex-grow-1">
-                {/* Top Menu */}
-                <Routes>
-                    {/* Top Menu 
-                    {superAdmin.map((elem, index) => {
-                        return (
-                            <Route path={elem.route} element={<InstituteAndOffer Data={elem} />} />
-                        )
-                    })}
-                    */}
-                </Routes>
+    let { Pages } = Content;
+    let location = useLocation();
+    let cLocation = location.pathname.split("/")[1] || "";
 
-                <div style={{ backgroundColor: "lightgray" }} className='w-100 py-2 d-flex justify-content-center align-items-center'>
-                    @Copy Rights is Owned my Fahad Tech Solution
+    return (
+        <div className='container-fluid p-0 overflow-x-hidden'>
+
+            <div className='row'>
+
+                {/* Top Menu */}
+                <div className='col-md-9 '>
+                    <Routes>
+                        {Pages.filter(item => item.condition(true)).map((Pelem, PIndex) => {
+                            if (Pelem.route === "/" + cLocation) {
+                                return (Pelem.InnerPages.map((elem, index) => {
+                                    return (
+                                        <Route path={elem.route} element={<QuestionsSet Data={elem} />} />
+                                    )
+                                }))
+                            }
+                        })}
+                    </Routes>
+                </div>
+                <div className='col-md-3'>
+                    {/* Side Menu */}
+                    <SideSteps />
                 </div>
             </div>
+
         </div>
     )
 }

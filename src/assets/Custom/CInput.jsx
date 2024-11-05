@@ -98,7 +98,7 @@ const CInput = ({ label, className, ...props }) => {
                     <Field name={props.name}>
                         {() => (
                             <DatePicker
-                                className={`form-control ${className} shadow DateInputPadding`}
+                                className={`form-control ${className} DateInputPadding`}
                                 selected={
                                     (props.values?.[props.name] || null)
                                 }
@@ -112,6 +112,7 @@ const CInput = ({ label, className, ...props }) => {
                                 showIcon
                                 id={props.name}
                                 name={props.name}
+                                wrapperClassName="w-100"
                                 disabled={props?.disabled ?? false}
                             />
                         )}
