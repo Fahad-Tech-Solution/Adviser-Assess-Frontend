@@ -14,16 +14,11 @@ const Starter = () => {
     let { Pages } = Content;
 
     let initialValues = {
-        disclosureAccept: false
+        disclosureAccept: false,
+        DateBirth: ""
     };
     let validationSchema = Yup.object({
-        inputName: Yup.string().required("Text Input is required"),
-        inputNumber: Yup.number()
-            .typeError("Must be a number")
-            .required("Number Input is required"),
-        inputSelect: Yup.string().required("Select Input is required"),
-        radioInput: Yup.string().required("Please select an option"), // Validation for radio buttons
-        inputCheck: Yup.boolean().oneOf([true], "You must accept the terms"), // Checkbox validation
+        EmailAddress: Yup.string().email().required("Text Input is required"),
     });
     let onSubmit = (values) => {
         console.log(values);
@@ -36,8 +31,9 @@ const Starter = () => {
             validationSchema={validationSchema}
             onSubmit={onSubmit}
         >
-            {({ isSubmitting, values, setFieldValue, handleChange, handleBlur }) => (
+            {({ isSubmitting, values, setFieldValue, handleChange, handleBlur, validateForm }) => (
                 <Form className="">
+
                     <Routes>
                         {Pages.map((elem, index) => {
                             if (index === 0) {
@@ -47,7 +43,14 @@ const Starter = () => {
                                 return (<Route key={index} path="/Disclosure" element={<Disclosure values={values} elem={elem} />} />)
                             }
                             else {
-                                return (<Route key={index} path={elem.route} element={<Questions elem={elem} />} />)
+                                return (<Route key={index} path={elem.route + "/*"} element={<Questions elem={elem} FormickOBj={{
+                                    isSubmitting,
+                                    values,
+                                    setFieldValue,
+                                    handleChange,
+                                    handleBlur,
+                                    validateForm
+                                }} />} />)
                             }
                         })}
                     </Routes>

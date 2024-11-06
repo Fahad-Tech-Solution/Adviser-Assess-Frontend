@@ -4,7 +4,7 @@
 
 :root {
   --ColorPrime: #36b446;
-  --ColorLightGreen: #e0f6e3;
+  --ColorLightGreen: #f5fff7;
   --ColorPrimeHover: #257d31;
 }
 
@@ -54,6 +54,7 @@
 .custom-anchor .ant-anchor-link.active-step .ant-anchor-link-title {
   color: green; /* Green text for active step */
   font-weight: 700; /* Bold text for active step */
+  text-decoration: none !important;
 }
 
 .custom-anchor .ant-anchor-link.active-step {
@@ -63,6 +64,7 @@
 
 .custom-anchor .ant-anchor-link-title {
   transition: color 0.3s;
+  text-decoration: none !important;
 }
 
 .FullHeight {
@@ -70,6 +72,26 @@
 }
 .bg-lightGreen {
   background-color: var(--ColorLightGreen) !important;
+}
+.side-steps-container {
+  position: sticky;
+  top: 0;
+  padding-top: 1rem; /* Optional: Add some spacing */
+  z-index: 1000; /* Keep it above other content */
+}
+
+.submitBtn {
+  color: white !important;
+  background-color: #36b446 !important;
+  border-color: #36b446 !important;
+  &&:is(:hover, :focus, :active) {
+    border-color: #265527 !important;
+    background-color: #265527 !important;
+  }
+}
+
+.error-text {
+  color: rgb(189, 62, 62);
 }
 
 @media only screen and (max-width: 761px) {

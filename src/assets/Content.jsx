@@ -26,7 +26,6 @@ const Content = {
             condition: (CRObject) => true,
             InnerPages: [
                 {
-                    description: "Your Personal information",
                     Title: 'Personal Details',
                     statusStep: 0,
                     icon: 'FaUser',
@@ -47,11 +46,50 @@ const Content = {
             condition: (CRObject) => true,
             InnerPages: [
                 {
-                    description: "Your Personal information",
                     Title: 'Question 1',
                     statusStep: 0,
                     icon: 'FaUser',
                     route: '/',
+                    key: "PersonalDetails",
+                    condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Question 2',
+                    statusStep: 0,
+                    icon: 'FaUser',
+                    route: '/Q2',
+                    key: "PersonalDetails",
+                    condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Question 3',
+                    statusStep: 0,
+                    icon: 'FaUser',
+                    route: '/Q3',
+                    key: "PersonalDetails",
+                    condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Question 4',
+                    statusStep: 0,
+                    icon: 'FaUser',
+                    route: '/Q4',
+                    key: "PersonalDetails",
+                    condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Question 5',
+                    statusStep: 0,
+                    icon: 'FaUser',
+                    route: '/Q5',
+                    key: "PersonalDetails",
+                    condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Question 6',
+                    statusStep: 0,
+                    icon: 'FaUser',
+                    route: '/Q6',
                     key: "PersonalDetails",
                     condition: (CRObject) => true,
                 },
@@ -65,7 +103,16 @@ const Content = {
             route: '/Health_MedicalHistory',
             key: "Health_MedicalHistory",
             condition: (CRObject) => true,
-            InnerPages: [],
+            InnerPages: [
+                {
+                    Title: 'Question 1',
+                    statusStep: 0,
+                    icon: 'FaUser',
+                    route: '/',
+                    key: "PersonalDetails",
+                    condition: (CRObject) => true,
+                },
+            ],
         },
         {
             description: "it has few Questions you need to answer",

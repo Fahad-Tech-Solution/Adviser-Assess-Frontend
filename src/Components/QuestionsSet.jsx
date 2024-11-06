@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PersonalDetails from './PersonalDetails'
 import { Form, Formik } from 'formik'
 
@@ -8,44 +8,18 @@ const QuestionsSet = (props) => {
         DateBirth: ""
     }
 
-    let onSubmit = () => { }
 
-    let fillInitialValues = () => {
 
+    if (props.Data.Title === "Personal Details") {
+        return (
+            <PersonalDetails FormickOBj={props.FormickOBj} Data={props.Data} />)
+    } else {
+        return (
+            <div>
+                {props.Data.Title}
+            </div>
+        )
     }
-
-    return (
-        <Formik
-            initialValues={initialValues}
-            onSubmit={onSubmit}
-            enableReinitialize
-        >
-            {({ values, setFieldValue, handleBlur, handleChange }) => {
-                useEffect(() => {
-                    fillInitialValues(setFieldValue);
-                }, []);
-
-                return (
-                    <Form>
-                        {props.Data.Title === "Personal Details" ?
-                            <PersonalDetails FormickObj={{
-                                values,
-                                setFieldValue,
-                                handleBlur,
-                                handleChange
-                            }} Data={props.Data} />
-                            :
-                            <div>
-                                {props.Data.Title}
-                            </div>
-
-                        }
-                    </Form>)
-            }}
-
-        </Formik>
-    )
-
 }
 
 export default QuestionsSet

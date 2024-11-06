@@ -1,10 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './App.css'
 import ResourceBlock from './assets/ResourceBlock/ResourceBlock'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Starter from './Components/Starter'
 
 function App() {
+
+  let location = useLocation();
+  useEffect(() => {
+
+    let cLocation = location.pathname;
+
+    console.log(cLocation)
+
+  }, [location])
+
+
 
   return (
     <div>

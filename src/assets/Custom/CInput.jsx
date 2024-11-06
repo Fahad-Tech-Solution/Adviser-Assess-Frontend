@@ -1,6 +1,7 @@
 import React from "react";
 import { Field } from "formik";
 import DatePicker from "react-datepicker";
+import { Button, InputGroup } from "react-bootstrap";
 
 const CInput = ({ label, className, ...props }) => {
     switch (props.type) {
@@ -10,7 +11,7 @@ const CInput = ({ label, className, ...props }) => {
             return (
                 <div className="input-wrapper">
                     <Field name={props.name}>
-                        {({ field, meta }) => (
+                        {({ field, form, meta }) => (
                             <div className={`checkbox-wrapper ${meta.touched && meta.error ? "is-invalid" : ""}`}>
                                 <input
                                     type="checkbox" // Specify the type for checkbox
@@ -18,6 +19,13 @@ const CInput = ({ label, className, ...props }) => {
                                     {...props} // Other custom props
                                     className="form-check-input me-2" // Apply specific checkbox class
                                     id={props.id ? props.id : props.name} // Use the name for the id
+                                    onChange={(e) => {
+                                        const { name, value } = e.target;
+
+                                        // Update Formik field value
+                                        form.setFieldValue(name, value)
+
+                                    }}
                                 />
                                 {label && (
                                     <label htmlFor={props.id ? props.id : props.name} className="form-check-label">
@@ -37,7 +45,7 @@ const CInput = ({ label, className, ...props }) => {
             return (
                 <div className="input-wrapper">
                     <Field name={props.name}>
-                        {({ field, meta }) => (
+                        {({ field, form, meta }) => (
                             <div className={`checkbox-wrapper ${meta.touched && meta.error ? "is-invalid" : ""}`}>
                                 <input
                                     type="radio" // Specify the type for checkbox
@@ -45,6 +53,13 @@ const CInput = ({ label, className, ...props }) => {
                                     {...props} // Other custom props
                                     className="form-check-input me-2" // Apply specific checkbox class
                                     id={props.id} // Use the name for the id
+                                    onChange={(e) => {
+                                        const { name, value } = e.target;
+
+                                        // Update Formik field value
+                                        form.setFieldValue(name, value)
+
+                                    }}
                                 />
                                 {label && (
                                     <label htmlFor={props.id} className="form-check-label">
@@ -66,12 +81,19 @@ const CInput = ({ label, className, ...props }) => {
                 <div className="input-wrapper">
                     {label && <label htmlFor={props.name}>{label}</label>}
                     <Field name={props.name} as="select">
-                        {({ field, meta }) => (
+                        {({ field, form, meta }) => (
                             <React.Fragment>
                                 <select
                                     {...field}
                                     {...props}
                                     className={` ${className || "form-control"} ${meta.touched && meta.error ? "is-invalid" : ""}`}
+                                    onChange={(e) => {
+                                        const { name, value } = e.target;
+
+                                        // Update Formik field value
+                                        form.setFieldValue(name, value)
+
+                                    }}
                                 >
                                     {props.options.map((option, index) => (
                                         <option key={index} value={option.value}>
@@ -91,7 +113,6 @@ const CInput = ({ label, className, ...props }) => {
 
         case "Date":
         case "date":
-            console.log((props.values?.[props.name]));
             return (
                 <div className="input-wrapper">
                     {label && <label htmlFor={props.name}>{label}</label>}
@@ -122,25 +143,78 @@ const CInput = ({ label, className, ...props }) => {
             break;
 
         default:
-            return (
-                <div className="input-wrapper">
-                    {label && <label htmlFor={props.name}>{label}</label>}
-                    <Field name={props.name}>
-                        {({ field, meta }) => (
-                            <React.Fragment>
-                                <input
-                                    {...field} // Provides value, onChange, and onBlur
-                                    {...props} // Other custom props like placeholder, type, etc.
-                                    className={` ${className || "form-control"} ${meta.touched && meta.error ? "is-invalid" : ""}`}
-                                />
-                                {meta.touched && meta.error ? (
-                                    <div className="error-text">{meta.error}</div>
-                                ) : null}
-                            </React.Fragment>
-                        )}
-                    </Field>
-                </div>
-            );
+
+            if (props.group) {
+                return (
+                    <div className="input-wrapper">
+                        {label && <label htmlFor={props.name}>{label}</label>}
+                        <Field name={props.name}>
+                            {({ field, form, meta }) => (
+                                <React.Fragment>
+                                    <InputGroup className={`${meta.touched && meta.error ? "is-invalid" : ""}`}>
+                                        <input
+                                            {...field} // Provides value, onChange, and onBlur
+                                            {...props} // Other custom props like placeholder, type, etc.
+                                            className={`${className || "form-control"} ${meta.touched && meta.error ? "is-invalid" : ""}`}
+                                            onChange={(e) => {
+                                                const { name, value } = e.target;
+
+                                                // Update Formik field value
+                                                form.setFieldValue(name, value);
+
+                                                // Call custom onChange callback if provided
+                                                if (props.onChangeCallback) {
+                                                    props.onChangeCallback(form.values, form.setFieldValue, e.target);
+                                                }
+                                            }}
+                                        />
+                                        <Button className='btn bgColorIncome2  border-0' id="button-addon2">
+                                            {props.groupIcon}
+                                        </Button>
+                                    </InputGroup>
+                                    {meta.touched && meta.error ? (
+                                        <div className="error-text">{meta.error}</div>
+                                    ) : null}
+                                </React.Fragment>
+                            )}
+                        </Field>
+                    </div>
+                );
+            }
+            else {
+                return (
+                    <div className="input-wrapper">
+                        {label && <label htmlFor={props.name}>{label}</label>}
+                        <Field name={props.name}>
+                            {({ field, form, meta }) => (
+                                <React.Fragment>
+                                    <input
+                                        {...field} // Provides value, onChange, and onBlur
+                                        {...props} // Other custom props like placeholder, type, etc.
+                                        className={` ${className || "form-control"} ${meta.touched && meta.error ? "is-invalid" : ""}`}
+                                        onChange={(e) => {
+                                            const { name, value } = e.target;
+
+                                            // Update Formik field value
+                                            form.setFieldValue(name, value);
+
+                                            // Call custom onChange callback if provided
+                                            if (props.onChangeCallback) {
+                                                props.onChangeCallback(form.values, form.setFieldValue, e.target);
+                                            }
+                                        }}
+                                    />
+                                    {meta.touched && meta.error ? (
+                                        <div className="error-text">{meta.error}</div>
+                                    ) : null}
+                                </React.Fragment>
+                            )}
+                        </Field>
+                    </div>
+                );
+            }
+
+
             break;
     }
 
