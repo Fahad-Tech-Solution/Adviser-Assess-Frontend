@@ -1,5 +1,15 @@
 import React from "react";
 import logo from "./Images/Logo.png"
+import { components } from "react-select";
+import EmploymentStatus from "../Components/QuestionSets/EmploymentStatus";
+
+import OccupationalFinancialInformation from "../assets/Images/OccupationalFinancialInformation.png"
+import IncomeInformation from "../Components/QuestionSets/IncomeInformation";
+import WorkEnvironment from "../Components/QuestionSets/WorkEnvironment";
+import WeeklyWorkHours from "../Components/QuestionSets/WeeklyWorkHours";
+import SelfEmploymentDetails from "../Components/QuestionSets/SelfEmploymentDetails";
+
+
 const Content = {
     Pages: [
         {
@@ -27,7 +37,7 @@ const Content = {
             InnerPages: [
                 {
                     Title: 'Personal Details',
-                    statusStep: 0,
+                    statusStep: 10,
                     icon: 'FaUser',
                     route: '/',
                     key: "PersonalDetails",
@@ -43,55 +53,66 @@ const Content = {
             icon: 'RiCoinsFill',
             route: '/OccupationalFinancialInformation',
             key: "OccupationalFinancialInformation",
+            imgUrl: OccupationalFinancialInformation,
             condition: (CRObject) => true,
             InnerPages: [
                 {
-                    Title: 'Question 1',
-                    statusStep: 0,
-                    icon: 'FaUser',
+                    Title: 'Employment Status',
+                    statusStep: 20,
+                    icon: 'MdOutlineHomeWork',
                     route: '/',
-                    key: "PersonalDetails",
+                    key: "EmploymentStatus",
+                    components: <EmploymentStatus />,
                     condition: (CRObject) => true,
                 },
                 {
-                    Title: 'Question 2',
-                    statusStep: 0,
-                    icon: 'FaUser',
+                    Title: 'Second Occupation',
+                    statusStep: 30,
+                    icon: 'IoBriefcase',
                     route: '/Q2',
-                    key: "PersonalDetails",
+                    key: "SecondOccupation",
+                    components: <EmploymentStatus />,
                     condition: (CRObject) => true,
                 },
                 {
-                    Title: 'Question 3',
-                    statusStep: 0,
-                    icon: 'FaUser',
+                    Title: 'Income Information',
+                    statusStep: 40,
+                    icon: 'AiOutlineDollarCircle',
                     route: '/Q3',
-                    key: "PersonalDetails",
+                    key: "IncomeInformation",
+                    components: <IncomeInformation />,
                     condition: (CRObject) => true,
                 },
                 {
-                    Title: 'Question 4',
-                    statusStep: 0,
-                    icon: 'FaUser',
+                    Title: 'Work Environment',
+                    statusStep: 50,
+                    icon: 'FaBuilding',
                     route: '/Q4',
-                    key: "PersonalDetails",
+                    key: "workEnvironment",
+                    components: <WorkEnvironment />,
                     condition: (CRObject) => true,
                 },
                 {
-                    Title: 'Question 5',
-                    statusStep: 0,
-                    icon: 'FaUser',
+                    Title: 'Weekly Work Hours',
+                    statusStep: 60,
+                    icon: 'BsClockHistory',
                     route: '/Q5',
-                    key: "PersonalDetails",
+                    key: "weeklyWorkHours",
+                    components: <WeeklyWorkHours />,
                     condition: (CRObject) => true,
                 },
                 {
-                    Title: 'Question 6',
-                    statusStep: 0,
-                    icon: 'FaUser',
+                    Title: 'Self-Employment Details',
+                    statusStep: 70,
+                    icon: 'FaUserTie',
                     route: '/Q6',
-                    key: "PersonalDetails",
-                    condition: (CRObject) => true,
+                    key: "SelfEmploymentDetails",
+                    components: <SelfEmploymentDetails />,
+                    condition: (CRObject) => {
+                        console.log("CRObject:", CRObject);
+                        console.log("EmploymentStatus_EmploymentType:", CRObject[`EmploymentStatus_EmploymentType`]);
+                        return CRObject[`EmploymentStatus_EmploymentType`] === "Self-employed";
+                    }
                 },
             ],
         },

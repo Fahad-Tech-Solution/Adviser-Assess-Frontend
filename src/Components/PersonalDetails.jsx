@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
 const PersonalDetails = (props) => {
-  let { setFieldValue, handleBlur, values, validateForm } = props.FormickOBj
+  let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched } = props.FormickOBj
 
   let options = [
     { value: "", label: "Select" },
@@ -61,7 +61,7 @@ const PersonalDetails = (props) => {
   return (
     <div className="container mt-4">
 
-      <h2 className="Head1 text-center my-5">Personal Details</h2>
+      <h2 className="fw-bold text-center my-5">Personal Details</h2>
 
       <div className="row justify-content-center flex-wrap gap-2">
         <div className='col-md-4'>
@@ -109,6 +109,7 @@ const PersonalDetails = (props) => {
           <CInput
             name="Height"
             type="number"
+            placeholder="Height in cm"
             group={true}
             groupIcon={"cm"}
             onChangeCallback={FormulaSetting}
@@ -122,6 +123,7 @@ const PersonalDetails = (props) => {
           <CInput
             name="Weight"
             type="number"
+            placeholder="Weight in Kg"
             group={true}
             groupIcon={"kg"}
             onChangeCallback={FormulaSetting}
@@ -143,7 +145,7 @@ const PersonalDetails = (props) => {
         {/* Add more input rowsjustify-content-center  as needed */}
       </div>
 
-      <h2 className="Head1 text-center my-5">Contact Information</h2>
+      <h2 className="fw-bold text-center my-5">Contact Information</h2>
 
       <div className="row justify-content-center flex-wrap gap-2">
         <div className='col-md-4'>
@@ -181,20 +183,24 @@ const PersonalDetails = (props) => {
 
       <div className='row justify-content-center flex-wrap my-3 gap-2'>
         <div className='col-md-4'>
-          <Button variant="secondary" className='w-100'>Back </Button>
+          <Button className='w-100 backBtn' onClick={() => {
+            Nev("/Disclosure")
+          }}>Back </Button>
         </div>
         <div className='col-md-4'>
           <Button type='button' className='btn submitBtn w-100' onClick={async () => {
-            const errors = await validateForm();
-            if (Object.keys(errors).length === 0) {
-              Nev('/OccupationalFinancialInformation')
-              // Perform your task here
+            // const errors = await validateField('EmailAddress');
+            localStorage.setItem("AdviserAssess", JSON.stringify(values));
+            const touch = await setFieldTouched("EmailAddress");
+            // console.log(errors, touch)
+            if (!touch.EmailAddress) {
+              Nev('/OccupationalFinancialInformation');
             } else {
-              console.log("Validation errors:", errors);
+              console.log("Validation errors:", touch.EmailAddress);
             }
           }} >
             Submit
-          
+
           </Button>
         </div>
       </div>

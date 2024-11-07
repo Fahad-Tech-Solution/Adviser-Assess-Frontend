@@ -82,11 +82,21 @@
 
 .submitBtn {
   color: white !important;
-  background-color: #36b446 !important;
-  border-color: #36b446 !important;
+  background-color: var(--ColorPrime) !important;
+  border-color: var(--ColorPrime) !important;
   &&:is(:hover, :focus, :active) {
     border-color: #265527 !important;
     background-color: #265527 !important;
+  }
+}
+
+.backBtn {
+  color: var(--ColorPrime) !important;
+  border-color: var(--ColorPrime) !important;
+  background-color: transparent !important;
+  &&:is(:hover, :focus, :active) {
+    color: white !important;
+    background-color: var(--ColorPrime) !important;
   }
 }
 

@@ -39,11 +39,11 @@ const Disclosure = (props) => {
                             </div>
                         </code>
                     </pre>
-                    <CInput className={"form-check-input me-3"} name="disclosureAccept" label="I have read and acknowledge my Duty of Disclosure  * " type="checkBox" />
+                    <CInput checked={props.values["disclosureAccept"]} className={"form-check-input me-3"} name="disclosureAccept" label="I have read and acknowledge my Duty of Disclosure  * " type="checkBox" />
                     <div>
                         <div className="row mt-3  justify-content-end">
                             <div className="col-md-3">
-                                <button className='btn btnCustom w-100' disabled={!props.values.disclosureAccept} onClick={() => Nav("/PersonalDetails")}>Next</button>
+                                <button className='btn btnCustom w-100' disabled={!props.values.disclosureAccept} onClick={() => { localStorage.setItem("AdviserAssess", JSON.stringify(props.values)); Nav("/PersonalDetails"); }}>Next</button>
                             </div>
                         </div>
                     </div>

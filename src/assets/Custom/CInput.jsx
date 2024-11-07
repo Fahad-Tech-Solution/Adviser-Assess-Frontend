@@ -5,6 +5,43 @@ import { Button, InputGroup } from "react-bootstrap";
 
 const CInput = ({ label, className, ...props }) => {
     switch (props.type) {
+        case "textarea":
+        case "Textarea":
+        case "TextArea":
+        case "textArea":
+            return (
+                <div className="input-wrapper">
+                    {label && <label htmlFor={props.name}>{label}</label>}
+                    <Field name={props.name}>
+                        {({ field, form, meta }) => (
+                            <React.Fragment>
+                                <textarea
+                                    {...field} // Provides value, onChange, and onBlur
+                                    {...props} // Other custom props like placeholder, type, etc.
+                                    className={` ${className || "form-control"} ${meta.touched && meta.error ? "is-invalid" : ""}`}
+                                    onChange={(e) => {
+                                        const { name, value } = e.target;
+
+                                        // Update Formik field value
+                                        form.setFieldValue(name, value);
+
+                                        // Call custom onChange callback if provided
+                                        if (props.onChangeCallback) {
+                                            props.onChangeCallback(form.values, form.setFieldValue, e.target);
+                                        }
+                                    }}
+                                />
+                                {meta.touched && meta.error ? (
+                                    <div className="error-text">{meta.error}</div>
+                                ) : null}
+                            </React.Fragment>
+                        )}
+                    </Field>
+                </div>
+            );
+
+            break
+
         case "CheckBox":
         case "checkBox":
         case "checkbox":
@@ -23,7 +60,7 @@ const CInput = ({ label, className, ...props }) => {
                                         const { name, value } = e.target;
 
                                         // Update Formik field value
-                                        form.setFieldValue(name, value)
+                                        form.setFieldValue(name, e.target.checked)
 
                                     }}
                                 />

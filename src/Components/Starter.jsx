@@ -18,7 +18,7 @@ const Starter = () => {
         DateBirth: ""
     };
     let validationSchema = Yup.object({
-        EmailAddress: Yup.string().email().required("Text Input is required"),
+        EmailAddress: Yup.string().email("Please! Enter Valid Email").required("Email is required"),
     });
     let onSubmit = (values) => {
         console.log(values);
@@ -31,7 +31,7 @@ const Starter = () => {
             validationSchema={validationSchema}
             onSubmit={onSubmit}
         >
-            {({ isSubmitting, values, setFieldValue, handleChange, handleBlur, validateForm }) => (
+            {({ isSubmitting, values, setFieldValue, handleChange, handleBlur, validateForm, validateField, setFieldTouched }) => (
                 <Form className="">
 
                     <Routes>
@@ -49,7 +49,9 @@ const Starter = () => {
                                     setFieldValue,
                                     handleChange,
                                     handleBlur,
-                                    validateForm
+                                    validateForm,
+                                    validateField,
+                                    setFieldTouched
                                 }} />} />)
                             }
                         })}

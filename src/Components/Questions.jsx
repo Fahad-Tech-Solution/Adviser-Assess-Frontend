@@ -17,7 +17,7 @@ const Questions = (props) => {
     return (
         <div className="container-fluid p-0 overflow-x-hidden ">
             <div className="row">
-                <TopStepsBar />
+                <TopStepsBar FormickOBj={props.FormickOBj} />
                 <div className="col-md-9">
                     <Routes>
                         {Pages.filter(item => item.condition(true)).map((Pelem, PIndex) => {
@@ -25,14 +25,14 @@ const Questions = (props) => {
 
                                 return (Pelem.InnerPages.map((elem, index) => {
                                     return (
-                                        <Route path={elem.route} element={<QuestionsSet FormickOBj={props.FormickOBj} Data={elem} />} />
+                                        <Route path={elem.route} element={<QuestionsSet FormickOBj={props.FormickOBj} Data={elem} parentElem={Pelem} />} />
                                     )
                                 }))
                             }
                         })}
                     </Routes>
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-3" style={{ minHeight: "85vh" }}>
                     {/* Side Menu */}
                     <SideSteps />
                 </div>
