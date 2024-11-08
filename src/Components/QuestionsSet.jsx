@@ -10,49 +10,61 @@ import { useLocation, useNavigate } from 'react-router-dom'
 const QuestionsSet = (props) => {
     const { Pages } = Content;
 
+    let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
+
     let location = useLocation();
     let Nev = useNavigate();
 
     const handleBack = () => {
-        const cLocation = location.pathname.split("/")[2] || "";
-        const currentPath = location.pathname.split("/")[1] || "";
-        let conditionCheck = true
+        const [currentPath, cLocation] = location.pathname.split("/").slice(1, 3);
+        const MainPageIndex = Pages.findIndex(item => item.route === `/${currentPath}`);
 
-        const main = Pages.filter(page => page.condition(conditionCheck)).flatMap((Pelem) => Pelem.InnerPages);
+        if (MainPageIndex === -1) return; // Exit if main page not found
 
-        // Find the current item index based on the QuestionChange state
-        const currentIndex = main.findIndex(item => item.route === `/${cLocation}`);
+        const innerPages = Pages[MainPageIndex].InnerPages.filter(page => page.condition(values));
+        const CurrentPageIndex = innerPages.findIndex(item => item.route === `/${cLocation}`);
 
-        console.log(currentIndex, main, "Back");
+        if (innerPages.length > 1 && CurrentPageIndex > 0) {
+            // Navigate to previous inner page in the same main page
+            Nev(Pages[MainPageIndex].route + innerPages[CurrentPageIndex - 1].route);
+        } else if (MainPageIndex > 0) {
+            // Navigate to the last filtered inner page of the previous main page
+            const previousMainPage = Pages[MainPageIndex - 1];
+            const previousInnerPages = previousMainPage.InnerPages.filter(page => page.condition(values));
 
-        if (currentPath === "OccupationalFinancialInformation" && currentIndex === 0) {
-            Nev("/PersonalDetails" + main[currentIndex].route)
-        }
-        else {
-            Nev("/" + currentPath + main[currentIndex - 1].route)
+            if (previousInnerPages.length > 0) {
+                const previousLastPage = previousInnerPages[previousInnerPages.length - 1].route;
+                Nev(previousMainPage.route + previousLastPage);
+            }
         }
     };
 
     const handleNext = () => {
-        localStorage.setItem("AdviserAssess", JSON.stringify(props.FormickOBj.values))
-        const cLocation = location.pathname.split("/")[2] || "";
-        const currentPath = location.pathname.split("/")[1] || "";
-        let conditionCheck = true
+        localStorage.setItem("AdviserAssess", JSON.stringify(props.FormickOBj.values));
 
-        const main = Pages.filter(page => page.condition(conditionCheck)).flatMap((Pelem) => Pelem.InnerPages);
+        const [currentPath, cLocation] = location.pathname.split("/").slice(1, 3);
+        const MainPageIndex = Pages.findIndex(item => item.route === `/${currentPath}`);
 
-        // Find the current item index based on the QuestionChange state
-        const currentIndex = main.findIndex(item => item.route === `/${cLocation}`);
+        if (MainPageIndex === -1) return; // Exit if main page not found
 
-        console.log(currentIndex, main, "Next");
+        const innerPages = Pages[MainPageIndex].InnerPages.filter(page => page.condition(values));
+        const CurrentPageIndex = innerPages.findIndex(item => item.route === `/${cLocation}`);
 
-        if (currentIndex === 0) {
-            Nev("/" + currentPath + main[currentIndex + 2].route)
-        }
-        else {
-            Nev("/" + currentPath + main[currentIndex + 1].route)
+        if (innerPages.length > 1 && CurrentPageIndex < innerPages.length - 1) {
+            // Navigate to the next inner page in the same main page
+            Nev(Pages[MainPageIndex].route + innerPages[CurrentPageIndex + 1].route);
+        } else if (MainPageIndex < Pages.length - 1) {
+            // Navigate to the first filtered inner page of the next main page
+            const nextMainPage = Pages[MainPageIndex + 1];
+            const nextInnerPages = nextMainPage.InnerPages.filter(page => page.condition(values));
+
+            if (nextInnerPages.length > 0) {
+                const nextFirstPage = nextInnerPages[0].route;
+                Nev(nextMainPage.route + nextFirstPage);
+            }
         }
     };
+
 
 
 

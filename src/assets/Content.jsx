@@ -8,6 +8,7 @@ import IncomeInformation from "../Components/QuestionSets/IncomeInformation";
 import WorkEnvironment from "../Components/QuestionSets/WorkEnvironment";
 import WeeklyWorkHours from "../Components/QuestionSets/WeeklyWorkHours";
 import SelfEmploymentDetails from "../Components/QuestionSets/SelfEmploymentDetails";
+import HeartDiseaseConditions from "../Components/QuestionSets/HeartDiseaseConditions";
 
 
 const Content = {
@@ -108,11 +109,7 @@ const Content = {
                     route: '/Q6',
                     key: "SelfEmploymentDetails",
                     components: <SelfEmploymentDetails />,
-                    condition: (CRObject) => {
-                        console.log("CRObject:", CRObject);
-                        console.log("EmploymentStatus_EmploymentType:", CRObject[`EmploymentStatus_EmploymentType`]);
-                        return CRObject[`EmploymentStatus_EmploymentType`] === "Self-employed";
-                    }
+                    condition: (CRObject) => { return CRObject[`EmploymentStatus_EmploymentType`] === "Self-employed" }
                 },
             ],
         },
@@ -126,10 +123,43 @@ const Content = {
             condition: (CRObject) => true,
             InnerPages: [
                 {
-                    Title: 'Question 1',
-                    statusStep: 0,
-                    icon: 'FaUser',
+                    Title: 'Heart disease or conditions',
+                    statusStep: 10,
+                    icon: 'FaHeartPulse',
                     route: '/',
+                    key: "heartDiseaseConditions",
+                    components: <HeartDiseaseConditions />,
+                    condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Question 2',
+                    statusStep: 20,
+                    icon: 'FaUser',
+                    route: '/Q2',
+                    key: "PersonalDetails",
+                    condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Question 3',
+                    statusStep: 30,
+                    icon: 'FaUser',
+                    route: '/Q3',
+                    key: "PersonalDetails",
+                    condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Question 4',
+                    statusStep: 40,
+                    icon: 'FaUser',
+                    route: '/Q4',
+                    key: "PersonalDetails",
+                    condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Question 5',
+                    statusStep: 50,
+                    icon: 'FaUser',
+                    route: '/Q5',
                     key: "PersonalDetails",
                     condition: (CRObject) => true,
                 },

@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Anchor, ConfigProvider } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Content from '../assets/Content';
+import { openNotification } from '../assets/Api/Api';
 
 const SideSteps = (props) => {
     const { Link } = Anchor;
     const { Pages } = Content;
     const location = useLocation();
     const navigate = useNavigate();
+
+    let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
 
     const [items, setItems] = useState([]);
 
@@ -33,7 +36,20 @@ const SideSteps = (props) => {
                             fontWeight: isCurrentStep ? "700" : "600"
                         }}
                         role="button"
-                        onClick={() => handleStepClick(item.route)}
+                        onClick={async () => {
+                            if (currentPath === "PersonalDetails") {
+                                const touch = await setFieldTouched("EmailAddress");
+                                if (!touch.EmailAddress) {
+                                    handleStepClick(item.route);
+                                } else {
+                                    openNotification("error", "topRight", "Warning Notification", "Please! enter email before proceeding");
+                                }
+                            }
+                            else {
+                                handleStepClick(item.route);
+                            }
+
+                        }}
                     >
                         {item.Title}
                     </span>

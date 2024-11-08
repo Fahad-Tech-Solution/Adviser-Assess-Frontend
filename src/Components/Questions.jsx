@@ -34,7 +34,7 @@ const Questions = (props) => {
                 </div>
                 <div className="col-md-3" style={{ minHeight: "85vh" }}>
                     {/* Side Menu */}
-                    <SideSteps />
+                    <SideSteps FormickOBj={props.FormickOBj} />
                 </div>
             </div>
         </div>

@@ -164,10 +164,12 @@ const CInput = ({ label, className, ...props }) => {
                                     const fieldName = props.name;
                                     props.setFieldValue(fieldName, date);
                                 }}
-                                dateFormat="dd/MM/yyyy"
+                                dateFormat={props.dateFormat ? props.dateFormat : "dd/MM/yyyy"}
                                 placeholderText={props.placeholder}
                                 onBlur={props.handleBlur}
                                 showIcon
+                                maxDate={new Date()}
+                                {...props}
                                 id={props.name}
                                 name={props.name}
                                 wrapperClassName="w-100"

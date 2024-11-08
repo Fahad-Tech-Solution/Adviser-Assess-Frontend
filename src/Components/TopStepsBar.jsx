@@ -15,6 +15,7 @@ import {
     FaMoneyBillWave,
     FaBuilding,
     FaUserTie,
+    FaHeartPulse,
 } from "react-icons/fa6";
 import {
     MdFamilyRestroom,
@@ -31,6 +32,7 @@ import Content from '../assets/Content';
 import { IoBriefcase, IoBriefcaseOutline } from 'react-icons/io5';
 import { AiOutlineDollarCircle } from 'react-icons/ai';
 import { BsClockHistory } from 'react-icons/bs';
+import { openNotification } from '../assets/Api/Api';
 
 const TopStepsBar = (props) => {
 
@@ -64,37 +66,63 @@ const TopStepsBar = (props) => {
 
         const conditionCheck = true;
 
-        switch (cLocation) {
-            case "Q2":
-                stepComplete = 30;
-                break;
-            case "Q3":
-                stepComplete = 40;
-                break;
-            case "Q4":
-                stepComplete = 50;
-                break;
-            case "Q5":
-                stepComplete = 60;
-                break;
-            case "Q6":
-                stepComplete = 70;
-                break;
+        switch (currentPath) {
+            case "PersonalDetails":
+                stepComplete = 10;
 
-            default:
+                break;
+            case "OccupationalFinancialInformation":
+                switch (cLocation) {
+                    case "Q2":
+                        stepComplete = 30;
+                        break;
+                    case "Q3":
+                        stepComplete = 40;
+                        break;
+                    case "Q4":
+                        stepComplete = 50;
+                        break;
+                    case "Q5":
+                        stepComplete = 60;
+                        break;
+                    case "Q6":
+                        stepComplete = 70;
+                        break;
 
-                switch (currentPath) {
-                    case "PersonalDetails":
-                        stepComplete = 10;
-                        break;
-                    case "OccupationalFinancialInformation":
-                        stepComplete = 20;
-                        break;
                     default:
+                        stepComplete = 20;
                         break;
                 }
                 break;
+            case "Health_MedicalHistory":
+                switch (cLocation) {
+                    case "Q2":
+                        stepComplete = 20;
+                        break;
+                    case "Q3":
+                        stepComplete = 30;
+                        break;
+                    case "Q4":
+                        stepComplete = 40;
+                        break;
+                    case "Q5":
+                        stepComplete = 50;
+                        break;
+                    case "Q6":
+                        stepComplete = 60;
+                        break;
+
+                    default:
+                        stepComplete = 10;
+                        break;
+                }
+
+                break;
+            default:
+                break;
         }
+
+
 
         // Flatten all InnerPages from Pages where condition is true
         const main = Pages
@@ -118,14 +146,6 @@ const TopStepsBar = (props) => {
 
         let innerPages = SubPages.filter(page => page.condition(conditionCheck2));
 
-
-
-
-
-        // console.log(main, "Data", currentPath);
-
-
-        // Icon mapping for easy reference
         const iconMap = {
             FaBriefcase,
             FaCheck,
@@ -154,12 +174,10 @@ const TopStepsBar = (props) => {
             AiOutlineDollarCircle,
             FaBuilding,
             BsClockHistory,
-            FaUserTie
+            FaUserTie,
+            FaHeartPulse
         };
 
-        // console.log(currentPath, "ma kea btao")
-
-        // Map each InnerPage to a step item
         const updatedItems = innerPages.map((item, index) => {
             const IconComponent = iconMap[item.icon] || FaUser; // Default to FaUser if not found
 
@@ -209,7 +227,18 @@ const TopStepsBar = (props) => {
                             width: '2rem', // Adjust icon container size here
                             height: '2rem', // Adjust icon container height here
                         }}
-                        onClick={() => { handleStepClick(`/${NevBase}${item.route}`) }}
+                        onClick={async () => {
+                            if (currentPath === "PersonalDetails") {
+                                const touch = await setFieldTouched("EmailAddress"); if (!touch.EmailAddress) {
+                                    handleStepClick(`/${NevBase}${item.route}`)
+                                } else {
+                                    openNotification("error", "topRight", "Warning Notification", "Please! enter email before proceeding");
+                                }
+                            }
+                            else {
+                                handleStepClick(`/${NevBase}${item.route}`)
+                            }
+                        }}
                     >
                         <IconComponent />
                     </span>
@@ -263,6 +292,7 @@ const TopStepsBar = (props) => {
                     status="process"
                 />
             </ConfigProvider>
+
         </div>
     );
 };
