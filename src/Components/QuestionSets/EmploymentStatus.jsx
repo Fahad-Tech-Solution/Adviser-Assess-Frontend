@@ -34,17 +34,20 @@ const EmploymentStatus = (props) => {
                             {Data.key === "SecondOccupation" ? "Do you have a second occupation?" : "Are you currently employed?"}
                         </label>
                     </div>
-                    <div className='col-md-4 mt-4'>
+                    <div className='col-md-3 mt-4'>
                         <DynamicYesNo name={`${Data.key}_DynamicYesNo`} values={values} handleChange={handleChange} />
                     </div>
                 </div>
 
                 {values[`${Data.key}_DynamicYesNo`] === "No" ? Data.key !== "SecondOccupation" &&
-                    <div className='row justify-content-center mt-4'>
-                        <div className='col-md-7 mb-2'>
+                    <div className='row justify-content-center mt-4 '>
+                        <div className='col-md-3'></div>
+
+                        <div className='col-md-5 mb-2'>
                             <label htmlFor={`${Data.key}_Situation`} className='fw-bold'>*Please explain your current situation</label>
                         </div>
-                        <div className='col-md-7'>
+                        <div className='col-md-3'></div>
+                        <div className='col-md-5'>
                             <CInput name={`${Data.key}_Situation`} type="textarea" rows={4} />
                         </div>
                     </div>
@@ -57,30 +60,38 @@ const EmploymentStatus = (props) => {
                             </h4>
                         </div>
                         <div className='col-md-12 mt-4'>
-                            <div className='row justify-content-center align-item-center gap-2'>
-                                <div className='col-md-4 pt-2'>
+                            <div className='row justify-content-center align-item-center ' style={{ rowGap: "10px" }}>
+                                <div className='col-md-3'></div>
+
+                                <div className='col-md-3 pt-2'>
                                     <label htmlFor={`${Data.key}_OccupationJobTitle`} className='fw-bold'>Occupation/Job Title</label>
                                 </div>
-                                <div className='col-md-4'>
+                                <div className='col-md-3'>
                                     <CInput name={`${Data.key}_OccupationJobTitle`} type="text" />
                                 </div>
-                                <div className='col-md-4 pt-2'>
+                                <div className='col-md-3'></div>
+                                <div className='col-md-3'></div>
+                                <div className='col-md-3 pt-2'>
                                     <label htmlFor={`${Data.key}_EmploymentType`} className='fw-bold'>Employment Type</label>
                                 </div>
-                                <div className='col-md-4'>
+                                <div className='col-md-3'>
                                     <CInput name={`${Data.key}_EmploymentType`} options={optionsMultiSelect} className={"form-select"} type="select" />
                                 </div>
+                                <div className='col-md-3'></div>
+                                <div className='col-md-3'></div>
                                 {
                                     values[`${Data.key}_EmploymentType`] === "Other" &&
                                     <React.Fragment>
 
-                                        <div className='col-md-4 pt-2'>
+                                        <div className='col-md-3 pt-2'>
                                             <label htmlFor={`${Data.key}_Other`} className='fw-bold'>Other</label>
                                         </div>
-                                        <div className='col-md-4'>
+                                        <div className='col-md-3'>
                                             <CInput name={`${Data.key}_Other`} type="textarea" rows={2} />
                                         </div>
                                     </React.Fragment>}
+                                <div className='col-md-3'></div>
+
 
                             </div>
                         </div>

@@ -9,6 +9,8 @@ import WorkEnvironment from "../Components/QuestionSets/WorkEnvironment";
 import WeeklyWorkHours from "../Components/QuestionSets/WeeklyWorkHours";
 import SelfEmploymentDetails from "../Components/QuestionSets/SelfEmploymentDetails";
 import HeartDiseaseConditions from "../Components/QuestionSets/HeartDiseaseConditions";
+import HighBloodPressureHighCholesterol from "../Components/QuestionSets/HighBloodPressureHighCholesterol";
+import RespiratoryConditions from "../Components/QuestionSets/RespiratoryConditions";
 
 
 const Content = {
@@ -132,19 +134,21 @@ const Content = {
                     condition: (CRObject) => true,
                 },
                 {
-                    Title: 'Question 2',
+                    Title: 'High Blood Pressure or High Cholesterol',
                     statusStep: 20,
                     icon: 'FaUser',
                     route: '/Q2',
-                    key: "PersonalDetails",
+                    components: <HighBloodPressureHighCholesterol />,
+                    key: "HighBloodPressureHighCholesterol",
                     condition: (CRObject) => true,
                 },
                 {
-                    Title: 'Question 3',
+                    Title: 'Respiratory conditions',
                     statusStep: 30,
                     icon: 'FaUser',
                     route: '/Q3',
-                    key: "PersonalDetails",
+                    components: <RespiratoryConditions />,
+                    key: "RespiratoryConditions",
                     condition: (CRObject) => true,
                 },
                 {

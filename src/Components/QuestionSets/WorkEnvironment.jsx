@@ -25,34 +25,37 @@ const WorkEnvironment = (props) => {
                             Do you perform any hazardous duties?
                         </label>
                     </div>
-                    <div className='col-md-4 mt-4'>
+                    <div className='col-md-3 mt-4'>
                         <DynamicYesNo name={`${Data.key}_hazardousDuties`} values={values} handleChange={handleChange} />
                     </div>
                 </div>
 
                 {values[`${Data.key}_hazardousDuties`] === "Yes" &&
-
-                    <div className='row justify-content-center align-item-center gap-2 mt-4'>
-                        <div className='col-md-4 pt-2'>
-                            <label htmlFor={`${Data.key}_Specify`} className='fw-bold'>Please Specify</label>
+                    <React.Fragment>
+                        <div className='row justify-content-center align-item-center mt-4' style={{ rowGap: "10px" }}>
+                            <div className='col-md-3 pt-2'>
+                                <label htmlFor={`${Data.key}_Specify`} className='fw-bold'>Please Specify</label>
+                            </div>
+                            <div className='col-md-3'>
+                                <CInput name={`${Data.key}_Specify`} options={optionsMultiSelect} className={"form-select"} type="select" />
+                            </div>
                         </div>
-                        <div className='col-md-4'>
-                            <CInput name={`${Data.key}_Specify`} options={optionsMultiSelect} className={"form-select"} type="select" />
-                        </div>
-
                         {
                             values[`${Data.key}_Specify`] === "Other" &&
-                            <React.Fragment>
-                                <div className='col-md-4 pt-2'>
-                                    <label htmlFor={`${Data.key}_OtherSpecify`} className='fw-bold'>Other</label>
-                                </div>
-                                <div className='col-md-4'>
-                                    <CInput name={`${Data.key}_OtherSpecify`} type="textarea" rows={2} />
-                                </div>
-                            </React.Fragment>}
-                    </div>}
+                            <div className='row justify-content-center align-item-center mt-4' style={{ rowGap: "10px" }}>
 
 
+                                <React.Fragment>
+                                    <div className='col-md-3 pt-2'>
+                                        <label htmlFor={`${Data.key}_OtherSpecify`} className='fw-bold'>Other</label>
+                                    </div>
+                                    <div className='col-md-3'>
+                                        <CInput name={`${Data.key}_OtherSpecify`} type="textarea" rows={2} />
+                                    </div>
+                                </React.Fragment>
+                            </div>}
+
+                    </React.Fragment>}
             </div>
         </div>
     )

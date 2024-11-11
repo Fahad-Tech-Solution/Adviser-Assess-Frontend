@@ -67,6 +67,9 @@ const SideSteps = (props) => {
     return (
         <div
             className='py-5 bg-lightGreen h-100  rounded position-relative  w-100'
+            style={{
+                minHeight: "85vh"
+            }}
         >
             <ConfigProvider>
                 <Anchor

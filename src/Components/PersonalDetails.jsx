@@ -63,11 +63,12 @@ const PersonalDetails = (props) => {
 
       <h2 className="fw-bold text-center my-5">Personal Details</h2>
 
-      <div className="row justify-content-center flex-wrap gap-2">
-        <div className='col-md-4'>
-          <label htmlFor='Full_Name'>Full Name :</label>
+      <div className="row justify-content-center flex-wrap" style={{ rowGap: "10px" }}>
+        <div className='col-md-3'></div>
+        <div className='col-md-3'>
+          <label className="fw-bold" htmlFor='Full_Name'>Full Name :</label>
         </div>
-        <div className="col-md-4">
+        <div className="col-md-3">
           <CInput
             name="Full_Name"
             type="text"
@@ -76,10 +77,13 @@ const PersonalDetails = (props) => {
           />
         </div>
 
-        <div className='col-md-4'>
-          <label htmlFor='DateBirth'>Date Birth :</label>
+        <div className='col-md-3'></div>
+        <div className='col-md-3'></div>
+
+        <div className='col-md-3'>
+          <label className="fw-bold" htmlFor='DateBirth'>Date Birth :</label>
         </div>
-        <div className="col-md-4">
+        <div className="col-md-3">
           <CInput
             name="DateBirth"
             type="Date"
@@ -89,10 +93,13 @@ const PersonalDetails = (props) => {
           />
         </div>
 
-        <div className='col-md-4'>
-          <label htmlFor='Gender'>Gender :</label>
+        <div className='col-md-3'></div>
+        <div className='col-md-3'></div>
+
+        <div className='col-md-3'>
+          <label className="fw-bold" htmlFor='Gender'>Gender :</label>
         </div>
-        <div className="col-md-4">
+        <div className="col-md-3">
           <CInput
             name="Gender"
             type="select"
@@ -101,11 +108,13 @@ const PersonalDetails = (props) => {
           />
         </div>
 
+        <div className='col-md-3'></div>
+        <div className='col-md-3'></div>
 
-        <div className='col-md-4'>
-          <label htmlFor='Height'>Height :</label>
+        <div className='col-md-3'>
+          <label className="fw-bold" htmlFor='Height'>Height :</label>
         </div>
-        <div className="col-md-4 ">
+        <div className="col-md-3 ">
           <CInput
             name="Height"
             type="number"
@@ -116,10 +125,13 @@ const PersonalDetails = (props) => {
           />
         </div>
 
-        <div className='col-md-4'>
-          <label htmlFor='Weight'>Weight :</label>
+        <div className='col-md-3'></div>
+        <div className='col-md-3'></div>
+
+        <div className='col-md-3'>
+          <label className="fw-bold" htmlFor='Weight'>Weight :</label>
         </div>
-        <div className="col-md-4 ">
+        <div className="col-md-3 ">
           <CInput
             name="Weight"
             type="number"
@@ -130,10 +142,13 @@ const PersonalDetails = (props) => {
           />
         </div>
 
-        <div className='col-md-4'>
-          <label htmlFor='BMI'>BMI :</label>
+        <div className='col-md-3'></div>
+        <div className='col-md-3'></div>
+
+        <div className='col-md-3'>
+          <label className="fw-bold" htmlFor='BMI'>BMI :</label>
         </div>
-        <div className="col-md-4 ">
+        <div className="col-md-3 ">
           <CInput
             name="BMI"
             type="text"
@@ -141,53 +156,69 @@ const PersonalDetails = (props) => {
 
           />
         </div>
+        <div className='col-md-3'></div>
+
 
         {/* Add more input rowsjustify-content-center  as needed */}
       </div>
 
       <h2 className="fw-bold text-center my-5">Contact Information</h2>
 
-      <div className="row justify-content-center flex-wrap gap-2">
-        <div className='col-md-4'>
-          <label htmlFor='PhoneNumber'>Phone Number :</label>
+      <div className="row justify-content-center flex-wrap" style={{ rowGap: "10px" }}>
+        <div className='col-md-3'></div>
+
+        <div className='col-md-3'>
+          <label className="fw-bold" htmlFor='PhoneNumber'>Phone Number :</label>
         </div>
-        <div className="col-md-4 ">
+        <div className="col-md-3 ">
           <CInput
             name="PhoneNumber"
             type="text"
             placeholder="Phone Number"
           />
         </div>
-        <div className='col-md-4'>
-          <label htmlFor='EmailAddress'>Email Address :</label>
+
+        <div className='col-md-3'></div>
+        <div className='col-md-3'></div>
+
+        <div className='col-md-3'>
+          <label className="fw-bold" htmlFor='EmailAddress'>Email Address :</label>
         </div>
-        <div className="col-md-4 ">
+        <div className="col-md-3 ">
           <CInput
             name="EmailAddress"
             type="email"
             placeholder="Email Address"
           />
         </div>
-        <div className='col-md-4'>
-          <label htmlFor='Address'>Address :</label>
+
+        <div className='col-md-3'></div>
+        <div className='col-md-3'></div>
+
+        <div className='col-md-3'>
+          <label className="fw-bold" htmlFor='Address'>Address :</label>
         </div>
-        <div className="col-md-4 ">
+        <div className="col-md-3 ">
           <CInput
             name="Address"
             type="text"
             placeholder="Address"
           />
         </div>
+        <div className='col-md-3'></div>
+
       </div>
 
 
-      <div className='row justify-content-center flex-wrap my-3 gap-2'>
-        <div className='col-md-4'>
+      <div className='row justify-content-center flex-wrap my-3 ' style={{ rowGap: "10px" }}>
+
+
+        <div className='col-md-3'>
           <Button className='w-100 backBtn' onClick={() => {
             Nev("/Disclosure")
           }}>Back </Button>
         </div>
-        <div className='col-md-4'>
+        <div className='col-md-3'>
           <Button type='button' className='btn submitBtn w-100' onClick={async () => {
             // const errors = await validateField('EmailAddress');
             localStorage.setItem("AdviserAssess", JSON.stringify(values));
@@ -203,6 +234,7 @@ const PersonalDetails = (props) => {
 
           </Button>
         </div>
+
       </div>
 
     </div>

@@ -11,7 +11,6 @@ const HeartDiseaseConditions = (props) => {
     let Data = props.Data
 
     let optionsMultiSelect = [
-        { value: "", label: "Select" },
         { value: "Coronary Artery Disease (CAD)", label: "Coronary Artery Disease (CAD)" },
         { value: "Heart Attack (Myocardial Infarction)", label: "Heart Attack (Myocardial Infarction)" },
         { value: "Arrhythmia (e.g., Atrial Fibrillation)", label: "Arrhythmia (e.g., Atrial Fibrillation)" },
@@ -53,6 +52,11 @@ const HeartDiseaseConditions = (props) => {
         }
     };
 
+    let ongoingResolvedOption = [
+        { value: "", label: "Select" },
+        { value: "Ongoing", label: "Ongoing" },
+        { value: "Resolved", label: "Resolved" },
+    ]
 
 
     return (
@@ -64,7 +68,7 @@ const HeartDiseaseConditions = (props) => {
                             Do you have any Heart disease or conditions ?
                         </label>
                     </div>
-                    <div className='col-md-4 mt-4'>
+                    <div className='col-md-3 mt-4'>
                         <DynamicYesNo name={`${Data.key}_DynamicYesNo`} values={values} handleChange={handleChange} />
                     </div>
                 </div>
@@ -73,10 +77,10 @@ const HeartDiseaseConditions = (props) => {
                     <React.Fragment>
                         <div className='row justify-content-center mt-4'>
 
-                            <div className='col-md-7 pt-2'>
+                            <div className='col-md-5 pt-2'>
                                 <label htmlFor={`${Data.key}_diseaseAndConditions`} className='fw-bold'>Select the type of heart disease or condition that applies to you ?</label>
                             </div>
-                            <div className='col-md-4'>
+                            <div className='col-md-3'>
                                 <Field
                                     name={`${Data.key}_diseaseAndConditions`}
                                     component={CreatableMultiSelectField}
@@ -88,10 +92,10 @@ const HeartDiseaseConditions = (props) => {
                             {Array.isArray(values[`${Data.key}_diseaseAndConditions`]) &&
                                 values[`${Data.key}_diseaseAndConditions`].includes("Other") && (
                                     <React.Fragment>
-                                        <div className='col-md-7 pt-2 mt-2'>
+                                        <div className='col-md-5 pt-2 mt-2'>
                                             <label htmlFor={`${Data.key}_diseaseAndConditions`} className='fw-bold'>Other Details</label>
                                         </div>
-                                        <div className='col-md-4 mt-2'>
+                                        <div className='col-md-3 mt-2'>
                                             <CInput name={`${Data.key}_Other`} type="textarea" rows={2} />
                                         </div>
                                     </React.Fragment>
@@ -100,8 +104,8 @@ const HeartDiseaseConditions = (props) => {
                         </div>
                         {(Array.isArray(values[`${Data.key}_diseaseAndConditions`]) && values[`${Data.key}_diseaseAndConditions`].length > 0 && !values[`${Data.key}_diseaseAndConditions`].includes("Other")) &&
 
-                            <div className='row'>
-                                <div className='col-md-12'>
+                            <div className='row justify-content-center'>
+                                <div className='col-md-10'>
                                     <div className='mt-4'>
                                         <Table striped bordered responsive hover>
                                             <thead>
@@ -119,8 +123,8 @@ const HeartDiseaseConditions = (props) => {
                                                         <tr>
                                                             <td>{diseaseAndConditions[i]}</td>
                                                             <td style={{ width: "6rem" }}><CInput setFieldValue={setFieldValue} handleBlur={handleBlur} values={values} name={`${Data.key}_DateOfDiagnosis${i}`} type="date" showYearPicker placeholder="yyyy" dateFormat="yyyy" /></td>
-                                                            <td> <CInput name={Data.key + "treatmentsMedications" + i} type="text" placeholder="Treatments or medications" /></td>
-                                                            <td> <CInput name={Data.key + "ongoingResolved" + i} type="text" placeholder="ongoing or resolved" /></td>
+                                                            <td> <CInput name={Data.key + "treatmentsMedications" + i} type="textarea" placeholder="Treatments or medications" rows={1} /></td>
+                                                            <td> <CInput name={Data.key + "ongoingResolved" + i} type="Select" options={ongoingResolvedOption} className={"form-select"} /></td>
                                                         </tr>
                                                     )
                                                 })}

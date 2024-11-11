@@ -114,6 +114,7 @@ const CInput = ({ label, className, ...props }) => {
             break;
 
         case "select":
+        case "Select":
             return (
                 <div className="input-wrapper">
                     {label && <label htmlFor={props.name}>{label}</label>}

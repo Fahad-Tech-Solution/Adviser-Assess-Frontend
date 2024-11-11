@@ -104,6 +104,9 @@
   color: rgb(189, 62, 62);
 }
 
+.form-select {
+  padding-right: 10% !important;
+}
 
 @media only screen and (max-width: 761px) {
   .Head1 {

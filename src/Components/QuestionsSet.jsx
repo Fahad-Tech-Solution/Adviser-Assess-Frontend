@@ -92,12 +92,13 @@ const QuestionsSet = (props) => {
                     React.cloneElement(props.Data.components, { Data: props.Data, FormickOBj: props.FormickOBj })
                 ) : "no components exist"}
                 <div className='row justify-content-center align-item-center gap-2'>
-                    <div className='col-md-4 mt-4'>
+                    
+                    <div className='col-md-3 mt-4'>
                         <Button className='w-100 backBtn'
                             onClick={handleBack}
                         >Back </Button>
                     </div>
-                    <div className='col-md-4 mt-4'>
+                    <div className='col-md-3 mt-4'>
                         <Button type='button' className='btn submitBtn w-100' onClick={handleNext} >
                             Next
                         </Button>
