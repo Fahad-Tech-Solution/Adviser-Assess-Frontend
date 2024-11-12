@@ -16,16 +16,21 @@ import {
     FaBuilding,
     FaUserTie,
     FaHeartPulse,
+    FaRibbon,
+    FaSyringe,
+    FaBone,
 } from "react-icons/fa6";
 import {
     MdFamilyRestroom,
     MdWaterDrop,
     MdOutlineBalance,
-    MdOutlineHealthAndSafety,
     MdOutlineTimeline,
     MdOutlineHomeWork,
+    MdMonitorHeart,
+    MdHealthAndSafety,
 } from "react-icons/md";
-import { RiCoinsFill, RiDiscountPercentFill } from "react-icons/ri";
+import { RiCoinsFill, RiDiscountPercentFill, RiStethoscopeLine } from "react-icons/ri";
+
 
 import { useLocation, useNavigate } from 'react-router-dom';
 import Content from '../assets/Content';
@@ -33,6 +38,9 @@ import { IoBriefcase, IoBriefcaseOutline } from 'react-icons/io5';
 import { AiOutlineDollarCircle } from 'react-icons/ai';
 import { BsClockHistory } from 'react-icons/bs';
 import { openNotification } from '../assets/Api/Api';
+import { PiBrain } from 'react-icons/pi';
+import { GiKidneys, GiKneeCap } from 'react-icons/gi';
+import { FaHeartbeat, FaProcedures } from 'react-icons/fa';
 
 const TopStepsBar = (props) => {
 
@@ -52,6 +60,11 @@ const TopStepsBar = (props) => {
 
         let stepComplete = 0;
         let mixCondition = false;
+        let Health_MedicalHistoryCase = {
+
+            status: false,
+            set: "set1"
+        };
 
         switch (currentPath) {
             case "PersonalDetails":
@@ -95,6 +108,7 @@ const TopStepsBar = (props) => {
                 }
                 break;
             case "Health_MedicalHistory":
+                Health_MedicalHistoryCase.status = true;
                 switch (cLocation) {
                     case "Q2":
                         stepComplete = 20;
@@ -111,7 +125,32 @@ const TopStepsBar = (props) => {
                     case "Q6":
                         stepComplete = 60;
                         break;
-
+                    case "Q7":
+                        stepComplete = 70;
+                        break;
+                    case "Q8":
+                        stepComplete = 80;
+                        break;
+                    case "Q9":
+                        stepComplete = 20;
+                        Health_MedicalHistoryCase.set = "set2"
+                        break;
+                    case "Q10":
+                        stepComplete = 30;
+                        Health_MedicalHistoryCase.set = "set2"
+                        break;
+                    case "Q11":
+                        stepComplete = 40;
+                        Health_MedicalHistoryCase.set = "set2"
+                        break;
+                    case "Q12":
+                        stepComplete = 50;
+                        Health_MedicalHistoryCase.set = "set2"
+                        break;
+                    case "Q13":
+                        stepComplete = 60;
+                        Health_MedicalHistoryCase.set = "set2"
+                        break;
                     default:
                         stepComplete = 10;
                         break;
@@ -146,6 +185,14 @@ const TopStepsBar = (props) => {
 
         let innerPages = SubPages.filter(page => page.condition(conditionCheck2));
 
+        if (Health_MedicalHistoryCase.status) {
+
+            innerPages = Health_MedicalHistoryCase.set === "set1" ? innerPages.slice(0, 8) : innerPages.slice(8, 14);
+        }
+
+
+
+
         const iconMap = {
             FaBriefcase,
             FaCheck,
@@ -162,7 +209,7 @@ const TopStepsBar = (props) => {
             MdWaterDrop,
             FaTriangleExclamation,
             RiDiscountPercentFill,
-            MdOutlineHealthAndSafety,
+            MdHealthAndSafety,
             MdOutlineBalance,
             FaGraduationCap,
             FaChartPie,
@@ -175,7 +222,17 @@ const TopStepsBar = (props) => {
             FaBuilding,
             BsClockHistory,
             FaUserTie,
-            FaHeartPulse
+            FaHeartPulse,
+            RiStethoscopeLine,
+            MdMonitorHeart,
+            FaRibbon,
+            FaSyringe,
+            PiBrain,
+            FaBone,
+            GiKidneys,
+            GiKneeCap,
+            FaHeartbeat,
+            FaProcedures
         };
 
         const updatedItems = innerPages.map((item, index) => {
@@ -291,8 +348,8 @@ const TopStepsBar = (props) => {
                     responsive={false}
                     status="process"
                 />
-            </ConfigProvider>
 
+            </ConfigProvider>
         </div>
     );
 };

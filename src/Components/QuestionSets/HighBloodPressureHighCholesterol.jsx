@@ -11,49 +11,6 @@ const HighBloodPressureHighCholesterol = (props) => {
 
     let Data = props.Data
 
-    let optionsMultiSelect = [
-        { value: "", label: "Select" },
-        { value: "Coronary Artery Disease (CAD)", label: "Coronary Artery Disease (CAD)" },
-        { value: "Heart Attack (Myocardial Infarction)", label: "Heart Attack (Myocardial Infarction)" },
-        { value: "Arrhythmia (e.g., Atrial Fibrillation)", label: "Arrhythmia (e.g., Atrial Fibrillation)" },
-        { value: "Heart Failure (Congestive Heart Failure)", label: "Heart Failure (Congestive Heart Failure)" },
-        { value: "Angina", label: "Angina" },
-        { value: "Hypertensive Heart Disease", label: "Hypertensive Heart Disease" },
-        { value: "Heart Valve Disease", label: "Heart Valve Disease" },
-        { value: "Other", label: "Other" }
-    ]
-
-    const handleMultiSelectChange = ({ target }) => {
-
-        let selectedArray = target.value;
-
-        // console.log(selectedArray);
-
-        // Check if "No" is selected
-        const hasNoValue = selectedArray.some((item) => item.value === "Other");
-        const noIndex = selectedArray.findIndex((item) => item.value === "Other");
-
-        // If only "No" is selected or if "No" is the last selection, set only ["No"]
-        if (
-            (selectedArray.length === 1 && hasNoValue) ||
-            (selectedArray.length === 2 && hasNoValue && noIndex === 1)
-        ) {
-            setFieldValue(target.name, ["Other"]);
-            return;
-        }
-
-        if (hasNoValue && selectedArray.length > 2) {
-            // If "No" is present in a larger selection, prioritize it and set only ["No"]
-            setFieldValue(target.name, ["Other"]);
-        } else {
-            // Filter out any "No" values and use the remaining selected items
-            const filtered = selectedArray
-                .filter((item) => item.value !== "Other")
-                .map((item) => item.value);
-            setFieldValue(target.name, filtered);
-        }
-    };
-
     let LatestBloodPressureOption = [
         { value: "", label: "Select" },
         { value: "Less than 120/80 (Normal)", label: "Less than 120/80 (Normal)" },
@@ -64,6 +21,7 @@ const HighBloodPressureHighCholesterol = (props) => {
         { value: "Higher than 180/120 (Hypertensive Crisis)", label: "Higher than 180/120 (Hypertensive Crisis)" },
         { value: "Unknown", label: "Unknown" },
     ]
+
     let LatestCholesterolOption = [
         { value: "", label: "Select" },
         { value: "Less than 200 (Normal)", label: "Less than 200 (Normal)" },
@@ -77,6 +35,7 @@ const HighBloodPressureHighCholesterol = (props) => {
         setFieldValue(e.target.name, e.target.values)
 
     }
+
     const headings = [
         { label: "No#", attribute: "renderIndex" },
         { label: "Date of Diagnosis", attribute: Data.key + "_DateOfDiagnosis", onChange: TestChange, inputType: "date", showYearPicker: true, placeholder: "yyyy", dateFormat: "yyyy" },
@@ -97,7 +56,7 @@ const HighBloodPressureHighCholesterol = (props) => {
 
     return (
         <div className='row'>
-            <div className='col-md-12 pb-4 mb-1'>
+            <div className='col-md-12 pb-4 mb-1' >
                 <div className='row justify-content-center'>
                     <div className='col-md-12'>
                         <label htmlFor='yesNo' className='text-center w-100 fw-bold'>
@@ -111,7 +70,11 @@ const HighBloodPressureHighCholesterol = (props) => {
                 {
                     values[`${Data.key}_DynamicYesNo`] === "Yes" &&
                     <React.Fragment>
-                        <div className='row justify-content-center'>
+                        <div className='row justify-content-center'
+                        // data-aos="zoom-in-right"
+                        // data-aos-duration="350"
+                        // data-aos-easing="ease-in-sine"
+                        >
                             <div className='col-md-10'>
                                 <div className='mt-4'>
 
@@ -120,9 +83,6 @@ const HighBloodPressureHighCholesterol = (props) => {
                                 </div>
                             </div>
                         </div>
-
-
-
                     </React.Fragment>
                 }
 

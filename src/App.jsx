@@ -4,6 +4,9 @@ import ResourceBlock from './assets/ResourceBlock/ResourceBlock'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Starter from './Components/Starter'
 
+import Aos from "aos";
+import "aos/dist/aos.css";
+
 function App() {
 
   let location = useLocation();
@@ -15,7 +18,13 @@ function App() {
 
   }, [location])
 
-
+  useEffect(() => {
+    Aos.init({
+      duration: 1800,
+      offset: 100,
+      disable: "mobile",
+    });
+  }, []);
 
   return (
     <div>

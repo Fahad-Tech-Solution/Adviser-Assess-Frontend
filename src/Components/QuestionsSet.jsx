@@ -50,6 +50,7 @@ const QuestionsSet = (props) => {
         const innerPages = Pages[MainPageIndex].InnerPages.filter(page => page.condition(values));
         const CurrentPageIndex = innerPages.findIndex(item => item.route === `/${cLocation}`);
 
+        console.log(MainPageIndex)
         if (innerPages.length > 1 && CurrentPageIndex < innerPages.length - 1) {
             // Navigate to the next inner page in the same main page
             Nev(Pages[MainPageIndex].route + innerPages[CurrentPageIndex + 1].route);
@@ -91,8 +92,9 @@ const QuestionsSet = (props) => {
                 {props.Data.components ? (
                     React.cloneElement(props.Data.components, { Data: props.Data, FormickOBj: props.FormickOBj })
                 ) : "no components exist"}
-                <div className='row justify-content-center align-item-center gap-2'>
-                    
+
+                <div className='row justify-content-center align-item-center gap-2 mb-4'>
+
                     <div className='col-md-3 mt-4'>
                         <Button className='w-100 backBtn'
                             onClick={handleBack}

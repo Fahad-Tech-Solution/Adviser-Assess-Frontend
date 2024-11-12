@@ -2,6 +2,8 @@ import React from "react";
 import CInput from "./CInput"; // Import your CInput component
 import { Table } from "react-bootstrap";
 import DynamicYesNo from "./DynamicYesNo/DynamicYesNo";
+import { CreatableMultiSelectField } from "./CreateableMultiSelect/CreatableMultiSelectField";
+import { Field } from "formik";
 
 const DynamicTableFields = ({ headings, data, setFieldValue, handleBlur, values, handleChange }) => {
     return (
@@ -20,7 +22,7 @@ const DynamicTableFields = ({ headings, data, setFieldValue, handleBlur, values,
                             {headings.map((heading, colIndex) => {
                                 if (heading.attribute === "StaticString") {
                                     return (
-                                        <td key={colIndex} className="fw-bold">
+                                        <td key={colIndex} className="fw-bold" style={heading.styleSet ? heading.styleSet : {}}>
                                             {item.StaticString}
                                         </td>
                                     );
@@ -28,15 +30,28 @@ const DynamicTableFields = ({ headings, data, setFieldValue, handleBlur, values,
                                 // For the "numberPrint" attribute, display the row number
                                 else if (heading.attribute === "renderIndex") {
                                     return (
-                                        <td key={colIndex}>
+                                        <td key={colIndex} style={heading.styleSet ? heading.styleSet : {}}>
                                             {rowIndex + 1}
+                                        </td>
+                                    );
+                                }
+                                else if (heading.inputType === "multiSelect") {
+                                    return (
+                                        <td key={colIndex} style={heading.styleSet ? heading.styleSet : {}}>
+                                            <Field
+                                                name={`${heading.attribute}-${rowIndex}`}
+                                                component={CreatableMultiSelectField}
+                                                label="Multi Select Field"
+                                                options={heading.options || []}
+                                                onChange={(e) => heading.onChange(e, rowIndex, heading.attribute)}
+                                            />
                                         </td>
                                     );
                                 }
                                 // Handle Date input
                                 else if (heading.inputType === "date") {
                                     return (
-                                        <td key={colIndex}>
+                                        <td key={colIndex} style={heading.styleSet ? heading.styleSet : {}}>
                                             <CInput
                                                 name={`${heading.attribute}-${rowIndex}`}
                                                 type="date"
@@ -53,7 +68,7 @@ const DynamicTableFields = ({ headings, data, setFieldValue, handleBlur, values,
                                 // Handle Textarea input
                                 else if (heading.inputType === "textarea") {
                                     return (
-                                        <td key={colIndex}>
+                                        <td key={colIndex} style={heading.styleSet ? heading.styleSet : {}}>
                                             <CInput
                                                 name={`${heading.attribute}-${rowIndex}`}
                                                 type="textarea"
@@ -67,7 +82,7 @@ const DynamicTableFields = ({ headings, data, setFieldValue, handleBlur, values,
                                 // Handle Select input (like Blood Pressure and Cholesterol)
                                 else if (heading.inputType === "select") {
                                     return (
-                                        <td key={colIndex}>
+                                        <td key={colIndex} style={heading.styleSet ? heading.styleSet : {}}>
                                             <CInput
                                                 name={`${heading.attribute}-${rowIndex}`}
                                                 type="select"
@@ -78,10 +93,38 @@ const DynamicTableFields = ({ headings, data, setFieldValue, handleBlur, values,
                                         </td>
                                     );
                                 }
+                                else if (heading.inputType === "select&textArea") {
+                                    return (
+                                        <td key={colIndex} style={heading.styleSet ? heading.styleSet : {}}>
+                                            <div className="d-flex justify-content-center flex-column gap-3">
+                                                <div>
+                                                    <CInput
+                                                        name={`${heading.attribute}-${rowIndex}`}
+                                                        type="select"
+                                                        options={heading.options || []}
+                                                        className={heading.className || "form-select"}
+                                                        onChange={(e) => heading.onChange(e, rowIndex, heading.attribute)}
+                                                    />
+                                                </div>
+                                                {values[`${heading.attribute}-${rowIndex}`] === "Other" &&
+                                                    <div>
+                                                        <CInput
+                                                            name={`${heading.attribute2}-${rowIndex}`}
+                                                            type="textarea"
+                                                            onChange={(e) => heading.onChange(e, rowIndex, heading.attribute2)}
+                                                            placeholder={heading.placeholder || `Enter ${heading.label.toLowerCase()}`}
+                                                            rows={heading.rows || 1}
+                                                        />
+                                                    </div>
+                                                }
+                                            </div>
+                                        </td>
+                                    );
+                                }
                                 // YesNo and Text area Input
                                 else if (heading.inputType === "YesNo&textArea") {
                                     return (
-                                        <td key={colIndex}>
+                                        <td key={colIndex} style={heading.styleSet ? heading.styleSet : {}}>
                                             <div className="d-flex justify-content-center flex-column gap-3">
                                                 <div>
                                                     <DynamicYesNo name={`${heading.attribute}-${rowIndex}`} values={values} handleChange={handleChange} />
@@ -99,10 +142,22 @@ const DynamicTableFields = ({ headings, data, setFieldValue, handleBlur, values,
                                         </td>
                                     );
                                 }
+                                // YesNo and Text area Input
+                                else if (heading.inputType === "YesNo") {
+                                    return (
+                                        <td key={colIndex} style={heading.styleSet ? heading.styleSet : {}}>
+                                            <div className="d-flex justify-content-center flex-column gap-3">
+                                                <div>
+                                                    <DynamicYesNo name={`${heading.attribute}-${rowIndex}`} values={values} handleChange={handleChange} />
+                                                </div>
+                                            </div>
+                                        </td>
+                                    );
+                                }
                                 // Default case for other input types
                                 else {
                                     return (
-                                        <td key={colIndex}>
+                                        <td key={colIndex} style={heading.styleSet ? heading.styleSet : {}}>
                                             <CInput
                                                 name={`${heading.attribute}-${rowIndex}`}
                                                 type={heading.inputType}

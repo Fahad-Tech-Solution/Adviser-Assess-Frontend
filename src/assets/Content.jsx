@@ -11,6 +11,15 @@ import SelfEmploymentDetails from "../Components/QuestionSets/SelfEmploymentDeta
 import HeartDiseaseConditions from "../Components/QuestionSets/HeartDiseaseConditions";
 import HighBloodPressureHighCholesterol from "../Components/QuestionSets/HighBloodPressureHighCholesterol";
 import RespiratoryConditions from "../Components/QuestionSets/RespiratoryConditions";
+import CancerTumorsCysts from "../Components/QuestionSets/CancerTumorsCysts";
+import Diabetes from "../Components/QuestionSets/Diabetes";
+import MentalHealthConditions from "../Components/QuestionSets/MentalHealthConditions";
+import BackNeckPain from "../Components/QuestionSets/BackNeckPain";
+import StrokeNeurologicalConditions from "../Components/QuestionSets/StrokeNeurologicalConditions";
+import LiverKidneyGastrointestinalConditions from "../Components/QuestionSets/LiverKidneyGastrointestinalConditions";
+import ArthritisJointDisorders from "../Components/QuestionSets/ArthritisJointDisorders";
+import HIVAIDSOtherImmuneSystemDisorders from "../Components/QuestionSets/HIVAIDSOtherImmuneSystemDisorders";
+import SurgeriesOperations from "../Components/QuestionSets/SurgeriesOperations";
 
 
 const Content = {
@@ -136,7 +145,7 @@ const Content = {
                 {
                     Title: 'High Blood Pressure or High Cholesterol',
                     statusStep: 20,
-                    icon: 'FaUser',
+                    icon: 'RiStethoscopeLine',
                     route: '/Q2',
                     components: <HighBloodPressureHighCholesterol />,
                     key: "HighBloodPressureHighCholesterol",
@@ -145,26 +154,91 @@ const Content = {
                 {
                     Title: 'Respiratory conditions',
                     statusStep: 30,
-                    icon: 'FaUser',
+                    icon: 'MdMonitorHeart',
                     route: '/Q3',
                     components: <RespiratoryConditions />,
                     key: "RespiratoryConditions",
                     condition: (CRObject) => true,
                 },
                 {
-                    Title: 'Question 4',
+                    Title: 'Cancer, Tumors, or Cysts',
                     statusStep: 40,
-                    icon: 'FaUser',
+                    icon: 'FaRibbon',
                     route: '/Q4',
-                    key: "PersonalDetails",
+                    key: "Cancer, Tumors, or Cysts",
+                    components: <CancerTumorsCysts />,
                     condition: (CRObject) => true,
                 },
                 {
-                    Title: 'Question 5',
+                    Title: 'Diabetes (Type 1 or Type 2)',
                     statusStep: 50,
-                    icon: 'FaUser',
+                    icon: 'FaSyringe',
                     route: '/Q5',
-                    key: "PersonalDetails",
+                    key: "Diabetes",
+                    components: <Diabetes />,
+                    condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Mental Health Conditions',
+                    statusStep: 60,
+                    icon: 'MdOutlineHealthAndSafety',
+                    route: '/Q6',
+                    key: "MentalHealthConditions",
+                    components: <MentalHealthConditions />,
+                    condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Back or Neck Pain',
+                    statusStep: 70,
+                    icon: 'FaBone',
+                    route: '/Q7',
+                    key: "BackNeckPain",
+                    components: <BackNeckPain />,
+                    condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Stroke or Neurological Conditions ',
+                    statusStep: 80,
+                    icon: 'PiBrain',
+                    route: '/Q8',
+                    key: "StrokeNeurologicalConditions",
+                    components: <StrokeNeurologicalConditions />,
+                    condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Liver, Kidney, or Gastrointestinal Conditions',
+                    statusStep: 20,
+                    icon: 'GiKidneys',
+                    route: '/Q9',
+                    key: "LiverKidneyGastrointestinalConditions",
+                    components: <LiverKidneyGastrointestinalConditions />,
+                    condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Arthritis or Joint Disorders',
+                    statusStep: 30,
+                    icon: 'GiKneeCap',
+                    route: '/Q10',
+                    key: "ArthritisJointDisorders",
+                    components: <ArthritisJointDisorders />,
+                    condition: (CRObject) => true,
+                },
+                {
+                    Title: 'HIV/AIDS or other Immune System Disorders',
+                    statusStep: 40,
+                    icon: 'FaHeartbeat',
+                    route: '/Q11',
+                    key: "HIVAIDSOtherImmuneSystemDisorders",
+                    components: <HIVAIDSOtherImmuneSystemDisorders />,
+                    condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Surgeries or Operations',
+                    statusStep: 50,
+                    icon: 'FaProcedures',
+                    route: '/Q12',
+                    key: "SurgeriesOperations",
+                    components: <SurgeriesOperations />,
                     condition: (CRObject) => true,
                 },
             ],
@@ -176,6 +250,16 @@ const Content = {
             icon: 'MdFamilyRestroom',
             route: '/FamilyMedicalHistory',
             key: "FamilyMedicalHistory",
+            condition: (CRObject) => true,
+            InnerPages: [],
+        },
+        {
+            description: "it has few Questions you need to answer",
+            Title: 'Lifestyle Information',
+            statusStep: 0,
+            icon: 'MdFamilyRestroom',
+            route: '/LifestyleInformation',
+            key: "LifestyleInformation",
             condition: (CRObject) => true,
             InnerPages: [],
         },
