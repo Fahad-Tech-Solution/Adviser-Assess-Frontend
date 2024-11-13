@@ -32,8 +32,8 @@ const Diabetes = (props) => {
     ]
 
     let TypeDiabetesOption = [
-        { value: "Type 1", label: "Type 1" },
-        { value: "Type 2", label: "Type 2" },
+        { value: "Type 1 Diabetes", label: "Type 1" },
+        { value: "Type 2 Diabetes", label: "Type 2" },
     ]
 
     let TestChange = (e, rowIndex, heading) => {

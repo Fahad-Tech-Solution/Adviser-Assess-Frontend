@@ -6,16 +6,35 @@ import CInput from '../../assets/Custom/CInput'
 import { Table } from 'react-bootstrap'
 import DynamicTableFields from '../../assets/Custom/DynamicTableFields'
 
-const ArthritisJointDisorders = (props) => {
+const HazardousActivitiesSports = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
 
     let Data = props.Data
 
     let optionsMultiSelect = [
-        { value: "Rheumatoid Arthritis", label: "Rheumatoid Arthritis" },
-        { value: "Osteoarthritis", label: "Osteoarthritis" },
-        { value: "Gout", label: "Gout" },
-        { value: "Other", label: "Other" },
+
+        { value: "Skydiving", label: "Skydiving" },
+        { value: "Surfing ", label: "Surfing " },
+        { value: "Scuba Diving", label: "Scuba Diving" },
+        { value: "Bungee Jumping", label: "Bungee Jumping" },
+        { value: "Motor Racing", label: "Motor Racing" },
+        { value: "Rock Climbing", label: "Rock Climbing" },
+        { value: "AFL (Australian Rules Football)", label: "AFL (Australian Rules Football)" },
+        { value: "Rugby League", label: "Rugby League" },
+        { value: "Extreme Skiing or Snowboarding", label: "Extreme Skiing or Snowboarding" },
+        { value: "Mountain Biking", label: "Mountain Biking" },
+        { value: "Hang Gliding", label: "Hang Gliding" },
+        { value: "Base Jumping", label: "Base Jumping" },
+        { value: "Caving or Spelunking", label: "Caving or Spelunking" },
+        { value: "White Water Rafting", label: "White Water Rafting" },
+        { value: "Jet Skiing", label: "Jet Skiing" },
+        { value: "Wingsuit Flying", label: "Wingsuit Flying" },
+        { value: "Surfing in Big Waves", label: "Surfing in Big Waves" },
+        { value: "Bull Riding", label: "Bull Riding" },
+        { value: "Parkour", label: "Parkour" },
+        { value: "Extreme Hiking or Mountaineering", label: "Extreme Hiking or Mountaineering" },
+        { value: "Mixed Martial Arts (MMA)", label: "Mixed Martial Arts (MMA)" },
+        { value: "Other", label: "Other" }
     ]
 
     const handleMultiSelectChange = ({ target }) => {
@@ -71,35 +90,11 @@ const ArthritisJointDisorders = (props) => {
         }
     };
 
-
-    let TestChange = (e, rowIndex, heading) => {
-        console.log(e, rowIndex, heading.attribute)
-        setFieldValue(e.target.name, e.target.values)
-
-    }
-
-
-    let MedicationOption = [
-        { value: "Pain relief (e.g., NSAIDs)", label: "Pain relief (e.g., NSAIDs)" },
-        { value: "Disease-modifying antirheumatic drugs (DMARDs)", label: "Disease-modifying antirheumatic drugs (DMARDs)" },
-        { value: "Physical therapy", label: "Physical therapy" },
-        { value: "Other", label: "Other" },
-    ]
-
-    let ImpactOnMobilityOption = [
-        { value: "", label: "Select" },
-        { value: "Mild", label: "Mild" },
-        { value: "Moderate", label: "Moderate" },
-        { value: "Severe", label: "Severe" },
-        { value: "None", label: "None" },
-        { value: "Other", label: "Other" },
-    ]
-
     const [headings, setHeadings] = useState([
         { label: "Name", attribute: "StaticString" },
-        { label: "Date of Diagnosis", attribute: Data.key + "_DateOfDiagnosis", onChange: TestChange, inputType: "date", showYearPicker: true, placeholder: "yyyy", dateFormat: "yyyy" },
-        { label: "Medications or Treatment", attribute: Data.key + "_MedicationsTreatment", attribute2: Data.key + "_MedicationsTreatmentOther", onChange: TestChange, inputType: "select&textArea", options: MedicationOption, className: "form-select" },
-        { label: "Impact on mobility", attribute: Data.key + "_ImpactOnMobility", onChange: TestChange, inputType: "select", options: ImpactOnMobilityOption, className: "form-select" },
+        { label: "Activity type", attribute: Data.key + "_ActivityType", inputType: "text", },
+        { label: "Frequency", attribute: Data.key + "_Frequency", inputType: "text", },
+        { label: "Are you insured for this activity?", attribute: Data.key + "_insuredForThisActivity", inputType: "YesNo", },
     ]);
 
     const [data, setData] = useState([
@@ -118,7 +113,9 @@ const ArthritisJointDisorders = (props) => {
                 <div className='row justify-content-center'>
                     <div className='col-md-12'>
                         <label htmlFor='yesNo' className='text-center w-100 fw-bold'>
-                            Do you have any Arthritis or Joint Disorders (e.g., rheumatoid arthritis, osteoarthritis) ?
+                            Do you participate in any hazardous activities or sports?
+                            <br />
+                            <span className='fw-normal'>(e.g., skydiving, scuba diving, motor racing, rock climbing)</span>
                         </label>
                     </div>
                     <div className='col-md-3 mt-4'>
@@ -130,8 +127,8 @@ const ArthritisJointDisorders = (props) => {
                     <React.Fragment>
                         <div className='row justify-content-center mt-4'>
 
-                            <div className='col-md-2 pt-2'>
-                                <label htmlFor={`${Data.key}_diseaseAndConditions`} className='fw-bold'>Condition diagnosed</label>
+                            <div className='col-md-5 pt-2'>
+                                <label htmlFor={`${Data.key}_diseaseAndConditions`} className='fw-bold'>Select the type of heart disease or condition that applies to you ?</label>
                             </div>
                             <div className='col-md-3'>
                                 <Field
@@ -142,13 +139,10 @@ const ArthritisJointDisorders = (props) => {
                                     onChange={handleMultiSelectChange}
                                 />
                             </div>
-                        </div>
-                        <div className='row justify-content-center mt-2'>
-
                             {Array.isArray(values[`${Data.key}_diseaseAndConditions`]) &&
                                 values[`${Data.key}_diseaseAndConditions`].includes("Other") && (
                                     <React.Fragment>
-                                        <div className='col-md-2 pt-2 mt-2'>
+                                        <div className='col-md-5 pt-2 mt-2'>
                                             <label htmlFor={`${Data.key}_diseaseAndConditions`} className='fw-bold'>Other Details</label>
                                         </div>
                                         <div className='col-md-3 mt-2'>
@@ -158,39 +152,71 @@ const ArthritisJointDisorders = (props) => {
                                 )}
 
                         </div>
+                        {(Array.isArray(values[`${Data.key}_diseaseAndConditions`]) && values[`${Data.key}_diseaseAndConditions`].length > 0 && !values[`${Data.key}_diseaseAndConditions`].includes("Other")) &&
 
-                        {
-                            Array.isArray(values[`${Data.key}_diseaseAndConditions`]) &&
-                            values[`${Data.key}_diseaseAndConditions`].length > 0 &&
-                            !values[`${Data.key}_diseaseAndConditions`].includes("Other") &&
-                            !values[`${Data.key}_diseaseAndConditions`].includes("Unknown") && (
-                                <div className='row justify-content-center'>
-                                    <div className='col-md-10'>
-                                        <div className='mt-4'>
-                                            <DynamicTableFields
-                                                headings={headings}
-                                                data={data}
-                                                onChange={() => { console.log("what the") }}
-                                                setFieldValue={setFieldValue}
-                                                handleBlur={handleBlur}
-                                                values={values}
-                                                handleChange={handleChange}
-                                            />
-                                        </div>
+                            <div className='row justify-content-center'>
+                                <div className='col-md-8'>
+                                    <div className='mt-4'>
+                                        <DynamicTableFields
+                                            headings={headings}
+                                            data={data}
+                                            onChange={() => { console.log("what the") }}
+                                            setFieldValue={setFieldValue}
+                                            handleBlur={handleBlur}
+                                            values={values}
+                                            handleChange={handleChange}
+                                        />
                                     </div>
                                 </div>
-                            )
+                            </div>
                         }
-
 
 
                     </React.Fragment>
                 }
 
+                <div className='row justify-content-center mt-5'>
+                    <div className='col-md-12'>
+                        <label htmlFor='yesNo' className='text-center w-100 fw-bold'>
+                            Have you traveled or do you plan to travel overseas to high-risk regions?
+                        </label>
+                    </div>
+                    <div className='col-md-3 mt-4'>
+                        <DynamicYesNo name={`${Data.key}_travelOverseas`} values={values} handleChange={handleChange} />
+                    </div>
+                </div>
+
+                {values[`${Data.key}_travelOverseas`] === "Yes" &&
+                    <React.Fragment>
+                        <div className='row justify-content-center mt-4'>
+                            <div className='col-md-2 pt-2'>
+                                <label className='fw-bold' htmlFor="">Country/region traveled to</label>
+                            </div>
+                            <div className='col-md-3'>
+                                <CInput
+                                    name={Data.key + "_RegionTraveled"}
+                                    type="text"
+                                />
+                            </div>
+                        </div>
+                        <div className='row justify-content-center mt-2'>
+                            <div className='col-md-2 pt-2'>
+                                <label className='fw-bold' htmlFor="">Date of travel</label>
+                            </div>
+                            <div className='col-md-3'>
+                                <CInput
+                                    name={Data.key + "_DateTravel"}
+                                    type="text"
+                                />
+                            </div>
+                        </div>
+
+                    </React.Fragment>
+                }
 
             </div>
-        </div >
+        </div>
     )
 }
 
-export default ArthritisJointDisorders
+export default HazardousActivitiesSports

@@ -1,25 +1,36 @@
 import { Form, Formik } from 'formik';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom';
 import LandingPage from './LandingPage';
 import Questions from './Questions';
 import Content from '../assets/Content';
 import * as Yup from "yup";
 import Disclosure from './Disclosure';
-import PersonalDetails from './PersonalDetails';
+import ResultsTables from './ResultsTables';
 
 
 const Starter = () => {
 
     let { Pages } = Content;
 
-    let initialValues = {
+    let [initialValues, setInitialValues] = useState({
         disclosureAccept: false,
         DateBirth: ""
-    };
+    })
+
+    useEffect(() => {
+        if (localStorage.getItem("AdviserAssess")) {
+            setInitialValues(JSON.parse(localStorage.getItem("AdviserAssess")))
+        }
+    }, [])
+
+
+
     let validationSchema = Yup.object({
         EmailAddress: Yup.string().email("Please! Enter Valid Email").required("Email is required"),
     });
+
+
     let onSubmit = (values) => {
         console.log(values);
     };
@@ -30,6 +41,7 @@ const Starter = () => {
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
+            enableReinitialize
         >
             {({ isSubmitting, values, setFieldValue, handleChange, handleBlur, validateForm, validateField, setFieldTouched }) => (
                 <Form className="">
@@ -56,6 +68,20 @@ const Starter = () => {
                             }
                         })}
                     </Routes>
+
+                    <ResultsTables
+                        FormickOBj={{
+                            isSubmitting,
+                            values,
+                            setFieldValue,
+                            handleChange,
+                            handleBlur,
+                            validateForm,
+                            validateField,
+                            setFieldTouched
+                        }}
+                    />
+
                 </Form>)}
         </Formik>
     )

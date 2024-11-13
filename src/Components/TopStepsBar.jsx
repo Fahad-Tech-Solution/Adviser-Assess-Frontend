@@ -19,6 +19,7 @@ import {
     FaRibbon,
     FaSyringe,
     FaBone,
+    FaWineBottle,
 } from "react-icons/fa6";
 import {
     MdFamilyRestroom,
@@ -39,7 +40,7 @@ import { AiOutlineDollarCircle } from 'react-icons/ai';
 import { BsClockHistory } from 'react-icons/bs';
 import { openNotification } from '../assets/Api/Api';
 import { PiBrain } from 'react-icons/pi';
-import { GiKidneys, GiKneeCap } from 'react-icons/gi';
+import { GiKidneys, GiKneeCap, GiMeal, GiParachute } from 'react-icons/gi';
 import { FaHeartbeat, FaProcedures } from 'react-icons/fa';
 
 const TopStepsBar = (props) => {
@@ -56,12 +57,12 @@ const TopStepsBar = (props) => {
     useEffect(() => {
         const currentPath = location.pathname.split("/")[1] || "";
         const cLocation = location.pathname.split("/")[2] || "";
-        // console.log(location.pathname, currentPath);
+        console.log(location.pathname, currentPath);
 
         let stepComplete = 0;
         let mixCondition = false;
+        let mixConditionForLast4 = false;
         let Health_MedicalHistoryCase = {
-
             status: false,
             set: "set1"
         };
@@ -82,7 +83,6 @@ const TopStepsBar = (props) => {
         switch (currentPath) {
             case "PersonalDetails":
                 stepComplete = 10;
-
                 break;
             case "OccupationalFinancialInformation":
                 switch (cLocation) {
@@ -109,6 +109,7 @@ const TopStepsBar = (props) => {
                 break;
             case "Health_MedicalHistory":
                 Health_MedicalHistoryCase.status = true;
+                mixConditionForLast4 = true;
                 switch (cLocation) {
                     case "Q2":
                         stepComplete = 20;
@@ -155,7 +156,33 @@ const TopStepsBar = (props) => {
                         stepComplete = 10;
                         break;
                 }
+                break;
+            case "LifestyleInformation":
+                mixConditionForLast4 = true;
+                Health_MedicalHistoryCase.status = true;
+                // stepComplete = 70;
+                switch (cLocation) {
+                    case "Q2":
+                        stepComplete = 70;
+                        break;
+                    default:
+                        stepComplete = 60;
+                        break;
+                }
 
+                Health_MedicalHistoryCase.set = "set2"
+                break;
+            case "FamilyMedicalHistory":
+                mixConditionForLast4 = true;
+                Health_MedicalHistoryCase.status = true;
+                stepComplete = 80;
+                Health_MedicalHistoryCase.set = "set2"
+                break;
+            case "Declaration":
+                mixConditionForLast4 = true;
+                Health_MedicalHistoryCase.status = true;
+                stepComplete = 90;
+                Health_MedicalHistoryCase.set = "set2"
                 break;
             default:
                 break;
@@ -174,6 +201,11 @@ const TopStepsBar = (props) => {
                 .filter((Pelem) => Pelem.route === `/PersonalDetails` || Pelem.route === `/OccupationalFinancialInformation`)
                 .flatMap((Pelem) => Pelem.InnerPages);
         }
+        else if (mixConditionForLast4) {
+            SubPages = main
+                .filter((Pelem) => Pelem.route === `/Health_MedicalHistory` || Pelem.route === `/LifestyleInformation` || Pelem.route === `/Declaration` || Pelem.route === `/FamilyMedicalHistory`)
+                .flatMap((Pelem) => Pelem.InnerPages);
+        }
         else {
             SubPages = main
                 .filter((Pelem) => Pelem.route === `/${currentPath}`)
@@ -181,17 +213,14 @@ const TopStepsBar = (props) => {
         }
 
 
+
         let conditionCheck2 = values
 
         let innerPages = SubPages.filter(page => page.condition(conditionCheck2));
 
         if (Health_MedicalHistoryCase.status) {
-
-            innerPages = Health_MedicalHistoryCase.set === "set1" ? innerPages.slice(0, 8) : innerPages.slice(8, 14);
+            innerPages = Health_MedicalHistoryCase.set === "set1" ? innerPages.slice(0, 8) : innerPages.slice(8, 16);
         }
-
-
-
 
         const iconMap = {
             FaBriefcase,
@@ -232,8 +261,13 @@ const TopStepsBar = (props) => {
             GiKidneys,
             GiKneeCap,
             FaHeartbeat,
-            FaProcedures
+            FaProcedures,
+            GiParachute,
+            GiMeal,
+            FaWineBottle
         };
+
+        console.log(innerPages)
 
         const updatedItems = innerPages.map((item, index) => {
             const IconComponent = iconMap[item.icon] || FaUser; // Default to FaUser if not found
@@ -255,6 +289,34 @@ const TopStepsBar = (props) => {
                 else {
                     isCurrentStep = cLocation === item.route.replace("/", "");
                 }
+            }
+            else if ((currentPath === "Health_MedicalHistory" || currentPath === "LifestyleInformation" || currentPath === "FamilyMedicalHistory" || currentPath === "Declaration") && Health_MedicalHistoryCase.set !== "set1") {
+                if (index <= 3) {
+                    NevBase = "Health_MedicalHistory";
+                    isCurrentStep = cLocation === item.route.replace("/", "");
+                }
+                else if (index === 4 || index === 5) {
+                    NevBase = "LifestyleInformation";
+                    if (currentPath === "LifestyleInformation") {
+                        isCurrentStep = cLocation === item.route.replace("/", "");
+                    }
+                }
+                else if (index === 6) {
+                    NevBase = "FamilyMedicalHistory";
+                    if (currentPath === `FamilyMedicalHistory`) {
+                        isCurrentStep = true;
+                    }
+                }
+                else if (index === 7) {
+                    NevBase = "Declaration";
+                    if (currentPath === `Declaration`) {
+                        isCurrentStep = true;
+                    }
+                }
+                else {
+                    isCurrentStep = cLocation === item.route.replace("/", "");
+                }
+                // isCurrentStep = cLocation === item.route.replace("/", "");
             }
             else {
                 isCurrentStep = cLocation === item.route.replace("/", "");
@@ -320,7 +382,7 @@ const TopStepsBar = (props) => {
     }, [location, Pages, values]);
 
     const handleStepClick = (path) => {
-        // alert(path);
+
 
         navigate(path);
     };
@@ -348,7 +410,6 @@ const TopStepsBar = (props) => {
                     responsive={false}
                     status="process"
                 />
-
             </ConfigProvider>
         </div>
     );

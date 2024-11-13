@@ -20,6 +20,10 @@ import LiverKidneyGastrointestinalConditions from "../Components/QuestionSets/Li
 import ArthritisJointDisorders from "../Components/QuestionSets/ArthritisJointDisorders";
 import HIVAIDSOtherImmuneSystemDisorders from "../Components/QuestionSets/HIVAIDSOtherImmuneSystemDisorders";
 import SurgeriesOperations from "../Components/QuestionSets/SurgeriesOperations";
+import LifestyleInformation from "../Components/QuestionSets/LifestyleInformation";
+import HazardousActivitiesSports from "../Components/QuestionSets/HazardousActivitiesSports";
+import FamilyMedicalHistory from "../Components/QuestionSets/FamilyMedicalHistory";
+import Declaration from "../Components/QuestionSets/Declaration";
 
 
 const Content = {
@@ -165,7 +169,7 @@ const Content = {
                     statusStep: 40,
                     icon: 'FaRibbon',
                     route: '/Q4',
-                    key: "Cancer, Tumors, or Cysts",
+                    key: "CancerTumorsCysts",
                     components: <CancerTumorsCysts />,
                     condition: (CRObject) => true,
                 },
@@ -245,23 +249,52 @@ const Content = {
         },
         {
             description: "it has few Questions you need to answer",
-            Title: 'Family Medical History',
-            statusStep: 0,
-            icon: 'MdFamilyRestroom',
-            route: '/FamilyMedicalHistory',
-            key: "FamilyMedicalHistory",
-            condition: (CRObject) => true,
-            InnerPages: [],
-        },
-        {
-            description: "it has few Questions you need to answer",
             Title: 'Lifestyle Information',
             statusStep: 0,
             icon: 'MdFamilyRestroom',
             route: '/LifestyleInformation',
             key: "LifestyleInformation",
             condition: (CRObject) => true,
-            InnerPages: [],
+            InnerPages: [
+                {
+                    Title: 'Lifestyle Information',
+                    statusStep: 60,
+                    icon: 'FaWineBottle',
+                    route: '/',
+                    key: "LifestyleInformation",
+                    components: <LifestyleInformation />,
+                    condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Hazardous activities or sports',
+                    statusStep: 70,
+                    icon: 'GiParachute',
+                    route: '/Q2',
+                    key: "hazardousActivitiesSports",
+                    components: <HazardousActivitiesSports />,
+                    condition: (CRObject) => true,
+                },
+            ],
+        },
+        {
+            description: "it has few Questions you need to answer",
+            Title: 'Family Medical History',
+            statusStep: 0,
+            icon: 'MdFamilyRestroom',
+            route: '/FamilyMedicalHistory',
+            key: "FamilyMedicalHistory",
+            condition: (CRObject) => true,
+            InnerPages: [
+                {
+                    Title: 'Family Medical History',
+                    statusStep: 80,
+                    icon: 'MdFamilyRestroom',
+                    route: '/',
+                    key: "FamilyMedicalHistory",
+                    components: <FamilyMedicalHistory />,
+                    condition: (CRObject) => true,
+                },
+            ],
         },
         {
             description: "it has few Questions you need to answer",
@@ -270,7 +303,18 @@ const Content = {
             icon: 'RiCoinsFill',
             route: '/Declaration',
             key: "Declaration",
-            condition: (CRObject) => false
+            InnerPages: [
+                {
+                    Title: 'Declaration',
+                    statusStep: 90,
+                    icon: 'MdFamilyRestroom',
+                    route: '/',
+                    key: "Declaration",
+                    components: <Declaration />,
+                    condition: (CRObject) => true,
+                },
+            ],
+            condition: (CRObject) => true
         },
     ]
 

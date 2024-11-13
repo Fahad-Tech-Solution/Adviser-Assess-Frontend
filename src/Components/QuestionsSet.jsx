@@ -50,6 +50,7 @@ const QuestionsSet = (props) => {
         const innerPages = Pages[MainPageIndex].InnerPages.filter(page => page.condition(values));
         const CurrentPageIndex = innerPages.findIndex(item => item.route === `/${cLocation}`);
 
+
         console.log(MainPageIndex)
         if (innerPages.length > 1 && CurrentPageIndex < innerPages.length - 1) {
             // Navigate to the next inner page in the same main page
@@ -57,13 +58,20 @@ const QuestionsSet = (props) => {
         } else if (MainPageIndex < Pages.length - 1) {
             // Navigate to the first filtered inner page of the next main page
             const nextMainPage = Pages[MainPageIndex + 1];
+            // if (nextMainPage.InnerPages.length > 0) {
             const nextInnerPages = nextMainPage.InnerPages.filter(page => page.condition(values));
 
             if (nextInnerPages.length > 0) {
                 const nextFirstPage = nextInnerPages[0].route;
                 Nev(nextMainPage.route + nextFirstPage);
             }
+            // }
+            // else {
+            //     Nev(nextMainPage.route);
+            // }
         }
+
+
     };
 
 
