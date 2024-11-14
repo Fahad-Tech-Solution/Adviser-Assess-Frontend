@@ -49,7 +49,7 @@ const PersonalDetails = (props) => {
       const HSquare = Height * Height;
       const BMI = HSquare > 0 ? (Weight / HSquare).toFixed(2) : 0;
 
-      setFieldValue("BMI", BMI + "%");
+      setFieldValue("BMI", BMI);
     } catch (error) {
       console.error("Error in calculating BMI:", error);
       setFieldValue("BMI", 0);  // Set BMI to 0 in case of error
