@@ -1,5 +1,6 @@
 import React from "react";
-import logo from "./Images/Logo.png"
+// import logo from "./Images/Logo.png"
+import logo from "./Images/Logo-2.png"
 import { components } from "react-select";
 import EmploymentStatus from "../Components/QuestionSets/EmploymentStatus";
 
@@ -24,6 +25,9 @@ import LifestyleInformation from "../Components/QuestionSets/LifestyleInformatio
 import HazardousActivitiesSports from "../Components/QuestionSets/HazardousActivitiesSports";
 import FamilyMedicalHistory from "../Components/QuestionSets/FamilyMedicalHistory";
 import Declaration from "../Components/QuestionSets/Declaration";
+import HealthMedicalConditions from "../Components/QuestionSets/HealthMedicalConditions";
+import LifestyleInformationQuestions from "../Components/QuestionSets/LifestyleInformationQuestions";
+import FamilyMedicalHistoryQuestion from "../Components/QuestionSets/FamilyMedicalHistoryQuestion";
 
 
 const Content = {
@@ -138,76 +142,86 @@ const Content = {
             condition: (CRObject) => true,
             InnerPages: [
                 {
-                    Title: 'Heart disease or conditions',
+                    Title: 'Health & Medical conditions',
                     statusStep: 10,
-                    icon: 'FaHeartPulse',
+                    icon: 'FaClipboardCheck',
                     route: '/',
-                    key: "heartDiseaseConditions",
-                    components: <HeartDiseaseConditions />,
+                    key: "healthMedicalConditions",
+                    components: <HealthMedicalConditions />,
                     condition: (CRObject) => true,
                 },
                 {
-                    Title: 'High Blood Pressure or High Cholesterol',
+                    Title: 'Heart disease or conditions',
                     statusStep: 20,
+                    icon: 'FaHeartPulse',
+                    route: '/Q1',
+                    key: "heartDiseaseConditions",
+                    components: <HeartDiseaseConditions />,
+                    condition: (CRObject) => { return CRObject[`heartDiseaseConditions_DynamicYesNo`] === "Yes" },
+                },
+                {
+                    Title: 'High Blood Pressure or High Cholesterol',
+                    statusStep: 30,
                     icon: 'RiStethoscopeLine',
                     route: '/Q2',
                     components: <HighBloodPressureHighCholesterol />,
                     key: "HighBloodPressureHighCholesterol",
-                    condition: (CRObject) => true,
+                    condition: (CRObject) => { return CRObject[`HighBloodPressureHighCholesterol_DynamicYesNo`] === "Yes" },
                 },
                 {
                     Title: 'Respiratory conditions',
-                    statusStep: 30,
+                    statusStep: 40,
                     icon: 'MdMonitorHeart',
                     route: '/Q3',
                     components: <RespiratoryConditions />,
                     key: "RespiratoryConditions",
-                    condition: (CRObject) => true,
+                    condition: (CRObject) => { return CRObject[`RespiratoryConditions_DynamicYesNo`] === "Yes" },
                 },
                 {
                     Title: 'Cancer, Tumors, or Cysts',
-                    statusStep: 40,
+                    statusStep: 50,
                     icon: 'FaRibbon',
                     route: '/Q4',
                     key: "CancerTumorsCysts",
                     components: <CancerTumorsCysts />,
-                    condition: (CRObject) => true,
+                    condition: (CRObject) => { return CRObject[`CancerTumorsCysts_DynamicYesNo`] === "Yes" },
                 },
                 {
                     Title: 'Diabetes (Type 1 or Type 2)',
-                    statusStep: 50,
+                    statusStep: 60,
                     icon: 'FaSyringe',
                     route: '/Q5',
                     key: "Diabetes",
                     components: <Diabetes />,
-                    condition: (CRObject) => true,
+                    condition: (CRObject) => { return CRObject[`Diabetes_DynamicYesNo`] === "Yes" },
+
                 },
                 {
                     Title: 'Mental Health Conditions',
-                    statusStep: 60,
+                    statusStep: 70,
                     icon: 'MdOutlineHealthAndSafety',
                     route: '/Q6',
                     key: "MentalHealthConditions",
                     components: <MentalHealthConditions />,
-                    condition: (CRObject) => true,
+                    condition: (CRObject) => { return CRObject[`MentalHealthConditions_DynamicYesNo`] === "Yes" },
                 },
                 {
                     Title: 'Back or Neck Pain',
-                    statusStep: 70,
+                    statusStep: 80,
                     icon: 'FaBone',
                     route: '/Q7',
                     key: "BackNeckPain",
                     components: <BackNeckPain />,
-                    condition: (CRObject) => true,
+                    condition: (CRObject) => { return CRObject[`BackNeckPain_DynamicYesNo`] === "Yes" },
                 },
                 {
-                    Title: 'Stroke or Neurological Conditions ',
-                    statusStep: 80,
+                    Title: 'Stroke or Neurological Conditions',
+                    statusStep: 10,
                     icon: 'PiBrain',
                     route: '/Q8',
                     key: "StrokeNeurologicalConditions",
                     components: <StrokeNeurologicalConditions />,
-                    condition: (CRObject) => true,
+                    condition: (CRObject) => { return CRObject[`StrokeNeurologicalConditions_DynamicYesNo`] === "Yes" },
                 },
                 {
                     Title: 'Liver, Kidney, or Gastrointestinal Conditions',
@@ -216,7 +230,7 @@ const Content = {
                     route: '/Q9',
                     key: "LiverKidneyGastrointestinalConditions",
                     components: <LiverKidneyGastrointestinalConditions />,
-                    condition: (CRObject) => true,
+                    condition: (CRObject) => { return CRObject[`LiverKidneyGastrointestinalConditions_DynamicYesNo`] === "Yes" },
                 },
                 {
                     Title: 'Arthritis or Joint Disorders',
@@ -225,7 +239,7 @@ const Content = {
                     route: '/Q10',
                     key: "ArthritisJointDisorders",
                     components: <ArthritisJointDisorders />,
-                    condition: (CRObject) => true,
+                    condition: (CRObject) => { return CRObject[`ArthritisJointDisorders_DynamicYesNo`] === "Yes" },
                 },
                 {
                     Title: 'HIV/AIDS or other Immune System Disorders',
@@ -234,7 +248,7 @@ const Content = {
                     route: '/Q11',
                     key: "HIVAIDSOtherImmuneSystemDisorders",
                     components: <HIVAIDSOtherImmuneSystemDisorders />,
-                    condition: (CRObject) => true,
+                    condition: (CRObject) => { return CRObject[`HIVAIDSOtherImmuneSystemDisorders_DynamicYesNo`] === "Yes" },
                 },
                 {
                     Title: 'Surgeries or Operations',
@@ -243,7 +257,7 @@ const Content = {
                     route: '/Q12',
                     key: "SurgeriesOperations",
                     components: <SurgeriesOperations />,
-                    condition: (CRObject) => true,
+                    condition: (CRObject) => { return CRObject[`SurgeriesOperations_DynamicYesNo`] === "Yes" },
                 },
             ],
         },
@@ -259,11 +273,27 @@ const Content = {
                 {
                     Title: 'Lifestyle Information',
                     statusStep: 60,
-                    icon: 'FaWineBottle',
+                    icon: 'GiFamilyHouse',
                     route: '/',
                     key: "LifestyleInformation",
-                    components: <LifestyleInformation />,
+                    components: <LifestyleInformationQuestions />,
                     condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Lifestyle Information Details',
+                    statusStep: 60,
+                    icon: 'FaWineBottle',
+                    route: '/Q1',
+                    key: "LifestyleInformation",
+                    components: <LifestyleInformation />,
+                    condition: (CRObject) => {
+                        return (
+                            CRObject[`LifestyleInformation_SmokerYesNo`] === "Yes" ||
+                            CRObject[`LifestyleInformation_VapeYesNo`] === "Yes" ||
+                            CRObject[`LifestyleInformation_alcohol`] === "Yes" ||
+                            CRObject[`LifestyleInformation_RecreationalDrugs`] === "Yes"
+                        )
+                    },
                 },
                 {
                     Title: 'Hazardous activities or sports',
@@ -288,11 +318,27 @@ const Content = {
                 {
                     Title: 'Family Medical History',
                     statusStep: 80,
-                    icon: 'MdFamilyRestroom',
+                    icon: 'FaClipboardList',
                     route: '/',
                     key: "FamilyMedicalHistory",
-                    components: <FamilyMedicalHistory />,
+                    components: <FamilyMedicalHistoryQuestion />,
                     condition: (CRObject) => true,
+                },
+                {
+                    Title: 'Family Medical History Details',
+                    statusStep: 80,
+                    icon: 'MdFamilyRestroom',
+                    route: '/Q1',
+                    key: "FamilyMedicalHistory",
+                    components: <FamilyMedicalHistory />,
+                    condition: (CRObject) => {
+                        return (
+                            CRObject[`FamilyMedicalHistory_HeartDisease`] === "Yes" ||
+                            CRObject[`FamilyMedicalHistory_Cancer`] === "Yes" ||
+                            CRObject[`FamilyMedicalHistory_Diabetes`] === "Yes" ||
+                            CRObject[`FamilyMedicalHistory_MentalHealthConditions`] === "Yes"
+                        )
+                    },
                 },
             ],
         },
@@ -307,7 +353,7 @@ const Content = {
                 {
                     Title: 'Declaration',
                     statusStep: 90,
-                    icon: 'MdFamilyRestroom',
+                    icon: 'FaFileContract',
                     route: '/',
                     key: "Declaration",
                     components: <Declaration />,

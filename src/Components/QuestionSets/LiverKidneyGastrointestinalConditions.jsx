@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DynamicYesNo from '../../assets/Custom/DynamicYesNo/DynamicYesNo'
 import { CreatableMultiSelectField } from '../../assets/Custom/CreateableMultiSelect/CreatableMultiSelectField'
 import { Field } from 'formik'
@@ -80,6 +80,7 @@ const LiverKidneyGastrointestinalConditions = (props) => {
 
 
     let MedicationOption = [
+        { value: "", label: "Select" },
         { value: "Medication 1 (e.g., Antacids, Diuretics)", label: "Medication 1 (e.g., Antacids, Diuretics)" },
         { value: "Medication 2 (e.g., Hepatitis treatments, Dialysis)", label: "Medication 2 (e.g., Hepatitis treatments, Dialysis)" },
         { value: "Other", label: "Other" },
@@ -100,12 +101,27 @@ const LiverKidneyGastrointestinalConditions = (props) => {
             [`${Data.key}_Hospitalizations`]: "",
         }
     ]);
+    
+    useEffect(() => {
+        if (values[Data.key + "_diseaseAndConditions"] && values[Data.key + "_diseaseAndConditions"].length > 0) {
+            let DataRenderArray = [];
+
+            values[Data.key + "_diseaseAndConditions"].forEach((element) => {
+                let obj = {
+                    StaticString: element
+                };
+                DataRenderArray.push(obj);
+            });
+
+            setData(DataRenderArray);
+        }
+    }, [values])
 
 
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
-                <div className='row justify-content-center'>
+                <div className='row justify-content-center d-none'>
                     <div className='col-md-12'>
                         <label htmlFor='yesNo' className='text-center w-100 fw-bold'>
                             Do you have any Liver, Kidney, or Gastrointestinal Conditions ?

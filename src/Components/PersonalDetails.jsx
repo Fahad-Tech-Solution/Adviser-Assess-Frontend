@@ -15,9 +15,6 @@ const PersonalDetails = (props) => {
 
   let Nev = useNavigate()
 
-  let [flag, setFlag] = useState(false);
-
-
   const FormulaSetting = (values, setFieldValue, currentInput) => {
     try {
       console.log(values, setFieldValue, currentInput);

@@ -80,14 +80,16 @@ const LifestyleInformation = (props) => {
 
 
     let SmokingOption = [
+        { value: "", label: "Select" },
         { value: "Yes, I currently smoke", label: "Yes, I currently smoke" },
         { value: "Yes, I used to smoke", label: "Yes, I used to smoke" },
         { value: "No, I have never smoked", label: "No, I have never smoked" },
     ]
 
     let VapingOption = [
-        { value: "Yes, I currently vape ", label: "Yes, I currently vape " },
-        { value: "Yes, I used to vape ", label: "Yes, I used to vape " },
+        { value: "", label: "Select" },
+        { value: "Yes, I currently vape", label: "Yes, I currently vape " },
+        { value: "Yes, I used to vape", label: "Yes, I used to vape " },
         { value: "No, I have never vaped", label: "No, I have never vaped " },
     ]
 
@@ -96,66 +98,80 @@ const LifestyleInformation = (props) => {
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
-                <div className='row justify-content-center'>
-                    <div className='col-md-4 pt-2'>
-                        <label className='fw-bold' htmlFor="">Do you smoke or have you ever smoked?</label>
-                    </div>
-                    <div className='col-md-3'>
-                        <CInput name={Data.key + "_Smoker"} type="select" options={SmokingOption} className={"form-select"} />
-                    </div>
-                </div>
-                <div className='row justify-content-center mt-2'>
-                    <div className='col-md-4 pt-2'>
-                        <label className='fw-bold' htmlFor="">Do you vape or have you ever vaped?</label>
-                    </div>
-                    <div className='col-md-3'>
-                        <CInput name={Data.key + "_Vape"} type="select" options={VapingOption} className={"form-select"} />
-                    </div>
-                </div>
 
-                {(values?.[Data.key + "_Smoker"] !== "No, I have never smoked" || values?.[Data.key + "_Vape"] !== "No, I have never vaped") && (
-                    <React.Fragment>
-                        <Divider orientation="left"
-                            style={{
-                                color: '#36b446',
-                                fontWeight: "700",
-                                fontSize: "16px"
-                            }}
-                        >If you smoke or vape , Please specify </Divider>
-                        <div className='row justify-content-center mt-2'>
-                            <div className='col-md-4 pt-2'>
-                                <label className='fw-bold' htmlFor="">Number of cigarettes or vape units per day</label>
-                            </div>
-                            <div className='col-md-3'>
-                                <CInput
-                                    name={Data.key + "_NumberOfCigarettes"}
-                                    type="number"
-                                />
-                            </div>
+                {values["LifestyleInformation_SmokerYesNo"] === "Yes" &&
+                    <div className='row justify-content-center'>
+                        <div className='col-md-4 pt-2'>
+                            <label className='fw-bold' htmlFor="">Do you smoke or have you ever smoked?</label>
                         </div>
-                        <div className='row justify-content-center mt-2'>
-                            <div className='col-md-4 pt-2'>
-                                <label className='fw-bold' htmlFor="">Year you quit (if applicable)</label>
-                            </div>
-                            <div className='col-md-3'>
-                                <CInput
-                                    name={Data.key + "_NumberOfCigarettes"}
-                                    type="date"
-                                    showYearPicker
-                                    placeholder="yyyy"
-                                    dateFormat="yyyy"
-                                    setFieldValue={setFieldValue}
-                                    handleBlur={handleBlur}
-                                    values={values}
-                                />
-                            </div>
+                        <div className='col-md-3'>
+                            <CInput name={Data.key + "_Smoker"} type="select" options={SmokingOption} className={"form-select"} />
                         </div>
-                        <Divider></Divider>
-                    </React.Fragment>
-                )}
+                    </div>
+                }
+                {values["LifestyleInformation_VapeYesNo"] === "Yes" &&
+                    <div className='row justify-content-center mt-2'>
+                        <div className='col-md-4 pt-2'>
+                            <label className='fw-bold' htmlFor="">Do you vape or have you ever vaped?</label>
+                        </div>
+                        <div className='col-md-3'>
+                            <CInput name={Data.key + "_Vape"} type="select" options={VapingOption} className={"form-select"} />
+                        </div>
+                    </div>}
+                {(
+                    (values?.[Data.key + "_Smoker"] === "Yes, I currently smoke" || values?.[Data.key + "_Smoker"] === "Yes, I used to smoke") ||
+                    (values?.[Data.key + "_Vape"] === "Yes, I currently vape" || values?.[Data.key + "_Vape"] === "Yes, I used to vape")
+                ) && (
+                        <React.Fragment>
+                            <Divider
+                                orientation="left"
+                                style={{
+                                    color: '#36b446',
+                                    fontWeight: "700",
+                                    fontSize: "16px"
+                                }}
+                            >
+                                If you smoke or vape, Please specify
+                            </Divider>
+                            <div className="row justify-content-center mt-2">
+                                <div className="col-md-4 pt-2">
+                                    <label className="fw-bold" htmlFor="">
+                                        Number of cigarettes or vape units per day
+                                    </label>
+                                </div>
+                                <div className="col-md-3">
+                                    <CInput
+                                        name={Data.key + "_NumberOfCigarettes"}
+                                        type="number"
+                                    />
+                                </div>
+                            </div>
+                            <div className="row justify-content-center mt-2">
+                                <div className="col-md-4 pt-2">
+                                    <label className="fw-bold" htmlFor="">
+                                        Year you quit (if applicable)
+                                    </label>
+                                </div>
+                                <div className="col-md-3">
+                                    <CInput
+                                        name={Data.key + "_YearQuit"}
+                                        type="date"
+                                        showYearPicker
+                                        placeholder="yyyy"
+                                        dateFormat="yyyy"
+                                        setFieldValue={setFieldValue}
+                                        handleBlur={handleBlur}
+                                        values={values}
+                                    />
+                                </div>
+                            </div>
+                            <Divider />
+                        </React.Fragment>
+                    )}
 
 
-                <div className='row justify-content-center mt-2'>
+
+                <div className='row justify-content-center mt-2 d-none'>
                     <div className='col-md-4 pt-2'>
                         <label className='fw-bold' htmlFor="">Do you consume alcohol?</label>
                     </div>
@@ -189,7 +205,7 @@ const LifestyleInformation = (props) => {
                 }
 
 
-                <div className='row justify-content-center mt-2'>
+                <div className='row justify-content-center mt-2 d-none'>
                     <div className='col-md-4 pt-2'>
                         <label className='fw-bold' htmlFor="">Do you use recreational drugs or have you used them in the past ?</label>
                     </div>

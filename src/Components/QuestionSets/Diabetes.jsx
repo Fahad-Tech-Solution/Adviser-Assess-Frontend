@@ -74,7 +74,7 @@ const Diabetes = (props) => {
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
-                <div className='row justify-content-center'>
+                <div className='row justify-content-center d-none'>
                     <div className='col-md-12'>
                         <label htmlFor='yesNo' className='text-center w-100 fw-bold'>
                             Do you have any Diabetes (Type 1 or Type 2) ?

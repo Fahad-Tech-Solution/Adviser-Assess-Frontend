@@ -25,7 +25,7 @@ const IncomeInformation = (props) => {
                 <h4 className='fw-bold text-center'>Income Information</h4>
                 <div className='row justify-content-center mt-4' style={{ rowGap: "10px" }}>
                     <div className='col-md-5 pt-2 '>
-                        <label htmlFor={`${Data.key}_primaryOccupation`} className='text-center w-100 fw-bold'>
+                        <label htmlFor={`${Data.key}_primaryOccupation`} className='w-100 fw-bold'>
                             Annual Pre-tax Income (excluding super) for primary occupation
                         </label>
                     </div>
@@ -37,7 +37,7 @@ const IncomeInformation = (props) => {
 
                         <React.Fragment>
                             <div className='col-md-5 pt-2 '>
-                                <label htmlFor={`${Data.key}_SecondaryOccupation`} className='text-center w-100 fw-bold'>
+                                <label htmlFor={`${Data.key}_SecondaryOccupation`} className='w-100 fw-bold'>
                                     Annual Pre-tax Income (excluding super) for Secondary occupation
                                 </label>
                             </div>
@@ -48,7 +48,7 @@ const IncomeInformation = (props) => {
                     }
 
                     <div className='col-md-5 pt-2 '>
-                        <label htmlFor={`${Data.key}_incomeStructured`} className='text-center w-100 fw-bold'>
+                        <label htmlFor={`${Data.key}_incomeStructured`} className=' w-100 fw-bold'>
                             How is your income structured?
                         </label>
                     </div>
@@ -58,7 +58,7 @@ const IncomeInformation = (props) => {
                     {values[`${Data.key}_incomeStructured`] === "Other" &&
                         <React.Fragment>
                             <div className='col-md-5 pt-2  '>
-                                <label htmlFor={`${Data.key}_otherIncomeStructured`} className='text-center w-100 fw-bold'>
+                                <label htmlFor={`${Data.key}_otherIncomeStructured`} className=' w-100 fw-bold'>
                                     Other income structured
                                 </label>
                             </div>

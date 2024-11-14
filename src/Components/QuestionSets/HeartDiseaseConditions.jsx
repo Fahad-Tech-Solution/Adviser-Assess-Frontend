@@ -62,7 +62,7 @@ const HeartDiseaseConditions = (props) => {
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
-                <div className='row justify-content-center'>
+                <div className='row justify-content-center d-none'>
                     <div className='col-md-12'>
                         <label htmlFor='yesNo' className='text-center w-100 fw-bold'>
                             Do you have any Heart disease or conditions ?
@@ -121,7 +121,7 @@ const HeartDiseaseConditions = (props) => {
                                                     let diseaseAndConditions = values[`${Data.key}_diseaseAndConditions`];
                                                     return (
                                                         <tr>
-                                                            <td>{diseaseAndConditions[i]}</td>
+                                                            <td className='fw-bold'>{diseaseAndConditions[i]}</td>
                                                             <td style={{ width: "6rem" }}><CInput setFieldValue={setFieldValue} handleBlur={handleBlur} values={values} name={`${Data.key}_DateOfDiagnosis${i}`} type="date" showYearPicker placeholder="yyyy" dateFormat="yyyy" /></td>
                                                             <td> <CInput name={Data.key + "treatmentsMedications" + i} type="textarea" placeholder="Treatments or medications" rows={1} /></td>
                                                             <td> <CInput name={Data.key + "ongoingResolved" + i} type="Select" options={ongoingResolvedOption} className={"form-select"} /></td>

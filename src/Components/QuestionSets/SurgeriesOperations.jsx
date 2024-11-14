@@ -31,7 +31,7 @@ const SurgeriesOperations = (props) => {
     let TypeOfSurgeryOperation = [
         { value: "", label: "Select" },
         { value: "Input field for surgery", label: "Input field for surgery" },
-        { value: "operation type", label: "operation type" },
+        { value: "Operation type", label: "operation type" },
     ]
 
     let TestChange = (e, rowIndex, heading) => {
@@ -72,7 +72,7 @@ const SurgeriesOperations = (props) => {
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
-                <div className='row justify-content-center'>
+                <div className='row justify-content-center d-none'>
                     <div className='col-md-12'>
                         <label htmlFor='yesNo' className='text-center w-100 fw-bold'>
                             Any surgeries or operations in the past 10 years ?

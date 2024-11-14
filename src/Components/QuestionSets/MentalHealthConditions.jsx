@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DynamicYesNo from '../../assets/Custom/DynamicYesNo/DynamicYesNo'
 import DynamicTableFields from '../../assets/Custom/DynamicTableFields'
 import CInput from '../../assets/Custom/CInput'
@@ -9,22 +9,6 @@ const MentalHealthConditions = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
 
     let Data = props.Data
-
-    let HbA1cReadingOption = [
-        { value: "", label: "Select" },
-        { value: "Less than 5.7% (Normal)", label: "Less than 5.7% (Normal)" },
-        { value: "5.7% - 6.4% (Pre-Diabetes)", label: "5.7% - 6.4% (Pre-Diabetes)" },
-        { value: "6.5% or higher (Diabetes)", label: "6.5% or higher (Diabetes)" },
-        { value: "Unknown", label: "Unknown" },
-    ]
-
-    let GlucoseReadingOption = [
-        { value: "", label: "Select" },
-        { value: "Less than 100 mg/dL (Normal)", label: "Less than 100 mg/dL (Normal)" },
-        { value: "100 - 125 mg/dL (Pre-Diabetes)", label: "100 - 125 mg/dL (Pre-Diabetes)" },
-        { value: "126 mg/dL or higher (Diabetes)", label: "126 mg/dL or higher (Diabetes)" },
-        { value: "Unknown", label: "Unknown" },
-    ]
 
     let TreatmentOption = [
         { value: "", label: "Select" },
@@ -38,12 +22,14 @@ const MentalHealthConditions = (props) => {
     ]
 
     let MedicationOption = [
+        { value: "", label: "Select" },
         { value: "Medication 1 (e.g., Antidepressants)", label: "Medication 1 (e.g., Antidepressants)" },
         { value: "Medication 2 (e.g., Cognitive Behavioral Therapy)", label: "Medication 2 (e.g., Cognitive Behavioral Therapy)" },
         { value: "Other", label: "Other" },
     ]
 
     let PsychologistCareOption = [
+        { value: "", label: "Select" },
         { value: "Yes, I have seen a psychologist", label: "Yes, I have seen a psychologist" },
         { value: "Yes, I am currently undertaking a mental health care plan", label: "Yes, I am currently undertaking a mental health care plan" },
         { value: "Yes, I have seen a psychologist and am currently on a mental health care plan", label: "Yes, I have seen a psychologist and am currently on a mental health care plan" },
@@ -73,12 +59,7 @@ const MentalHealthConditions = (props) => {
 
     const [data, setData] = useState([
         {
-            [`${Data.key}_TypeDiabetes`]: "",
-            [`${Data.key}_DateOfDiagnosis`]: "",
-            [`${Data.key}_Treatment`]: "",
-            [`${Data.key}_TreatmentOther`]: "",
-            [`${Data.key}_HbA1cReading`]: "",
-            [`${Data.key}_GlucoseReading`]: "",
+            StaticString: "",
         }
     ]);
 
@@ -140,9 +121,6 @@ const MentalHealthConditions = (props) => {
             filtered.forEach((element) => {
                 let obj = {
                     StaticString: element,
-                    [`${Data.key}_DateOfDiagnosis`]: "",
-                    [`${Data.key}_MedicationsTreatment`]: "",
-                    [`${Data.key}_Hospitalizations`]: "",
                 };
                 DataRenderArray.push(obj);
             });
@@ -151,10 +129,26 @@ const MentalHealthConditions = (props) => {
         }
     };
 
+
+    useEffect(() => {
+        if (values[Data.key + "_diseaseAndConditions"] && values[Data.key + "_diseaseAndConditions"].length > 0) {
+            let DataRenderArray = [];
+
+            values[Data.key + "_diseaseAndConditions"].forEach((element) => {
+                let obj = {
+                    StaticString: element
+                };
+                DataRenderArray.push(obj);
+            });
+
+            setData(DataRenderArray);
+        }
+    }, [values])
+
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
-                <div className='row justify-content-center'>
+                <div className='row justify-content-center d-none'>
                     <div className='col-md-12'>
                         <label htmlFor='yesNo' className='text-center w-100 fw-bold'>
                             Do you have any Mental Health Conditions (e.g., anxiety, stress, depression, bipolar disorder)?

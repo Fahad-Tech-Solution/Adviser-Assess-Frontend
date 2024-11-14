@@ -57,7 +57,7 @@ const HighBloodPressureHighCholesterol = (props) => {
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1' >
-                <div className='row justify-content-center'>
+                <div className='row justify-content-center d-none'>
                     <div className='col-md-12'>
                         <label htmlFor='yesNo' className='text-center w-100 fw-bold'>
                             Do you have any High Blood Pressure or High Cholesterol ?
@@ -77,9 +77,7 @@ const HighBloodPressureHighCholesterol = (props) => {
                         >
                             <div className='col-md-10'>
                                 <div className='mt-4'>
-
                                     <DynamicTableFields headings={headings} data={data} onChange={() => { console.log("what the") }} setFieldValue={setFieldValue} handleBlur={handleBlur} values={values} />
-
                                 </div>
                             </div>
                         </div>

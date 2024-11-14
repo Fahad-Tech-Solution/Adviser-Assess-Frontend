@@ -12,7 +12,7 @@ const WeeklyWorkHours = (props) => {
                 <h4 className='fw-bold text-center'>Weekly Work Hours</h4>
                 <div className='row justify-content-center gap-2 mt-4'>
                     <div className='col-md-5'>
-                        <label htmlFor={`${Data.key}_primaryWorkHours`} className='text-center w-100 fw-bold'>
+                        <label htmlFor={`${Data.key}_primaryWorkHours`} className=' w-100 fw-bold'>
                             On average, how many hours do you work per week in your primary occupation?
                         </label>
                     </div>
@@ -24,7 +24,7 @@ const WeeklyWorkHours = (props) => {
                     {values["SecondOccupation_DynamicYesNo"] === "Yes" &&
                         <React.Fragment>
                             <div className='col-md-5'>
-                                <label htmlFor={`${Data.key}_SecondWorkHours`} className='text-center w-100 fw-bold'>
+                                <label htmlFor={`${Data.key}_SecondWorkHours`} className=' w-100 fw-bold'>
                                     On average, how many hours do you work per week in your second occupation?
                                 </label>
                             </div>
@@ -35,8 +35,8 @@ const WeeklyWorkHours = (props) => {
                             </div>
                         </React.Fragment>}
 
-                    <div className='col-md-5'>
-                        <label htmlFor={`${Data.key}_workPerYear`} className='text-center w-100 fw-bold'>
+                    <div className='col-md-5 pt-2'>
+                        <label htmlFor={`${Data.key}_workPerYear`} className=' w-100 fw-bold'>
                             How many weeks do you work per year?
                         </label>
                     </div>
@@ -47,7 +47,7 @@ const WeeklyWorkHours = (props) => {
                     </div>
 
                     <div className='col-md-5'>
-                        <label htmlFor={`${Data.key}_FIFO`} className='text-center w-100 fw-bold'>
+                        <label htmlFor={`${Data.key}_FIFO`} className=' w-100 fw-bold'>
                             If you work on a FIFO (Fly-In Fly-Out) basis, please specify your roster:
                         </label>
                     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DynamicYesNo from '../../assets/Custom/DynamicYesNo/DynamicYesNo'
 import { CreatableMultiSelectField } from '../../assets/Custom/CreateableMultiSelect/CreatableMultiSelectField'
 import { Field } from 'formik'
@@ -80,6 +80,7 @@ const StrokeNeurologicalConditions = (props) => {
 
 
     let MedicationOption = [
+        { value: "", label: "Select" },
         { value: "Medication 1 (e.g., Anticonvulsants)", label: "Medication 1 (e.g., Anticonvulsants)" },
         { value: "Medication 2 (e.g., Disease-modifying therapies)", label: "Medication 2 (e.g., Disease-modifying therapies)" },
         { value: "Other", label: "Other" },
@@ -101,11 +102,27 @@ const StrokeNeurologicalConditions = (props) => {
         }
     ]);
 
+    
+    useEffect(() => {
+        if (values[Data.key + "_diseaseAndConditions"] && values[Data.key + "_diseaseAndConditions"].length > 0) {
+            let DataRenderArray = [];
+
+            values[Data.key + "_diseaseAndConditions"].forEach((element) => {
+                let obj = {
+                    StaticString: element
+                };
+                DataRenderArray.push(obj);
+            });
+
+            setData(DataRenderArray);
+        }
+    }, [values])
+
 
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
-                <div className='row justify-content-center'>
+                <div className='row justify-content-center d-none'>
                     <div className='col-md-12'>
                         <label htmlFor='yesNo' className='text-center w-100 fw-bold'>
                             Do you have any Stroke or Neurological Conditions (e.g., epilepsy, multiple sclerosis)?

@@ -20,6 +20,10 @@ import {
     FaSyringe,
     FaBone,
     FaWineBottle,
+    FaClipboardCheck,
+    FaFileSignature,
+    FaFileContract,
+    FaClipboardList,
 } from "react-icons/fa6";
 import {
     MdFamilyRestroom,
@@ -29,6 +33,7 @@ import {
     MdOutlineHomeWork,
     MdMonitorHeart,
     MdHealthAndSafety,
+    MdOutlineHealthAndSafety,
 } from "react-icons/md";
 import { RiCoinsFill, RiDiscountPercentFill, RiStethoscopeLine } from "react-icons/ri";
 
@@ -40,7 +45,7 @@ import { AiOutlineDollarCircle } from 'react-icons/ai';
 import { BsClockHistory } from 'react-icons/bs';
 import { openNotification } from '../assets/Api/Api';
 import { PiBrain } from 'react-icons/pi';
-import { GiKidneys, GiKneeCap, GiMeal, GiParachute } from 'react-icons/gi';
+import { GiFamilyHouse, GiKidneys, GiKneeCap, GiMeal, GiParachute } from 'react-icons/gi';
 import { FaHeartbeat, FaProcedures } from 'react-icons/fa';
 
 const TopStepsBar = (props) => {
@@ -64,7 +69,8 @@ const TopStepsBar = (props) => {
         let mixConditionForLast4 = false;
         let Health_MedicalHistoryCase = {
             status: false,
-            set: "set1"
+            set: "set1",
+            trueArray: []
         };
 
         switch (currentPath) {
@@ -111,26 +117,30 @@ const TopStepsBar = (props) => {
                 Health_MedicalHistoryCase.status = true;
                 mixConditionForLast4 = true;
                 switch (cLocation) {
-                    case "Q2":
+                    case "Q1":
                         stepComplete = 20;
                         break;
-                    case "Q3":
+                    case "Q2":
                         stepComplete = 30;
                         break;
-                    case "Q4":
+                    case "Q3":
                         stepComplete = 40;
                         break;
-                    case "Q5":
+                    case "Q4":
                         stepComplete = 50;
                         break;
-                    case "Q6":
+                    case "Q5":
                         stepComplete = 60;
                         break;
-                    case "Q7":
+                    case "Q6":
                         stepComplete = 70;
                         break;
-                    case "Q8":
+                    case "Q7":
                         stepComplete = 80;
+                        break;
+                    case "Q8":
+                        stepComplete = 10;
+                        Health_MedicalHistoryCase.set = "set2"
                         break;
                     case "Q9":
                         stepComplete = 20;
@@ -166,7 +176,7 @@ const TopStepsBar = (props) => {
                         stepComplete = 70;
                         break;
                     default:
-                        stepComplete = 60;
+                        stepComplete = 80;
                         break;
                 }
 
@@ -175,51 +185,86 @@ const TopStepsBar = (props) => {
             case "FamilyMedicalHistory":
                 mixConditionForLast4 = true;
                 Health_MedicalHistoryCase.status = true;
-                stepComplete = 80;
+                stepComplete = 90;
                 Health_MedicalHistoryCase.set = "set2"
                 break;
             case "Declaration":
                 mixConditionForLast4 = true;
                 Health_MedicalHistoryCase.status = true;
-                stepComplete = 90;
+                stepComplete = 100;
                 Health_MedicalHistoryCase.set = "set2"
                 break;
             default:
                 break;
         }
 
+        // Flatten all InnerPages from Pages where the condition is true
+        const main = Pages.filter(page => page.condition(conditionCheck));
 
+        let SubPages = [];
 
-        // Flatten all InnerPages from Pages where condition is true
-        const main = Pages
-            .filter(page => page.condition(conditionCheck));
-
-        let SubPages = []
-
+        // Check the condition and generate SubPages with concatenated routes
         if (mixCondition) {
             SubPages = main
                 .filter((Pelem) => Pelem.route === `/PersonalDetails` || Pelem.route === `/OccupationalFinancialInformation`)
-                .flatMap((Pelem) => Pelem.InnerPages);
-        }
-        else if (mixConditionForLast4) {
+                .flatMap((Pelem) =>
+                    Pelem.InnerPages.map((innerPage) => ({
+                        ...innerPage,
+                        route: `${Pelem.route}${innerPage.route}` // Concatenate parent route with inner page route
+                    }))
+                );
+        } else if (mixConditionForLast4) {
             SubPages = main
                 .filter((Pelem) => Pelem.route === `/Health_MedicalHistory` || Pelem.route === `/LifestyleInformation` || Pelem.route === `/Declaration` || Pelem.route === `/FamilyMedicalHistory`)
-                .flatMap((Pelem) => Pelem.InnerPages);
-        }
-        else {
+                .flatMap((Pelem) =>
+                    Pelem.InnerPages.map((innerPage) => ({
+                        ...innerPage,
+                        route: `${Pelem.route}${innerPage.route}` // Concatenate parent route with inner page route
+                    }))
+                );
+
+            Health_MedicalHistoryCase.trueArray = main
+                .filter((Pelem) => Pelem.route === `/Health_MedicalHistory`)
+                .flatMap((Pelem) =>
+                    Pelem.InnerPages.map((innerPage) => ({
+                        ...innerPage,
+                        route: `${Pelem.route}${innerPage.route}` // Concatenate parent route with inner page route
+                    }))
+                );
+
+        } else {
             SubPages = main
                 .filter((Pelem) => Pelem.route === `/${currentPath}`)
-                .flatMap((Pelem) => Pelem.InnerPages);
+                .flatMap((Pelem) =>
+                    Pelem.InnerPages.map((innerPage) => ({
+                        ...innerPage,
+                        route: `${Pelem.route}${innerPage.route}` // Concatenate parent route with inner page route
+                    }))
+                );
         }
 
+        // Now SubPages will have the concatenated route structure as required
 
 
         let conditionCheck2 = values
 
         let innerPages = SubPages.filter(page => page.condition(conditionCheck2));
+        Health_MedicalHistoryCase.ConditionLength = (Health_MedicalHistoryCase.trueArray.filter(page => page.condition(conditionCheck2))).length;
 
-        if (Health_MedicalHistoryCase.status) {
-            innerPages = Health_MedicalHistoryCase.set === "set1" ? innerPages.slice(0, 8) : innerPages.slice(8, 16);
+        // Check if innerPages length is greater than 7
+        if (Health_MedicalHistoryCase.status && innerPages.length > 7) {
+            // Get the current index of the user in the innerPages array (you need to determine the current page index here)
+            const currentIndex = innerPages.findIndex((page) => page.route === `/${currentPath}/${cLocation}`);
+
+            // If the user is on index 8 or greater, slice from index 8 to 17
+            if (currentIndex >= 12) {
+                innerPages = innerPages.slice(12, 19);
+            } else if (currentIndex >= 6) {
+                innerPages = innerPages.slice(6, 12);
+            } else {
+                // If the user is on index less than 8, slice the first 8 pages
+                innerPages = innerPages.slice(0, 6);
+            }
         }
 
         const iconMap = {
@@ -264,72 +309,39 @@ const TopStepsBar = (props) => {
             FaProcedures,
             GiParachute,
             GiMeal,
-            FaWineBottle
+            FaWineBottle,
+            FaClipboardCheck,
+            MdOutlineHealthAndSafety,
+            GiFamilyHouse,
+            FaFileSignature,
+            FaFileContract,
+            FaClipboardList
         };
 
         console.log(innerPages)
 
+
+
+        const currentIndex = innerPages.findIndex((innerPage) => innerPage.route === `/${currentPath}/${cLocation}`); // Find the current index based on the route
+
+
         const updatedItems = innerPages.map((item, index) => {
             const IconComponent = iconMap[item.icon] || FaUser; // Default to FaUser if not found
 
-            let isCurrentStep = false;
-            let NevBase = currentPath;
-            if (currentPath === "PersonalDetails") {
-                if (index === 0) {
-                    isCurrentStep = true
-                }
-                else {
-                    NevBase = "OccupationalFinancialInformation";
-                }
-            }
-            else if (currentPath === "OccupationalFinancialInformation") {
-                if (index === 0) {
-                    NevBase = "PersonalDetails";
-                }
-                else {
-                    isCurrentStep = cLocation === item.route.replace("/", "");
-                }
-            }
-            else if ((currentPath === "Health_MedicalHistory" || currentPath === "LifestyleInformation" || currentPath === "FamilyMedicalHistory" || currentPath === "Declaration") && Health_MedicalHistoryCase.set !== "set1") {
-                if (index <= 3) {
-                    NevBase = "Health_MedicalHistory";
-                    isCurrentStep = cLocation === item.route.replace("/", "");
-                }
-                else if (index === 4 || index === 5) {
-                    NevBase = "LifestyleInformation";
-                    if (currentPath === "LifestyleInformation") {
-                        isCurrentStep = cLocation === item.route.replace("/", "");
-                    }
-                }
-                else if (index === 6) {
-                    NevBase = "FamilyMedicalHistory";
-                    if (currentPath === `FamilyMedicalHistory`) {
-                        isCurrentStep = true;
-                    }
-                }
-                else if (index === 7) {
-                    NevBase = "Declaration";
-                    if (currentPath === `Declaration`) {
-                        isCurrentStep = true;
-                    }
-                }
-                else {
-                    isCurrentStep = cLocation === item.route.replace("/", "");
-                }
-                // isCurrentStep = cLocation === item.route.replace("/", "");
-            }
-            else {
-                isCurrentStep = cLocation === item.route.replace("/", "");
-            }
-
+            const fullRoute = `/${currentPath}/${cLocation}`;
+            const isCurrentStep = fullRoute === item.route;
 
             let status;
-            if (stepComplete < item.statusStep) {
-                status = "wait";
-            } else if (stepComplete > item.statusStep) {
-                status = "finish";
-            } else {
+
+            if (index < currentIndex) {
+                // Previous pages have been completed
+                status = 'finish';
+            } else if (index === currentIndex) {
+                // The current page is in progress
                 status = 'process';
+            } else {
+                // Future pages are yet to be completed
+                status = 'wait';
             }
 
             return {
@@ -349,13 +361,13 @@ const TopStepsBar = (props) => {
                         onClick={async () => {
                             if (currentPath === "PersonalDetails") {
                                 const touch = await setFieldTouched("EmailAddress"); if (!touch.EmailAddress) {
-                                    handleStepClick(`/${NevBase}${item.route}`)
+                                    handleStepClick(`${item.route}`)
                                 } else {
                                     openNotification("error", "topRight", "Warning Notification", "Please! enter email before proceeding");
                                 }
                             }
                             else {
-                                handleStepClick(`/${NevBase}${item.route}`)
+                                handleStepClick(`${item.route}`)
                             }
                         }}
                     >
@@ -382,8 +394,6 @@ const TopStepsBar = (props) => {
     }, [location, Pages, values]);
 
     const handleStepClick = (path) => {
-
-
         navigate(path);
     };
 
@@ -416,3 +426,5 @@ const TopStepsBar = (props) => {
 };
 
 export default TopStepsBar;
+
+

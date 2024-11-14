@@ -31,7 +31,6 @@ const Disclosure = (props) => {
                                 </ul>
                                 <h4 className='fw-bold'>Non-disclosure</h4>
                                 <p style={{ textAlign: "justify" }}>If you fail to comply with your duty and the Policy would not have been entered into if the failure had not occurred:</p>
-                                <p style={{ textAlign: "justify" }}>If you fail to comply with your duty and the Policy would not have been entered into if the failure had not occurred:</p>
                                 <ul>
                                     <li>The Policy may be varied to reduce the sum insured or to reflect the terms that would have applied if you had complied with your duty; or</li>
                                     <li>The Policy may be treated as never having existed if your non-disclosure was fraudulent or, if it is within 3 years of entering into the Policy, the insurer would not have been prepared to enter into the contract of life insurance on any terms.</li>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DynamicYesNo from '../../assets/Custom/DynamicYesNo/DynamicYesNo'
 import { CreatableMultiSelectField } from '../../assets/Custom/CreateableMultiSelect/CreatableMultiSelectField'
 import { Field } from 'formik'
@@ -84,6 +84,7 @@ const BackNeckPain = (props) => {
 
 
     let ManagementOption = [
+        { value: "", label: "Select" },
         { value: "Physiotherapy", label: "Physiotherapy" },
         { value: "Medication", label: "Medication" },
         { value: "Surgery", label: "Surgery" },
@@ -91,6 +92,7 @@ const BackNeckPain = (props) => {
     ]
 
     let CurrentStatusOption = [
+        { value: "", label: "Select" },
         { value: "Fully recovered", label: "Fully recovered" },
         { value: "Ongoing pain/issues", label: "Ongoing pain/issues" },
         { value: "Other", label: "Other" },
@@ -107,17 +109,30 @@ const BackNeckPain = (props) => {
     const [data, setData] = useState([
         {
             StaticString: "",
-            [`${Data.key}_DateOfDiagnosis`]: "",
-            [`${Data.key}_MedicationsTreatment`]: "",
-            [`${Data.key}_Hospitalizations`]: "",
         }
     ]);
+
+    
+    useEffect(() => {
+        if (values[Data.key + "_diseaseAndConditions"] && values[Data.key + "_diseaseAndConditions"].length > 0) {
+            let DataRenderArray = [];
+
+            values[Data.key + "_diseaseAndConditions"].forEach((element) => {
+                let obj = {
+                    StaticString: element
+                };
+                DataRenderArray.push(obj);
+            });
+
+            setData(DataRenderArray);
+        }
+    }, [values])
 
 
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
-                <div className='row justify-content-center'>
+                <div className='row justify-content-center d-none'>
                     <div className='col-md-12'>
                         <label htmlFor='yesNo' className='text-center w-100 fw-bold'>
                             Do you have any Back or Neck Pain ?
