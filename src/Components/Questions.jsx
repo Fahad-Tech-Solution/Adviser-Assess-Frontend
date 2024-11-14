@@ -53,8 +53,8 @@ const Questions = (props) => {
                         </Splitter.Panel>
                         <Splitter.Panel
                             collapsible={true}
-                            max={"40%"}
-                            defaultSize={"20%"}
+                            max={"42%"}
+                            defaultSize={"22%"}
                         >
                             {/* Side Menu */}
                             <SideSteps FormickOBj={props.FormickOBj} />
