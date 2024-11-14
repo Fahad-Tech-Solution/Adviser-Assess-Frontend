@@ -14,15 +14,34 @@ const Questions = (props) => {
 
     let { FormickOBj } = props;
 
-   // State to manage the collapsed state and panel size
-   const [isCollapsed, setIsCollapsed] = useState(false);
-   const [panelSize, setPanelSize] = useState("20%"); // Initial size
+    // State to manage the collapsed state and panel size
+    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [panelSize, setPanelSize] = useState("20%"); // Initial size
 
-   // Toggle collapsed state and set panel size accordingly
-   const handleCollapseToggle = (collapsed) => {
-       setIsCollapsed(collapsed);
-       setPanelSize(collapsed ? "0%" : "20%"); // Set to 0% when collapsed, 20% when expanded
-   };
+    // Toggle collapsed state and set panel size accordingly
+    const handleCollapseToggle = (collapsed) => {
+        setIsCollapsed(collapsed);
+        setPanelSize(collapsed ? "0%" : "20%"); // Set to 0% when collapsed, 20% when expanded
+    };
+
+
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        // Function to check screen width and set isMobile accordingly
+        const checkMobileScreen = () => {
+            setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+        };
+
+        // Initial check
+        checkMobileScreen();
+
+        // Add an event listener to update the value on window resize
+        window.addEventListener("resize", checkMobileScreen);
+
+        // Cleanup event listener on component unmount
+        return () => window.removeEventListener("resize", checkMobileScreen);
+    }, []);
 
 
     return (
@@ -51,14 +70,16 @@ const Questions = (props) => {
                                 </Routes>
                             </div>
                         </Splitter.Panel>
-                        <Splitter.Panel
-                            collapsible={true}
-                            max={"42%"}
-                            defaultSize={"22%"}
-                        >
-                            {/* Side Menu */}
-                            <SideSteps FormickOBj={props.FormickOBj} />
-                        </Splitter.Panel>
+                        {!isMobile &&
+                            <Splitter.Panel
+                                collapsible={true}
+                                max={"42%"}
+                                defaultSize={"22%"}
+                            >
+                                {/* Side Menu */}
+                                <SideSteps FormickOBj={props.FormickOBj} />
+                            </Splitter.Panel>
+                        }
                     </Splitter>
                 </div>
             </div>

@@ -38,7 +38,10 @@ const Disclosure = (props) => {
                             </div>
                         </code>
                     </pre>
-                    <CInput checked={props.values["disclosureAccept"]} className={"form-check-input me-3"} name="disclosureAccept" label="I have read and acknowledge my Duty of Disclosure  * " type="checkBox" />
+                    <label htmlFor='disclosureAccept' className='d-flex '>
+                        <CInput checked={props.values["disclosureAccept"]} className={"form-check-input me-3"} name="disclosureAccept" type="checkBox" />
+                        I have read and acknowledge my Duty of Disclosure *
+                    </label>
                     <div>
                         <div className="row mt-3  justify-content-end">
                             <div className="col-md-3">

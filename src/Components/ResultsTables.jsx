@@ -22,9 +22,8 @@ const ResultsTables = (props) => {
     const [FamilyMedicalHistory_HeartDisease, setFamilyMedicalHistory_HeartDisease] = useState(false);
     const [selectedAlcoholConsumptionInsuranceImpact, setselectedAlcoholConsumptionInsuranceImpact] = useState(false);
     const [selectedDrugUseInsuranceImpact, setselectedDrugUseInsuranceImpact] = useState(false);
-    // const [renderHighBloodPressureCholesterolTable, setrenderHighBloodPressureCholesterolTable] = useState(false);
-    // const [renderHighBloodPressureCholesterolTable, setrenderHighBloodPressureCholesterolTable] = useState(false);
     const [selectedHighRiskActivityInsuranceImpact, setSelectedHighRiskActivityInsuranceImpact] = useState([]);
+    const [selectedBmiInsuranceImpact, setSelectedBmiInsuranceImpact] = useState([]);
 
     const HighBloodPressureCholesterolConditions = {
         "High Blood Pressure": {
@@ -911,6 +910,82 @@ const ResultsTables = (props) => {
             setFamilyMedicalHistory_HeartDisease(true);
         }
 
+
+        if (values["BMI"]) {
+            const BmiInsuranceImpact = {
+                "Underweight (BMI < 18.5)": {
+                    "lifeInsurance": "May include loadings or exclusions due to health risks associated with low BMI, such as nutritional deficiencies.",
+                    "tpdInsurance": "Potential loadings or exclusions due to increased risk of disability and complications from low body weight.",
+                    "incomeProtection": "Loadings likely due to heightened risk factors; exclusion for conditions related to low BMI may apply.",
+                    "traumaInsurance": "Exclusions or loadings possible for trauma events exacerbated by low body weight (e.g., certain injuries)."
+                },
+                "Healthy Weight (BMI 18.5 - 24.9)": {
+                    "lifeInsurance": "Standard cover with typical premiums; no loadings or exclusions are generally applied.",
+                    "tpdInsurance": "Standard cover with usual terms; minimal impact on premium or policy conditions.",
+                    "incomeProtection": "Generally standard cover, assuming no other health issues are present; no loadings or exclusions applied.",
+                    "traumaInsurance": "Standard cover with typical terms; no loadings or exclusions related to BMI."
+                },
+                "Overweight (BMI 25 - 29.9)": {
+                    "lifeInsurance": "Potential minor loadings depending on overall health and additional risk factors, such as hypertension.",
+                    "tpdInsurance": "Possible minor loadings; standard cover likely if no other health complications exist.",
+                    "incomeProtection": "Loadings may be applied, particularly if other health conditions (e.g., high blood pressure) are present.",
+                    "traumaInsurance": "Standard cover may be possible; loadings or exclusions applied only if combined with other risk factors."
+                },
+                "Obese (BMI 30 - 34.9)": {
+                    "lifeInsurance": "Loadings are common due to increased risk for conditions like heart disease and diabetes.",
+                    "tpdInsurance": "Higher loadings or exclusions depending on associated health issues and medical history.",
+                    "incomeProtection": "Likely to include higher premiums or exclusions for obesity-related claims (e.g., cardiovascular issues).",
+                    "traumaInsurance": "Exclusions or loadings related to trauma events from obesity-related health conditions, like stroke."
+                },
+                "Severely Obese (BMI 35 - 39.9)": {
+                    "lifeInsurance": "Significant loadings or exclusions may apply, or possible decline due to heightened health risks.",
+                    "tpdInsurance": "Higher chance of exclusions or decline; any coverage will likely include significant loadings.",
+                    "incomeProtection": "Premiums are likely higher, with exclusions for obesity-related claims; may result in a decline in coverage.",
+                    "traumaInsurance": "Exclusions for conditions related to obesity, such as heart attack, are likely, with higher premiums if offered."
+                },
+                "Morbidly Obese (BMI 40+)": {
+                    "lifeInsurance": "High likelihood of decline or extensive exclusions due to substantial health risks, including heart disease and diabetes.",
+                    "tpdInsurance": "Typically declined, or exclusions for obesity-related disabilities if coverage is offered.",
+                    "incomeProtection": "Very high premiums, substantial exclusions, or likely decline due to severe risk factors associated with high BMI.",
+                    "traumaInsurance": "High probability of decline or major exclusions; cover unlikely for trauma associated with obesity complications."
+                }
+            };
+
+            const bmiValue = values["BMI"];
+            let bmiCategory;
+
+
+            // Determine BMI category based on the value of bmiValue
+            if (bmiValue < 18.5) {
+                bmiCategory = "Underweight (BMI < 18.5)";
+            } else if (bmiValue >= 18.5 && bmiValue <= 24.9) {
+                bmiCategory = "Healthy Weight (BMI 18.5 - 24.9)";
+            } else if (bmiValue >= 25 && bmiValue <= 29.9) {
+                bmiCategory = "Overweight (BMI 25 - 29.9)";
+            } else if (bmiValue >= 30 && bmiValue <= 34.9) {
+                bmiCategory = "Obese (BMI 30 - 34.9)";
+            } else if (bmiValue >= 35 && bmiValue <= 39.9) {
+                bmiCategory = "Severely Obese (BMI 35 - 39.9)";
+            } else if (bmiValue >= 40) {
+                bmiCategory = "Morbidly Obese (BMI 40+)";
+            }
+
+            // Retrieve the insurance impact details for the determined category
+            const insuranceImpact = BmiInsuranceImpact[bmiCategory];
+
+            console.log(insuranceImpact, bmiCategory)
+            // Use the insuranceImpact data as needed
+            setSelectedBmiInsuranceImpact([{
+                name: bmiCategory,
+                details: insuranceImpact
+            }]);
+        } else {
+            console.error("BMI value is not available.");
+        }
+
+
+
+
     }, [values]); // Runs when `values` change
 
     return (
@@ -1422,11 +1497,12 @@ const ResultsTables = (props) => {
                 </Table>
             </div>
 
+            {/* Render Table 16 */}
             <div
                 className='d-none'
             >
                 {FamilyMedicalHistory_HeartDisease && (
-                    <Table striped bordered responsive hover id="resultTable14">
+                    <Table striped bordered responsive hover id="resultTable16">
                         <thead>
                             <tr>
                                 <th>Condition</th>
@@ -1449,6 +1525,42 @@ const ResultsTables = (props) => {
                         </tbody>
                     </Table>
                 )}
+            </div>
+
+            {/* Render Table 17 */}
+
+
+            <div
+                className='d-none'
+            >
+                <Table striped bordered responsive hover id="resultTable17">
+                    <thead>
+                        <tr>
+                            <th>Condition</th>
+                            <th>Life Insurance</th>
+                            <th>TPD Insurance</th>
+                            <th>Income Protection</th>
+                            <th>Trauma Insurance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {selectedBmiInsuranceImpact.length > 0 ? (
+                            selectedBmiInsuranceImpact.map((condition, index) => (
+                                <tr key={index}>
+                                    <td>{condition.name}</td>
+                                    <td>{condition.details.lifeInsurance}</td>
+                                    <td>{condition.details.tpdInsurance}</td>
+                                    <td>{condition.details.incomeProtection}</td>
+                                    <td>{condition.details.traumaInsurance}</td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="5">No conditions match the selected options.</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </Table>
             </div>
 
 

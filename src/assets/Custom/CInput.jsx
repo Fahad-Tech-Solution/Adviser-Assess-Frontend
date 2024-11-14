@@ -11,7 +11,7 @@ const CInput = ({ label, className, ...props }) => {
         case "textArea":
             return (
                 <div className="input-wrapper">
-                    {label && <label htmlFor={props.name}>{label}</label>}
+                    {label && <label className="fw-bold text-center mb-2 w-100" htmlFor={props.name}>{label}</label>}
                     <Field name={props.name}>
                         {({ field, form, meta }) => (
                             <React.Fragment>
@@ -46,7 +46,7 @@ const CInput = ({ label, className, ...props }) => {
         case "checkBox":
         case "checkbox":
             return (
-                <div className="input-wrapper">
+                <div className="input-wrapper" style={{ width: "fit-content" }}>
                     <Field name={props.name}>
                         {({ field, form, meta }) => (
                             <div className={`checkbox-wrapper ${meta.touched && meta.error ? "is-invalid" : ""}`}>
@@ -117,7 +117,7 @@ const CInput = ({ label, className, ...props }) => {
         case "Select":
             return (
                 <div className="input-wrapper">
-                    {label && <label htmlFor={props.name}>{label}</label>}
+                    {label && <label className="fw-bold text-center mb-2 w-100" htmlFor={props.name}>{label}</label>}
                     <Field name={props.name} as="select">
                         {({ field, form, meta }) => (
                             <React.Fragment>
@@ -153,7 +153,7 @@ const CInput = ({ label, className, ...props }) => {
         case "date":
             return (
                 <div className="input-wrapper">
-                    {label && <label htmlFor={props.name}>{label}</label>}
+                    {label && <label className="fw-bold text-center mb-2 w-100" htmlFor={props.name}>{label}</label>}
                     <Field name={props.name}>
                         {() => (
                             <DatePicker
@@ -187,7 +187,7 @@ const CInput = ({ label, className, ...props }) => {
             if (props.group) {
                 return (
                     <div className="input-wrapper">
-                        {label && <label htmlFor={props.name}>{label}</label>}
+                        {label && <label className="fw-bold text-center mb-2 w-100" htmlFor={props.name}>{label}</label>}
                         <Field name={props.name}>
                             {({ field, form, meta }) => (
                                 <React.Fragment>
@@ -224,7 +224,7 @@ const CInput = ({ label, className, ...props }) => {
             else {
                 return (
                     <div className="input-wrapper">
-                        {label && <label htmlFor={props.name}>{label}</label>}
+                        {label && <label className="fw-bold text-center mb-2 w-100" htmlFor={props.name}>{label}</label>}
                         <Field name={props.name}>
                             {({ field, form, meta }) => (
                                 <React.Fragment>

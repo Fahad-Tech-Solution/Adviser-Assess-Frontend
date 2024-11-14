@@ -123,12 +123,21 @@
   /* text-align: justify; */
 }
 
+.ImageSizing {
+  width: 15vw;
+}
+
 @media only screen and (max-width: 761px) {
   .Head1 {
     font-size: 21px !important;
+    text-align: center;
   }
 
   .FullHeight {
     height: fit-content;
+  }
+
+  .ImageSizing {
+    width: 70vw;
   }
 }

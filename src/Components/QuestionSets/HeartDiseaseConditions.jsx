@@ -3,7 +3,10 @@ import DynamicYesNo from '../../assets/Custom/DynamicYesNo/DynamicYesNo'
 import { CreatableMultiSelectField } from '../../assets/Custom/CreateableMultiSelect/CreatableMultiSelectField'
 import { Field } from 'formik'
 import CInput from '../../assets/Custom/CInput'
-import { Table } from 'react-bootstrap'
+import { Card, Image, Table } from 'react-bootstrap'
+
+import Health__Medical_History from "../../assets/Images/Health__Medical_History.png";
+import { Divider } from 'antd'
 
 const HeartDiseaseConditions = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
@@ -72,22 +75,29 @@ const HeartDiseaseConditions = (props) => {
                         <DynamicYesNo name={`${Data.key}_DynamicYesNo`} values={values} handleChange={handleChange} />
                     </div>
                 </div>
+
+
+                <Divider orientation="center"
+                    style={{
+                        color: '#36b446',
+                        fontWeight: "700",
+                        fontSize: "16px"
+                    }}
+                >Select the type of heart disease or condition that applies to you ?</Divider>
                 {
                     values[`${Data.key}_DynamicYesNo`] === "Yes" &&
                     <React.Fragment>
                         <div className='row justify-content-center mt-4'>
-
-                            <div className='col-md-5 pt-2'>
-                                <label htmlFor={`${Data.key}_diseaseAndConditions`} className='fw-bold'>Select the type of heart disease or condition that applies to you ?</label>
-                            </div>
-                            <div className='col-md-3'>
-                                <Field
-                                    name={`${Data.key}_diseaseAndConditions`}
-                                    component={CreatableMultiSelectField}
-                                    label="Multi Select Field"
-                                    options={optionsMultiSelect}
-                                    onChange={handleMultiSelectChange}
-                                />
+                            <div className='col-md-8'>
+                                <div className='d-flex w-100 justify-content-center' >
+                                    <Field
+                                        name={`${Data.key}_diseaseAndConditions`}
+                                        component={CreatableMultiSelectField}
+                                        label="Multi Select Field"
+                                        options={optionsMultiSelect}
+                                        onChange={handleMultiSelectChange}
+                                    />
+                                </div>
                             </div>
                             {Array.isArray(values[`${Data.key}_diseaseAndConditions`]) &&
                                 values[`${Data.key}_diseaseAndConditions`].includes("Other") && (
@@ -102,8 +112,9 @@ const HeartDiseaseConditions = (props) => {
                                 )}
 
                         </div>
-                        {(Array.isArray(values[`${Data.key}_diseaseAndConditions`]) && values[`${Data.key}_diseaseAndConditions`].length > 0 && !values[`${Data.key}_diseaseAndConditions`].includes("Other")) &&
 
+                        {/*
+                        {(Array.isArray(values[`${Data.key}_diseaseAndConditions`]) && values[`${Data.key}_diseaseAndConditions`].length > 0 && !values[`${Data.key}_diseaseAndConditions`].includes("Other")) &&
                             <div className='row justify-content-center'>
                                 <div className='col-md-10'>
                                     <div className='mt-4'>
@@ -130,6 +141,46 @@ const HeartDiseaseConditions = (props) => {
                                                 })}
                                             </tbody>
                                         </Table>
+                                    </div>
+                                </div>
+                            </div>
+                        }*/}
+
+                        {(Array.isArray(values[`${Data.key}_diseaseAndConditions`]) && values[`${Data.key}_diseaseAndConditions`].length > 0 && !values[`${Data.key}_diseaseAndConditions`].includes("Other")) &&
+                            <div className='row justify-content-center'>
+                                <div className='col-md-6'>
+                                    <div className='mt-4'>
+                                        {Array.from({ length: values[`${Data.key}_diseaseAndConditions`].length || 0 }).map((elem, i) => {
+                                            let diseaseAndConditions = values[`${Data.key}_diseaseAndConditions`];
+                                            return (
+                                                <Card
+                                                    data-aos="zoom-in-right"
+                                                    data-aos-duration="350"
+                                                    data-aos-easing="ease-in-sine"
+                                                    className="mb-3 shadow">
+                                                    <Card.Body>
+                                                        <div className='row justify-content-between'>
+                                                            <div className='col-md-4 d-flex'>
+                                                                <Image src={Health__Medical_History} alt="Cancer Icon" fluid className='w-75 m-auto ' />
+                                                            </div>
+                                                            <div className='col-md-8'>
+                                                                <div className='row'>
+                                                                    <div className='col-md-12'>
+                                                                        <CInput setFieldValue={setFieldValue} handleBlur={handleBlur} values={values} name={`${Data.key}_DateOfDiagnosis${i}`} type="date" showYearPicker placeholder="yyyy" dateFormat="yyyy" label="Date of Diagnosis" />
+                                                                    </div>
+                                                                    <div className='col-md-12'>
+                                                                        <CInput name={Data.key + "ongoingResolved" + i} type="Select" options={ongoingResolvedOption} className={"form-select"} label="Condition Status" />
+                                                                    </div>
+                                                                    <div className='col-md-12'>
+                                                                        <CInput name={Data.key + "treatmentsMedications" + i} type="textarea" placeholder="Treatments or medications" rows={1} label="Treatments/Medications" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Card.Body>
+                                                </Card>
+                                            )
+                                        })}
                                     </div>
                                 </div>
                             </div>

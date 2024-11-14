@@ -85,7 +85,7 @@ const QuestionsSet = (props) => {
         return (
             <div className='container-fluid'>
 
-                <div className='d-flex flex-column justify-content-start ps-4 mt-5 align-items-center'>
+                <div className='d-flex flex-column justify-content-start ps-4 mt-5 align-items-center d-none '>
                     <div className=' d-none' style={{ width: "7%" }}>
                         <Image src={props.parentElem.imgUrl || logo} fluid />
                     </div>
@@ -94,8 +94,6 @@ const QuestionsSet = (props) => {
                             <b>{props.parentElem.Title || 'No Question Added'}</b>
                         </h3>
                     </div>
-
-
                 </div>
                 {props.Data.components ? (
                     React.cloneElement(props.Data.components, { Data: props.Data, FormickOBj: props.FormickOBj })

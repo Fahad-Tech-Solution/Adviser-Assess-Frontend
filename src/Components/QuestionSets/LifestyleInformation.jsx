@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DynamicYesNo from '../../assets/Custom/DynamicYesNo/DynamicYesNo'
 import { CreatableMultiSelectField } from '../../assets/Custom/CreateableMultiSelect/CreatableMultiSelectField'
 import { Field } from 'formik'
@@ -92,6 +92,18 @@ const LifestyleInformation = (props) => {
         { value: "Yes, I used to vape", label: "Yes, I used to vape " },
         { value: "No, I have never vaped", label: "No, I have never vaped " },
     ]
+
+    useEffect(() => {
+        // alert(values["LifestyleInformation_SmokerYesNo"] + values["LifestyleInformation_VapeYesNo"]);
+        if (values["LifestyleInformation_SmokerYesNo"] === "No") {
+            setFieldValue(Data.key + "_Smoker", "")
+        }
+        if (values["LifestyleInformation_VapeYesNo"] === "No") {
+            setFieldValue(Data.key + "_Vape", "")
+        }
+
+    }, [values])
+
 
 
 

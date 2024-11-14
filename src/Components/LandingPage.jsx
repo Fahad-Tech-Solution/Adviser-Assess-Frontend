@@ -12,7 +12,7 @@ const LandingPage = (props) => {
     return (
         <div className='container-fluid'>
             <div className='container d-flex flex-column pt-5 justify-content-center align-items-center gap-3'>
-                <Image src={imageUrl} fluid alt="Landing Page Image" style={{ maxWidth: "15vw" }} />
+                <Image src={imageUrl} fluid alt="Landing Page Image" className='ImageSizing' />
 
                 <h1 className='Head1'>INSURANCE PRE-ASSESSMENT FORM</h1>
                 <div className="w-100 ">
