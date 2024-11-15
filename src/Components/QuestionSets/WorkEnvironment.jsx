@@ -1,6 +1,11 @@
 import React from 'react'
 import DynamicYesNo from '../../assets/Custom/DynamicYesNo/DynamicYesNo'
 import CInput from '../../assets/Custom/CInput'
+import DynamicCard from '../../assets/Custom/DynamicCards/DynamicCard'
+
+
+
+import WorkEnvironmentIcon from '../../assets/Images/Occupational-Financial Information/Employement-Icon-3-environment.png'
 
 const WorkEnvironment = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
@@ -18,44 +23,34 @@ const WorkEnvironment = (props) => {
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
-                <h4 className='fw-bold text-center'>Work Environment</h4>
+
                 <div className='row justify-content-center'>
-                    <div className='col-md-12'>
-                        <label htmlFor='hazardousDuties' className='text-center w-100 fw-bold'>
-                            Do you perform any hazardous duties?
-                        </label>
-                    </div>
-                    <div className='col-md-3 mt-4'>
-                        <DynamicYesNo name={`${Data.key}_hazardousDuties`} values={values} handleChange={handleChange} />
+                    <div className='col-md-6 mt-5'>
+                        <DynamicCard
+                            iconSrc={WorkEnvironmentIcon}
+                            Head={`Work Environment`}
+                            altText="Medical History Icon"
+                        >
+                            <div className='col-md-12 my-2'>
+                                <label className='fw-bold w-100 text-center mb-2'> Do you perform any hazardous duties ?</label>
+                                <DynamicYesNo name={`${Data.key}_hazardousDuties`} values={values} handleChange={handleChange} />
+                            </div>
+                            {values[`${Data.key}_hazardousDuties`] === "Yes" &&
+                                <React.Fragment>
+                                    <div className='col-md-12 mt-2'>
+                                        <CInput label={"Please Specify"} name={`${Data.key}_Specify`} options={optionsMultiSelect} className={"form-select"} type="select" />
+                                    </div>
+                                    {
+                                        values[`${Data.key}_Specify`] === "Other" &&
+                                        <div className='col-md-12 mt-2'>
+                                            <CInput label={"Other income structured"} id={`${Data.key}_otherIncomeStructured`} name={`${Data.key}_otherIncomeStructured`} type="textarea" rows={2} />
+                                        </div>
+                                    }
+
+                                </React.Fragment>}
+                        </DynamicCard>
                     </div>
                 </div>
-
-                {values[`${Data.key}_hazardousDuties`] === "Yes" &&
-                    <React.Fragment>
-                        <div className='row justify-content-center align-item-center mt-4' style={{ rowGap: "10px" }}>
-                            <div className='col-md-3 pt-2'>
-                                <label htmlFor={`${Data.key}_Specify`} className='fw-bold'>Please Specify</label>
-                            </div>
-                            <div className='col-md-3'>
-                                <CInput name={`${Data.key}_Specify`} options={optionsMultiSelect} className={"form-select"} type="select" />
-                            </div>
-                        </div>
-                        {
-                            values[`${Data.key}_Specify`] === "Other" &&
-                            <div className='row justify-content-center align-item-center mt-4' style={{ rowGap: "10px" }}>
-
-
-                                <React.Fragment>
-                                    <div className='col-md-3 pt-2'>
-                                        <label htmlFor={`${Data.key}_OtherSpecify`} className='fw-bold'>Other</label>
-                                    </div>
-                                    <div className='col-md-3'>
-                                        <CInput name={`${Data.key}_OtherSpecify`} type="textarea" rows={2} />
-                                    </div>
-                                </React.Fragment>
-                            </div>}
-
-                    </React.Fragment>}
             </div>
         </div>
     )

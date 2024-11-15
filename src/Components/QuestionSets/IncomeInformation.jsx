@@ -2,6 +2,9 @@ import React from 'react'
 import DynamicYesNo from '../../assets/Custom/DynamicYesNo/DynamicYesNo';
 import CInput from '../../assets/Custom/CInput';
 import { toCommaAndDollar, toNumericValue } from '../../assets/Api/Api';
+import DynamicCard from '../../assets/Custom/DynamicCards/DynamicCard';
+
+import IncomeInformationIcon from "../../assets/Images/Occupational-Financial Information/Employement-Icon-1-information.png"
 
 const IncomeInformation = (props) => {
 
@@ -22,51 +25,31 @@ const IncomeInformation = (props) => {
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
-                <h4 className='fw-bold text-center'>Income Information</h4>
-                <div className='row justify-content-center mt-4' style={{ rowGap: "10px" }}>
-                    <div className='col-md-5 pt-2 '>
-                        <label htmlFor={`${Data.key}_primaryOccupation`} className='w-100 fw-bold'>
-                            Annual Pre-tax Income (excluding super) for primary occupation
-                        </label>
-                    </div>
-                    <div className='col-md-3 '>
-                        <CInput id={`${Data.key}_primaryOccupation`} name={`${Data.key}_primaryOccupation`} type="text" onChangeCallback={(v, setFieldValue, currentInput) => { setFieldValue(currentInput.name, toCommaAndDollar(toNumericValue(currentInput.value))) }} />
-                    </div>
-
-                    {values["SecondOccupation_DynamicYesNo"] === "Yes" &&
-
-                        <React.Fragment>
-                            <div className='col-md-5 pt-2 '>
-                                <label htmlFor={`${Data.key}_SecondaryOccupation`} className='w-100 fw-bold'>
-                                    Annual Pre-tax Income (excluding super) for Secondary occupation
-                                </label>
+                <div className='row justify-content-center'>
+                    <div className='col-md-6 mt-5'>
+                        <DynamicCard
+                            iconSrc={IncomeInformationIcon}
+                            Head={`Income Information`}
+                            altText="Medical History Icon"
+                        >
+                            <div className='col-md-12 mt-2'>
+                                <CInput label={"Annual Pre-tax Income (excluding super) for primary occupation"} id={`${Data.key}_primaryOccupation`} name={`${Data.key}_primaryOccupation`} type="text" onChangeCallback={(v, setFieldValue, currentInput) => { setFieldValue(currentInput.name, toCommaAndDollar(toNumericValue(currentInput.value))) }} />
                             </div>
-                            <div className='col-md-3 '>
-                                <CInput id={`${Data.key}_SecondaryOccupation`} name={`${Data.key}_SecondaryOccupation`} type="text" onChangeCallback={(v, setFieldValue, currentInput) => { setFieldValue(currentInput.name, toCommaAndDollar(toNumericValue(currentInput.value))) }} />
+                            {values["SecondOccupation_DynamicYesNo"] === "Yes" &&
+                                <div className='col-md-12 mt-2'>
+                                    <CInput label={"Annual Pre-tax Income (excluding super) for Secondary occupation"} id={`${Data.key}_SecondaryOccupation`} name={`${Data.key}_SecondaryOccupation`} type="text" onChangeCallback={(v, setFieldValue, currentInput) => { setFieldValue(currentInput.name, toCommaAndDollar(toNumericValue(currentInput.value))) }} />
+                                </div>
+                            }
+                            <div className='col-md-12 mt-2'>
+                                <CInput label="How is your income structured ?" name={`${Data.key}_incomeStructured`} id={`${Data.key}_incomeStructured`} className={"form-select"} type="select" options={options} />
                             </div>
-                        </React.Fragment>
-                    }
-
-                    <div className='col-md-5 pt-2 '>
-                        <label htmlFor={`${Data.key}_incomeStructured`} className=' w-100 fw-bold'>
-                            How is your income structured?
-                        </label>
+                            {values[`${Data.key}_incomeStructured`] === "Other" &&
+                                <div className='col-md-12 mt-2'>
+                                    <CInput label={"Other income structured"} id={`${Data.key}_otherIncomeStructured`} name={`${Data.key}_otherIncomeStructured`} type="textarea" rows={2} />
+                                </div>
+                            }
+                        </DynamicCard>
                     </div>
-                    <div className='col-md-3 '>
-                        <CInput name={`${Data.key}_incomeStructured`} id={`${Data.key}_incomeStructured`} className={"form-select"} type="select" options={options} />
-                    </div>
-                    {values[`${Data.key}_incomeStructured`] === "Other" &&
-                        <React.Fragment>
-                            <div className='col-md-5 pt-2  '>
-                                <label htmlFor={`${Data.key}_otherIncomeStructured`} className=' w-100 fw-bold'>
-                                    Other income structured
-                                </label>
-                            </div>
-                            <div className='col-md-3 '>
-                                <CInput id={`${Data.key}_otherIncomeStructured`} name={`${Data.key}_otherIncomeStructured`} type="textarea" rows={2} />
-                            </div>
-                        </React.Fragment>
-                    }
                 </div>
             </div>
         </div>
