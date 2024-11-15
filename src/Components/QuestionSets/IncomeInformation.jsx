@@ -33,11 +33,11 @@ const IncomeInformation = (props) => {
                             altText="Medical History Icon"
                         >
                             <div className='col-md-12 mt-2'>
-                                <CInput label={"Annual Pre-tax Income (excluding super) for primary occupation"} id={`${Data.key}_primaryOccupation`} name={`${Data.key}_primaryOccupation`} type="text" onChangeCallback={(v, setFieldValue, currentInput) => { setFieldValue(currentInput.name, toCommaAndDollar(toNumericValue(currentInput.value))) }} />
+                                <CInput label={"Annual Pre-tax Income (excluding super) for primary occupation"} id={`${Data.key}_primaryOccupation`} name={`${Data.key}_primaryOccupation`} type="text" onChangeCallback={(v, setFieldValue, currentInput) => { setFieldValue(currentInput.name, toCommaAndDollar(currentInput.value.replace(/[^0-9.-]+/g, ""))) }} />
                             </div>
                             {values["SecondOccupation_DynamicYesNo"] === "Yes" &&
                                 <div className='col-md-12 mt-2'>
-                                    <CInput label={"Annual Pre-tax Income (excluding super) for Secondary occupation"} id={`${Data.key}_SecondaryOccupation`} name={`${Data.key}_SecondaryOccupation`} type="text" onChangeCallback={(v, setFieldValue, currentInput) => { setFieldValue(currentInput.name, toCommaAndDollar(toNumericValue(currentInput.value))) }} />
+                                    <CInput label={"Annual Pre-tax Income (excluding super) for Secondary occupation"} id={`${Data.key}_SecondaryOccupation`} name={`${Data.key}_SecondaryOccupation`} type="text" onChangeCallback={(v, setFieldValue, currentInput) => { setFieldValue(currentInput.name, toCommaAndDollar(currentInput.value.replace(/[^0-9.-]+/g, ""))) }} />
                                 </div>
                             }
                             <div className='col-md-12 mt-2'>

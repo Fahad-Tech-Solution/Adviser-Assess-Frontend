@@ -1,10 +1,9 @@
 import React from 'react'
 import DynamicYesNo from '../../assets/Custom/DynamicYesNo/DynamicYesNo'
-import { CreatableMultiSelectField } from '../../assets/Custom/CreateableMultiSelect/CreatableMultiSelectField'
-import { Field } from 'formik'
 import CInput from '../../assets/Custom/CInput'
-import { Table } from 'react-bootstrap'
-import DynamicTableFields from '../../assets/Custom/DynamicTableFields'
+import DynamicCard from '../../assets/Custom/DynamicCards/DynamicCard'
+
+import Angina from "../../assets/Images/Heart-Disease-Conditions/heartDiseaseConditions_icon_3_chest-pain-or-pressure.png";
 
 const HighBloodPressureHighCholesterol = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
@@ -67,24 +66,45 @@ const HighBloodPressureHighCholesterol = (props) => {
                         <DynamicYesNo name={`${Data.key}_DynamicYesNo`} values={values} handleChange={handleChange} />
                     </div>
                 </div>
-                {
-                    values[`${Data.key}_DynamicYesNo`] === "Yes" &&
-                    <React.Fragment>
-                        <div className='row justify-content-center'
-                        // data-aos="zoom-in-right"
-                        // data-aos-duration="350"
-                        // data-aos-easing="ease-in-sine"
-                        >
-                            <div className='col-md-10'>
-                                <div className='mt-4'>
-                                    <DynamicTableFields headings={headings} data={data} onChange={() => { console.log("what the") }} setFieldValue={setFieldValue} handleBlur={handleBlur} values={values} />
+                <div className='row justify-content-center'>
+                    <div className='col-md-6 mt-5'>
+                        {
+                            values[`${Data.key}_DynamicYesNo`] === "Yes" &&
+                            <React.Fragment>
+                                <div className='row justify-content-center' >
+                                    {Array.from({ length: 1 }).map((elem, i) => {
+                                        return (
+                                            <DynamicCard
+                                                iconSrc={Angina}
+                                                Head={"Head One"}
+                                                altText="Medical History Icon"
+                                            >
+                                                <div className='col-md-12 mt-2'>
+                                                    <CInput setFieldValue={setFieldValue} handleBlur={handleBlur} values={values} name={Data.key + "_DateOfDiagnosis"} type="date" showYearPicker placeholder="yyyy" dateFormat="yyyy" label="Date of Diagnosis" />
+                                                </div>
+                                                <div className='col-md-12 mt-2'>
+                                                    <CInput name={Data.key + "_LatestBloodPressure"} type="Select" options={LatestBloodPressureOption} className={"form-select"} label="Latest Blood Pressure Reading (mmHg)" />
+                                                </div>
+                                                <div className='col-md-12 mt-2'>
+                                                    <CInput name={Data.key + "_LatestCholesterol"} type="Select" options={LatestCholesterolOption} className={"form-select"} label="Latest Cholesterol Reading (mg/dL)" />
+                                                </div>
+                                                <div className='col-md-12 mt-2'>
+                                                    <CInput name={Data.key + "_MedicationsTreatment"} type="textarea" placeholder="Treatments or medications" rows={2} label="Medications or Treatment" />
+                                                </div>
+                                            </DynamicCard>
+                                        )
+                                    })
+                                    }
+
+
+
                                 </div>
-                            </div>
-                        </div>
-                    </React.Fragment>
-                }
+                            </React.Fragment>
+                        }
 
 
+                    </div>
+                </div>
             </div>
         </div>
     )

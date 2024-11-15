@@ -3,11 +3,21 @@ import DynamicYesNo from '../../assets/Custom/DynamicYesNo/DynamicYesNo'
 import { CreatableMultiSelectField } from '../../assets/Custom/CreateableMultiSelect/CreatableMultiSelectField'
 import { Field } from 'formik'
 import CInput from '../../assets/Custom/CInput'
-import { Card, Image, Table } from 'react-bootstrap'
 
-import Health__Medical_History from "../../assets/Images/Health__Medical_History.png";
 import { Divider } from 'antd'
 import DynamicCard from '../../assets/Custom/DynamicCards/DynamicCard'
+
+import heartDiseaseConditions_icon_3_chest_pain from "../../assets/Images/Heart-Disease-Conditions/heartDiseaseConditions_icon_3_chest_pain.png";
+import heartDiseaseConditions_icon_4__heart from "../../assets/Images/Heart-Disease-Conditions/heartDiseaseConditions_icon_4__heart-failure.png";
+import heartDiseaseConditions_icon_5_Hypertensive_Heart_Disease from "../../assets/Images/Heart-Disease-Conditions/heartDiseaseConditions_icon_5_Hypertensive_Heart_Disease.png";
+import heartDiseaseConditions_icon_6_Heartvalve from "../../assets/Images/Heart-Disease-Conditions/heartDiseaseConditions_icon_6_Heartvalve.png";
+import heartDiseaseConditions_icon1_Heart_Attack from "../../assets/Images/Heart-Disease-Conditions/heartDiseaseConditions_icon1_Heart_Attack.png";
+import Coronary_Artery_Disease_CAD from "../../assets/Images/Heart-Disease-Conditions/heartDiseaseConditions-icon-2-Coronary_Artery_Disease_CAD.png";
+import heartDiseaseConditions_icon_8_otherDisease from "../../assets/Images/Heart-Disease-Conditions/heartDiseaseConditions_icon_8_otherDisease.png";
+import Angina from "../../assets/Images/Heart-Disease-Conditions/heartDiseaseConditions_icon_3_chest-pain-or-pressure.png";
+
+
+
 
 const HeartDiseaseConditions = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
@@ -63,6 +73,18 @@ const HeartDiseaseConditions = (props) => {
     ]
 
 
+    let Images = {
+        "Coronary Artery Disease (CAD)": Coronary_Artery_Disease_CAD,
+        "Heart Attack (Myocardial Infarction)": heartDiseaseConditions_icon1_Heart_Attack,
+        "Arrhythmia (e.g., Atrial Fibrillation)": heartDiseaseConditions_icon_4__heart,
+        "Heart Failure (Congestive Heart Failure)": heartDiseaseConditions_icon_5_Hypertensive_Heart_Disease, // na 
+        "Hypertensive Heart Disease": heartDiseaseConditions_icon_3_chest_pain,
+        "Angina": Angina,
+        "Heart Valve Disease": heartDiseaseConditions_icon_6_Heartvalve,
+        "Other": heartDiseaseConditions_icon_8_otherDisease,
+    }
+
+
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
@@ -76,7 +98,6 @@ const HeartDiseaseConditions = (props) => {
                         <DynamicYesNo name={`${Data.key}_DynamicYesNo`} values={values} handleChange={handleChange} />
                     </div>
                 </div>
-
 
                 <Divider orientation="center"
                     style={{
@@ -102,19 +123,25 @@ const HeartDiseaseConditions = (props) => {
                                     </div>
                                 </div>
                             </div>
+
                             {Array.isArray(values[`${Data.key}_diseaseAndConditions`]) &&
                                 values[`${Data.key}_diseaseAndConditions`].includes("Other") && (
                                     <React.Fragment>
-                                        <div className='col-md-5 pt-2 mt-2'>
-                                            <label htmlFor={`${Data.key}_diseaseAndConditions`} className='fw-bold'>Other Details</label>
-                                        </div>
-                                        <div className='col-md-3 mt-2'>
-                                            <CInput name={`${Data.key}_Other`} type="textarea" rows={2} />
+                                        <div className='row justify-content-center'>
+                                            <div className='col-md-6 mt-5'>
+                                                <DynamicCard
+                                                    iconSrc={Images.Other}
+                                                    // Head={"Other"}
+                                                    altText="Medical History Icon"
+                                                >
+                                                    <div className='col-md-12 mt-2'>
+                                                        <CInput label={"Other Details"} name={`${Data.key}_Other`} type="textarea" rows={2} />
+                                                    </div>
+                                                </DynamicCard>
+                                            </div>
                                         </div>
                                     </React.Fragment>
-                                )}
-
-                        </div>
+                                )}</div>
 
                         {(Array.isArray(values[`${Data.key}_diseaseAndConditions`]) && values[`${Data.key}_diseaseAndConditions`].length > 0 && !values[`${Data.key}_diseaseAndConditions`].includes("Other")) &&
                             <div className='row justify-content-center'>
@@ -124,7 +151,7 @@ const HeartDiseaseConditions = (props) => {
                                             let diseaseAndConditions = values[`${Data.key}_diseaseAndConditions`];
                                             return (
                                                 <DynamicCard
-                                                    iconSrc={Health__Medical_History}
+                                                    iconSrc={Images[diseaseAndConditions[i]]}
                                                     Head={diseaseAndConditions[i]}
                                                     altText="Medical History Icon"
                                                 >
@@ -142,14 +169,8 @@ const HeartDiseaseConditions = (props) => {
                                         })}
                                     </div>
                                 </div>
-                            </div>
-                        }
-
-
-                    </React.Fragment>
-                }
-
-
+                            </div>}
+                    </React.Fragment>}
             </div>
         </div>
     )

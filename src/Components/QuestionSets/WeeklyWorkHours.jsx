@@ -21,17 +21,17 @@ const WeeklyWorkHours = (props) => {
                             altText="Medical History Icon"
                         >
                             <div className='col-md-12 mt-2'>
-                                <CInput label={"On average, how many hours do you work per week in your primary occupation?"} id={`${Data.key}_primaryWorkHours`} name={`${Data.key}_primaryWorkHours`} type="text" group={true} groupIcon={"Hours"} />
+                                <CInput label={"On average, how many hours do you work per week in your primary occupation?"} id={`${Data.key}_primaryWorkHours`} name={`${Data.key}_primaryWorkHours`} type="number" group={true} groupIcon={"Hours"} />
                             </div>
 
                             {values["SecondOccupation_DynamicYesNo"] === "Yes" &&
                                 <div className='col-md-12 mt-2'>
-                                    <CInput label={"On average, how many hours do you work per week in your second occupation ?"} id={`${Data.key}_SecondWorkHours`} name={`${Data.key}_SecondWorkHours`} type="text" group={true} groupIcon={"Hours"} />
+                                    <CInput label={"On average, how many hours do you work per week in your second occupation ?"} id={`${Data.key}_SecondWorkHours`} name={`${Data.key}_SecondWorkHours`} type="number" group={true} groupIcon={"Hours"} />
                                 </div>
                             }
 
                             <div className='col-md-12 mt-2'>
-                                <CInput label={"How many weeks do you work per year ?"} id={`${Data.key}_workPerYear`} name={`${Data.key}_workPerYear`} type="text" group={true} groupIcon={"Weeks"} />
+                                <CInput label={"How many weeks do you work per year ?"} id={`${Data.key}_workPerYear`} name={`${Data.key}_workPerYear`} type="number" group={true} groupIcon={"Weeks"} />
                             </div>
 
                             <div className='col-md-12 mt-2'>
