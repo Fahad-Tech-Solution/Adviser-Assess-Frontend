@@ -3,7 +3,7 @@ import DynamicYesNo from '../../assets/Custom/DynamicYesNo/DynamicYesNo'
 import CInput from '../../assets/Custom/CInput'
 import DynamicCard from '../../assets/Custom/DynamicCards/DynamicCard'
 
-import Angina from "../../assets/Images/Heart-Disease-Conditions/heartDiseaseConditions_icon_3_chest-pain-or-pressure.png";
+import health from "../../assets/Images/High_Blood_Pressure_or_High_Cholesterol.png";
 
 const HighBloodPressureHighCholesterol = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
@@ -29,30 +29,6 @@ const HighBloodPressureHighCholesterol = (props) => {
         { value: "Unknown", label: "Unknown" },
     ]
 
-    let TestChange = (e, rowIndex, heading) => {
-        console.log(e, rowIndex, heading.attribute)
-        setFieldValue(e.target.name, e.target.values)
-
-    }
-
-    const headings = [
-        { label: "No#", attribute: "renderIndex" },
-        { label: "Date of Diagnosis", attribute: Data.key + "_DateOfDiagnosis", onChange: TestChange, inputType: "date", showYearPicker: true, placeholder: "yyyy", dateFormat: "yyyy" },
-        { label: "Medications or Treatment", attribute: Data.key + "_MedicationsTreatment", onChange: TestChange, inputType: "textarea", rows: "1" },
-        { label: "Latest Blood Pressure Reading (mmHg)", attribute: Data.key + "_LatestBloodPressure", onChange: TestChange, inputType: "select", options: LatestBloodPressureOption, className: "form-select" },
-        { label: "Latest Cholesterol Reading (mg/dL)", attribute: Data.key + "_LatestCholesterol", onChange: TestChange, inputType: "select", options: LatestCholesterolOption, className: "form-select" },
-    ];
-
-    const data = [
-        {
-            [`${Data.key}_DateOfDiagnosis`]: "",
-            [`${Data.key}_MedicationsTreatment`]: "",
-            [`${Data.key}_LatestBloodPressure`]: "",
-            [`${Data.key}_LatestCholesterol`]: "",
-        }
-    ];
-
-
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1' >
@@ -75,8 +51,8 @@ const HighBloodPressureHighCholesterol = (props) => {
                                     {Array.from({ length: 1 }).map((elem, i) => {
                                         return (
                                             <DynamicCard
-                                                iconSrc={Angina}
-                                                Head={"Head One"}
+                                                iconSrc={health}
+                                                Head={"High Blood Pressure or High Cholesterol"}
                                                 altText="Medical History Icon"
                                             >
                                                 <div className='col-md-12 mt-2'>
