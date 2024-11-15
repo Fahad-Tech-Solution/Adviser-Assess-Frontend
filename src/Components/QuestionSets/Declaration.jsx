@@ -8,6 +8,10 @@ const Declaration = (props) => {
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
+
+                <h4 className='text-center fw-bold my-4'>Declaration</h4>
+
+
                 <div className='row justify-content-center'>
                     <div className='col-md-8 pb-4 mb-1'>
                         <p style={{ textAlign: "justify" }}>I declare that the information provided above is true and complete to the best of my knowledge. I understand that this information will be used by my insurance adviser and/or insurance company to assess my insurance pre-assessment.</p>

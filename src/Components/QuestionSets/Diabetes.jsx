@@ -1,6 +1,9 @@
 import React from 'react'
 import DynamicYesNo from '../../assets/Custom/DynamicYesNo/DynamicYesNo'
-import DynamicTableFields from '../../assets/Custom/DynamicTableFields'
+import DynamicCard from '../../assets/Custom/DynamicCards/DynamicCard'
+
+import DiabetesIcon from "../../assets/Images/Diabetes.png";
+import CInput from '../../assets/Custom/CInput';
 
 const Diabetes = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
@@ -36,40 +39,6 @@ const Diabetes = (props) => {
         { value: "Type 2 Diabetes", label: "Type 2" },
     ]
 
-    let TestChange = (e, rowIndex, heading) => {
-        console.log(e, rowIndex, heading.attribute)
-
-        switch (e.target.name) {
-            case Data.key + "_TypeDiabetes-" + rowIndex:
-                let ValueArray = e.target.value.map((item) => item.value)
-                setFieldValue(e.target.name, ValueArray)
-                break;
-            default:
-                setFieldValue(e.target.name, e.target.values)
-                break;
-        }
-    }
-
-    const headings = [
-        { label: "No#", attribute: "renderIndex" },
-        { label: "Type of Diabetes", attribute: Data.key + "_TypeDiabetes", onChange: TestChange, inputType: "multiSelect", options: TypeDiabetesOption, styleSet: { minWidth: "13rem" } },
-        { label: "Date of Diagnosis", attribute: Data.key + "_DateOfDiagnosis", onChange: TestChange, inputType: "date", showYearPicker: true, placeholder: "yyyy", dateFormat: "yyyy" },
-        { label: "Treatment", attribute: Data.key + "_Treatment", attribute2: Data.key + "_TreatmentOther", onChange: TestChange, inputType: "select&textArea", options: TreatmentOption, className: "form-select" },
-        { label: "Latest HbA1c Reading (%)", attribute: Data.key + "_HbA1cReading", onChange: TestChange, inputType: "select", options: HbA1cReadingOption, className: "form-select" },
-        { label: "Latest Fasting Glucose Reading (mg/dL)", attribute: Data.key + "_GlucoseReading", onChange: TestChange, inputType: "select", options: GlucoseReadingOption, className: "form-select" },
-    ];
-
-    const data = [
-        {
-            [`${Data.key}_TypeDiabetes`]: "",
-            [`${Data.key}_DateOfDiagnosis`]: "",
-            [`${Data.key}_Treatment`]: "",
-            [`${Data.key}_TreatmentOther`]: "",
-            [`${Data.key}_HbA1cReading`]: "",
-            [`${Data.key}_GlucoseReading`]: "",
-        }
-    ];
-
 
     return (
         <div className='row'>
@@ -84,18 +53,49 @@ const Diabetes = (props) => {
                         <DynamicYesNo name={`${Data.key}_DynamicYesNo`} values={values} handleChange={handleChange} />
                     </div>
                 </div>
-                {
-                    values[`${Data.key}_DynamicYesNo`] === "Yes" &&
-                    <React.Fragment>
-                        <div className='row justify-content-center'>
-                            <div className='col-md-10'>
-                                <div className='mt-4'>
-                                    <DynamicTableFields headings={headings} data={data} onChange={() => { console.log("what the") }} setFieldValue={setFieldValue} handleBlur={handleBlur} values={values} />
+
+                <div className='row justify-content-center'>
+                    <div className='col-md-6 mt-5'>
+                        {values[`${Data.key}_DynamicYesNo`] === "Yes" &&
+                            <React.Fragment>
+                                <div className='row justify-content-center' >
+                                    {Array.from({ length: 1 }).map((elem, i) => {
+                                        return (
+                                            <DynamicCard
+                                                iconSrc={DiabetesIcon}
+                                                Head={"Diabetes"}
+                                                altText="Medical History Icon"
+                                            >
+                                                <div className='col-md-12 mt-2'>
+                                                    <CInput label="Type of Diabetes" name={Data.key + "_TypeDiabetes"} type="Select" options={TypeDiabetesOption} className={"form-select"} />
+                                                </div>
+                                                <div className='col-md-12 mt-2'>
+                                                    <CInput setFieldValue={setFieldValue} handleBlur={handleBlur} values={values} name={Data.key + "_DateOfDiagnosis"} type="date" showYearPicker placeholder="yyyy" dateFormat="yyyy" label="Date of Diagnosis" />
+                                                </div>
+                                                <div className='col-md-12 mt-2'>
+                                                    <CInput label="Treatment" name={Data.key + "_Treatment"} type="Select" options={TreatmentOption} className={"form-select"} />
+                                                </div>
+
+                                                {values[Data.key + "_Treatment"] === "Other" &&
+                                                    <div className='col-md-12 mt-2'>
+                                                        <CInput name={Data.key + "_TreatmentOther"} type="textarea" placeholder="Other" rows={2} label="Other" />
+                                                    </div>
+                                                }
+
+                                                <div className='col-md-12 mt-2'>
+                                                    <CInput label="Latest HbA1c Reading (%)" name={Data.key + "_HbA1cReading"} type="Select" options={HbA1cReadingOption} className={"form-select"} />
+                                                </div>
+
+                                                <div className='col-md-12 mt-2'>
+                                                    <CInput label="Latest Fasting Glucose Reading (mg/dL)" name={Data.key + "_GlucoseReading"} type="Select" options={GlucoseReadingOption} className={"form-select"} />
+                                                </div>
+                                            </DynamicCard>
+                                        )
+                                    })}
                                 </div>
-                            </div>
-                        </div>
-                    </React.Fragment>
-                }
+                            </React.Fragment>}
+                    </div>
+                </div>
             </div>
         </div>
     )

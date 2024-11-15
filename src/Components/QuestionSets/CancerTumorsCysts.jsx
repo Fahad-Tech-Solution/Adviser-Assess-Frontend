@@ -3,8 +3,11 @@ import DynamicYesNo from '../../assets/Custom/DynamicYesNo/DynamicYesNo'
 import { CreatableMultiSelectField } from '../../assets/Custom/CreateableMultiSelect/CreatableMultiSelectField'
 import { Field } from 'formik'
 import CInput from '../../assets/Custom/CInput'
-import { Table } from 'react-bootstrap'
-import DynamicTableFields from '../../assets/Custom/DynamicTableFields'
+
+import DynamicCard from '../../assets/Custom/DynamicCards/DynamicCard'
+import { Divider } from 'antd'
+
+import Other from "../../assets/Images/Heart-Disease-Conditions/heartDiseaseConditions_icon_8_otherDisease.png";
 
 const CancerTumorsCysts = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
@@ -98,23 +101,9 @@ const CancerTumorsCysts = (props) => {
     ]);
 
 
-    useEffect(() => {
-        if (values[Data.key + "_diseaseAndConditions"] && values[Data.key + "_diseaseAndConditions"].length > 0) {
-            let DataRenderArray = [];
-
-            values[Data.key + "_diseaseAndConditions"].forEach((element) => {
-                let obj = {
-                    StaticString: element
-                };
-                DataRenderArray.push(obj);
-            });
-
-            setData(DataRenderArray);
-        }
-    }, [values])
-
-
-
+    let Images = {
+        "Other": Other,
+    }
 
 
     return (
@@ -130,33 +119,54 @@ const CancerTumorsCysts = (props) => {
                         <DynamicYesNo name={`${Data.key}_DynamicYesNo`} values={values} handleChange={handleChange} />
                     </div>
                 </div>
-                {
-                    values[`${Data.key}_DynamicYesNo`] === "Yes" &&
+
+                {values[`${Data.key}_DynamicYesNo`] === "Yes" &&
                     <React.Fragment>
                         <div className='row justify-content-center mt-4'>
 
-                            <div className='col-md-5 pt-2'>
-                                <label htmlFor={`${Data.key}_diseaseAndConditions`} className='fw-bold'>Select the type of heart disease or condition that applies to you ?</label>
+                            <Divider orientation="center"
+                                style={{
+                                    color: '#36b446',
+                                    fontWeight: "700",
+                                    fontSize: "16px"
+                                }} >Select the type of heart disease or condition that applies to you ?</Divider>
+
+                            <div className='col-md-8'>
+                                <div className='d-flex w-100 justify-content-center'>
+                                    <div style={{ minWidth: "25%" }}>
+                                        <Field
+                                            name={`${Data.key}_diseaseAndConditions`}
+                                            component={CreatableMultiSelectField}
+                                            label="Multi Select Field"
+                                            options={optionsMultiSelect}
+                                            onChange={handleMultiSelectChange}
+                                        />
+                                    </div>
+                                </div>
                             </div>
-                            <div className='col-md-3'>
-                                <Field
-                                    name={`${Data.key}_diseaseAndConditions`}
-                                    component={CreatableMultiSelectField}
-                                    label="Multi Select Field"
-                                    options={optionsMultiSelect}
-                                    onChange={handleMultiSelectChange}
-                                />
-                            </div>
+
                             {Array.isArray(values[`${Data.key}_diseaseAndConditions`]) &&
                                 values[`${Data.key}_diseaseAndConditions`].includes("Other") && (
-                                    <React.Fragment>
-                                        <div className='col-md-5 pt-2 mt-2'>
-                                            <label htmlFor={`${Data.key}_diseaseAndConditions`} className='fw-bold'>Other Details</label>
+                                    <div className='row justify-content-center'>
+                                        <div className='col-md-6'>
+                                            <div className='mt-4'>
+                                                {Array.from({ length: values[`${Data.key}_diseaseAndConditions`].length || 0 }).map((elem, i) => {
+                                                    let diseaseAndConditions = values[`${Data.key}_diseaseAndConditions`];
+                                                    return (
+                                                        <DynamicCard
+                                                            iconSrc={Images[diseaseAndConditions[i]]}
+                                                            Head={diseaseAndConditions[i]}
+                                                            altText="Medical History Icon"
+                                                        >
+                                                            <div className='col-md-12 mt-2'>
+                                                                <CInput label={"Other Details"} name={`${Data.key}_Other`} type="textarea" rows={2} />
+                                                            </div>
+                                                        </DynamicCard>
+                                                    )
+                                                })}
+                                            </div>
                                         </div>
-                                        <div className='col-md-3 mt-2'>
-                                            <CInput name={`${Data.key}_Other`} type="textarea" rows={2} />
-                                        </div>
-                                    </React.Fragment>
+                                    </div>
                                 )}
 
                         </div>
@@ -166,31 +176,37 @@ const CancerTumorsCysts = (props) => {
                             !values[`${Data.key}_diseaseAndConditions`].includes("Other") &&
                             !values[`${Data.key}_diseaseAndConditions`].includes("Unknown") && (
                                 <div className='row justify-content-center'>
-                                    <div className='col-md-10'>
+                                    <div className='col-md-6'>
                                         <div className='mt-4'>
-                                            <DynamicTableFields
-                                                headings={headings}
-                                                data={data}
-                                                onChange={() => { console.log("what the") }}
-                                                setFieldValue={setFieldValue}
-                                                handleBlur={handleBlur}
-                                                values={values}
-                                                handleChange={handleChange}
-                                            />
+                                            {Array.from({ length: values[`${Data.key}_diseaseAndConditions`].length || 0 }).map((elem, i) => {
+                                                let diseaseAndConditions = values[`${Data.key}_diseaseAndConditions`];
+                                                return (
+                                                    <DynamicCard
+                                                        iconSrc={Images[diseaseAndConditions[i]]}
+                                                        Head={diseaseAndConditions[i]}
+                                                        altText="Medical History Icon"
+                                                    >
+                                                        <div className='col-md-12 mt-2'>
+                                                            <CInput setFieldValue={setFieldValue} handleBlur={handleBlur} values={values} name={`${Data.key}_DateOfDiagnosis${i}`} type="date" showYearPicker placeholder="yyyy" dateFormat="yyyy" label="Date of Diagnosis" />
+                                                        </div>
+                                                        <div className='col-md-12 mt-2'>
+                                                            <CInput name={Data.key + "_Treatment" + i} type="textarea" placeholder="Treatments or Surgery" rows={2} label="Treatments or Surgery" />
+                                                        </div>
+                                                        <div className='col-md-12 mt-2'>
+                                                            <CInput name={Data.key + "_CurrentCondition" + i} type="textarea" placeholder="Current Condition" rows={2} label="Current Condition" />
+                                                        </div>
+                                                    </DynamicCard>
+                                                )
+                                            })}
                                         </div>
                                     </div>
                                 </div>
                             )
                         }
-
-
-
                     </React.Fragment>
                 }
-
-
             </div>
-        </div >
+        </div>
     )
 }
 

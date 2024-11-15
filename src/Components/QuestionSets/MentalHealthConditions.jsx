@@ -4,6 +4,9 @@ import DynamicTableFields from '../../assets/Custom/DynamicTableFields'
 import CInput from '../../assets/Custom/CInput'
 import { CreatableMultiSelectField } from '../../assets/Custom/CreateableMultiSelect/CreatableMultiSelectField'
 import { Field } from 'formik'
+import DynamicCard from '../../assets/Custom/DynamicCards/DynamicCard'
+import { Divider } from 'antd'
+import Other from "../../assets/Images/Heart-Disease-Conditions/heartDiseaseConditions_icon_8_otherDisease.png";
 
 const MentalHealthConditions = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
@@ -11,7 +14,6 @@ const MentalHealthConditions = (props) => {
     let Data = props.Data
 
     let TreatmentOption = [
-        { value: "", label: "Select" },
         { value: "Anxiety", label: "Anxiety" },
         { value: "Depression", label: "Depression" },
         { value: "Bipolar Disorder", label: "Bipolar Disorder" },
@@ -145,6 +147,12 @@ const MentalHealthConditions = (props) => {
         }
     }, [values])
 
+
+    let Images = {
+        "Other": Other,
+    }
+
+
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
@@ -158,40 +166,57 @@ const MentalHealthConditions = (props) => {
                         <DynamicYesNo name={`${Data.key}_DynamicYesNo`} values={values} handleChange={handleChange} />
                     </div>
                 </div>
-                {
-                    values[`${Data.key}_DynamicYesNo`] === "Yes" &&
+
+                {values[`${Data.key}_DynamicYesNo`] === "Yes" &&
                     <React.Fragment>
 
                         <div className='row justify-content-center mt-4'>
+                            <Divider orientation="center"
+                                style={{
+                                    color: '#36b446',
+                                    fontWeight: "700",
+                                    fontSize: "16px"
+                                }} >Condition diagnosed</Divider>
 
-                            <div className='col-md-2 pt-2'>
-                                <label htmlFor={`${Data.key}_diseaseAndConditions`} className='fw-bold'>Condition diagnosed</label>
-                            </div>
-                            <div className='col-md-3'>
-                                <Field
-                                    name={`${Data.key}_diseaseAndConditions`}
-                                    component={CreatableMultiSelectField}
-                                    label="Multi Select Field"
-                                    options={TreatmentOption}
-                                    onChange={handleMultiSelectChange}
-                                />
+                            <div className='col-md-8'>
+                                <div className='d-flex w-100 justify-content-center'>
+                                    <div style={{ minWidth: "25%" }}>
+                                        <Field
+                                            name={`${Data.key}_diseaseAndConditions`}
+                                            component={CreatableMultiSelectField}
+                                            label="Multi Select Field"
+                                            options={TreatmentOption}
+                                            onChange={handleMultiSelectChange}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className='row justify-content-center my-2'>
 
-                            {Array.isArray(values[`${Data.key}_diseaseAndConditions`]) &&
-                                values[`${Data.key}_diseaseAndConditions`].includes("Other") && (
-                                    <React.Fragment>
-                                        <div className='col-md-2'>
-                                            <label htmlFor={`${Data.key}_diseaseAndConditions`} className='fw-bold'>Other Details</label>
+                        {Array.isArray(values[`${Data.key}_diseaseAndConditions`]) &&
+                            values[`${Data.key}_diseaseAndConditions`].includes("Other") && (
+                                <div className='row justify-content-center'>
+                                    <div className='col-md-6'>
+                                        <div className='mt-4'>
+                                            {Array.from({ length: values[`${Data.key}_diseaseAndConditions`].length || 0 }).map((elem, i) => {
+                                                let diseaseAndConditions = values[`${Data.key}_diseaseAndConditions`];
+                                                return (
+                                                    <DynamicCard
+                                                        iconSrc={Images[diseaseAndConditions[i]]}
+                                                        Head={diseaseAndConditions[i]}
+                                                        altText="Medical History Icon"
+                                                    >
+                                                        <div className='col-md-12 mt-2'>
+                                                            <CInput label={"Other Details"} name={`${Data.key}_Other`} type="textarea" rows={2} />
+                                                        </div>
+                                                    </DynamicCard>
+                                                )
+                                            })}
                                         </div>
-                                        <div className='col-md-3 '>
-                                            <CInput name={`${Data.key}_Other`} type="textarea" rows={2} />
-                                        </div>
-                                    </React.Fragment>
-                                )}
+                                    </div>
+                                </div>
+                            )}
 
-                        </div>
 
                         {
                             Array.isArray(values[`${Data.key}_diseaseAndConditions`]) &&
@@ -199,22 +224,44 @@ const MentalHealthConditions = (props) => {
                             !values[`${Data.key}_diseaseAndConditions`].includes("Other") &&
                             !values[`${Data.key}_diseaseAndConditions`].includes("Unknown") && (
                                 <div className='row justify-content-center'>
-                                    <div className='col-md-10'>
+                                    <div className='col-md-6'>
                                         <div className='mt-4'>
-                                            <DynamicTableFields
-                                                headings={headings}
-                                                data={data}
-                                                onChange={() => { console.log("what the") }}
-                                                setFieldValue={setFieldValue}
-                                                handleBlur={handleBlur}
-                                                values={values}
-                                                handleChange={handleChange}
-                                            />
+                                            {Array.from({ length: values[`${Data.key}_diseaseAndConditions`].length || 0 }).map((elem, i) => {
+                                                let diseaseAndConditions = values[`${Data.key}_diseaseAndConditions`];
+                                                return (
+                                                    <DynamicCard
+                                                        iconSrc={Images[diseaseAndConditions[i]]}
+                                                        Head={diseaseAndConditions[i]}
+                                                        altText={diseaseAndConditions[i]}
+                                                    >
+                                                        <div className='col-md-12 mt-2'>
+                                                            <CInput setFieldValue={setFieldValue} handleBlur={handleBlur} values={values} name={`${Data.key}_DateOfDiagnosis${i}`} type="date" showYearPicker placeholder="yyyy" dateFormat="yyyy" label="Date of Diagnosis" />
+                                                        </div>
+                                                        <div className='col-md-12 my-2'>
+                                                            <label className='fw-bold w-100 text-center mb-2'>Hospitalizations</label>
+                                                            <DynamicYesNo name={`${Data.key}_Hospitalizations${i}`} values={values} handleChange={handleChange} />
+                                                        </div>
+                                                        <div className='col-md-12 mt-2'>
+                                                            <CInput label="Medications or Treatment" name={Data.key + "_MedicationsTreatment"} type="Select" options={MedicationOption} className={"form-select"} />
+                                                        </div>
+
+                                                        {values[Data.key + "_MedicationsTreatment"] === "Other" &&
+                                                            <div className='col-md-12 mt-2'>
+                                                                <CInput label="Other" name={Data.key + "_MedicationsTreatmentOther"} type="textarea" rows={2} />
+                                                            </div>
+                                                        }
+
+                                                    </DynamicCard>
+                                                )
+                                            })}
                                         </div>
                                     </div>
                                 </div>
                             )
                         }
+
+
+
 
                         {
                             Array.isArray(values[`${Data.key}_diseaseAndConditions`]) &&
@@ -234,17 +281,25 @@ const MentalHealthConditions = (props) => {
 
                                     {values[`${Data.key}_PsychologistCare`] !== "No, I have not seen a psychologist or undertaken a health care plan" &&
                                         <div className='row justify-content-center'>
-                                            <div className='col-md-10'>
+                                            <div className='col-md-6'>
                                                 <div className='mt-4'>
-                                                    <DynamicTableFields
-                                                        headings={PsychologistHeadings}
-                                                        data={PsychologistData}
-                                                        onChange={() => { console.log("what the") }}
-                                                        setFieldValue={setFieldValue}
-                                                        handleBlur={handleBlur}
-                                                        values={values}
-                                                        handleChange={handleChange}
-                                                    />
+
+                                                    <DynamicCard
+                                                        // iconSrc={}
+                                                        Head={""}
+                                                        altText={"kuch karo"}
+                                                    >
+                                                        <div className='col-md-12 mt-2'>
+                                                            <CInput label={"How many sessions have you completed?"} name={"_PsychologistSessions"} type={"number"} />
+                                                        </div>
+                                                        <div className='col-md-12 mt-2'>
+                                                            <CInput label={"Over what time period (e.g., months or years)?"} name={"_PsychologistTimePeriod"} type={"number"} />
+                                                        </div>
+                                                        <div className='col-md-12 my-2'>
+                                                            <label className='fw-bold w-100 text-center mb-2'>Are you undertaking this as part of your employer’s offering due to your occupation ?</label>
+                                                            <DynamicYesNo name={`${Data.key}_PsychologistEmployerOffering`} values={values} handleChange={handleChange} />
+                                                        </div>
+                                                    </DynamicCard>
                                                 </div>
                                             </div>
                                         </div>

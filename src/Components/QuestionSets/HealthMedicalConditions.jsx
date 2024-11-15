@@ -1,8 +1,6 @@
 import React from 'react'
 import DynamicQuestionBlocks from '../../assets/Custom/DynamicQuestionBlocks/DynamicQuestionBlocks'
 
-
-import overseas from "../../assets/Images/OccupationalFinancialInformation.png";
 import Health__Medical_History from "../../assets/Images/Health__Medical_History.png";
 import Diabetes from "../../assets/Images/Diabetes.png";
 import asthma from "../../assets/Images/asthma.png";
@@ -15,9 +13,6 @@ import HIV from "../../assets/Images/ribbon-HIV.png";
 import headache from "../../assets/Images/headache.png";
 import surgery from "../../assets/Images/surgery.png";
 import health from "../../assets/Images/High_Blood_Pressure_or_High_Cholesterol.png";
-
-//SVGs
-// import health from "../../assets/SVG/health-monitoring-svgrepo-com.svg";
 
 
 const HealthMedicalConditions = (props) => {

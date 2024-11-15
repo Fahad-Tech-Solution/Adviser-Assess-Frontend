@@ -31,7 +31,8 @@ const HighBloodPressureHighCholesterol = (props) => {
 
     return (
         <div className='row'>
-            <div className='col-md-12 pb-4 mb-1' >
+            <div className='col-md-12 pb-4 mb-1'>
+                
                 <div className='row justify-content-center d-none'>
                     <div className='col-md-12'>
                         <label htmlFor='yesNo' className='text-center w-100 fw-bold'>
@@ -42,10 +43,10 @@ const HighBloodPressureHighCholesterol = (props) => {
                         <DynamicYesNo name={`${Data.key}_DynamicYesNo`} values={values} handleChange={handleChange} />
                     </div>
                 </div>
+
                 <div className='row justify-content-center'>
                     <div className='col-md-6 mt-5'>
-                        {
-                            values[`${Data.key}_DynamicYesNo`] === "Yes" &&
+                        {values[`${Data.key}_DynamicYesNo`] === "Yes" &&
                             <React.Fragment>
                                 <div className='row justify-content-center' >
                                     {Array.from({ length: 1 }).map((elem, i) => {
@@ -69,18 +70,12 @@ const HighBloodPressureHighCholesterol = (props) => {
                                                 </div>
                                             </DynamicCard>
                                         )
-                                    })
-                                    }
-
-
-
+                                    })}
                                 </div>
-                            </React.Fragment>
-                        }
-
-
+                            </React.Fragment>}
                     </div>
                 </div>
+                
             </div>
         </div>
     )
