@@ -13,6 +13,8 @@ const QuestionsSet = (props) => {
 
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
 
+    let [submitFlag, setSubmitFlag] = useState(false);
+
     let location = useLocation();
     let Nev = useNavigate();
 
@@ -40,40 +42,84 @@ const QuestionsSet = (props) => {
         }
     };
 
+    // const handleNext = async () => {
+    //     localStorage.setItem("AdviserAssess", JSON.stringify(props.FormickOBj.values));
+
+    //     const [currentPath, cLocation] = location.pathname.split("/").slice(1, 3);
+
+
+
+    //     const MainPageIndex = Pages.findIndex(item => item.route === `/${currentPath}`);
+
+    //     if (MainPageIndex === -1) return; // Exit if main page not found
+
+    //     const innerPages = Pages[MainPageIndex].InnerPages.filter(page => page.condition(values));
+    //     const CurrentPageIndex = innerPages.findIndex(item => item.route === `/${cLocation}`);
+
+    //     // let Validate = await CheckLocationBasedField(currentPath, cLocation, innerPages, CurrentPageIndex)
+    //     // if (!Validate) {
+    //     //     return false;
+    //     // }
+
+    //     if (innerPages.length > 1 && CurrentPageIndex < innerPages.length - 1) {
+    //         // Navigate to the next inner page in the same main page
+    //         Nev(Pages[MainPageIndex].route + innerPages[CurrentPageIndex + 1].route);
+    //     } else if (MainPageIndex < Pages.length - 1) {
+    //         // Navigate to the first filtered inner page of the next main page
+    //         const nextMainPage = Pages[MainPageIndex + 1];
+
+    //         const nextInnerPages = nextMainPage.InnerPages.filter(page => page.condition(values));
+
+    //         if (nextInnerPages.length > 0) {
+    //             const nextFirstPage = nextInnerPages[0].route;
+    //             Nev(nextMainPage.route + nextFirstPage);
+    //         }
+    //     }
+    // };
+
     const handleNext = async () => {
+        // Save the form values to localStorage
         localStorage.setItem("AdviserAssess", JSON.stringify(props.FormickOBj.values));
 
         const [currentPath, cLocation] = location.pathname.split("/").slice(1, 3);
 
+        const main = Pages.filter(page => page.condition(true));
+
+        // alert("jump");
+        // Flatten the main pages and their inner pages into a single array with full routes
+        const SubPages = main.flatMap((elem) => {
+            return elem.InnerPages.map((innerPage) => ({
+                ...innerPage,
+                route: `${elem.route}${innerPage.route}` // Concatenate parent route with inner page route
+            }))
+        }
+        );
+
+        let conditionCheck2 = values
+
+        let innerPages = SubPages.filter(page => page.condition(conditionCheck2));
 
 
-        const MainPageIndex = Pages.findIndex(item => item.route === `/${currentPath}`);
+        // Find the current page's index in SubPages
+        const currentIndex = innerPages.findIndex((page) => page.route === `/${currentPath}/${cLocation || ""}`);
 
-        if (MainPageIndex === -1) return; // Exit if main page not found
+        console.log(currentIndex, `/${currentPath}/${cLocation}`, innerPages[currentIndex + 1])
 
-        const innerPages = Pages[MainPageIndex].InnerPages.filter(page => page.condition(values));
-        const CurrentPageIndex = innerPages.findIndex(item => item.route === `/${cLocation}`);
+        if (currentIndex === -1) return; // Exit if the current page is not found
 
-        // let Validate = await CheckLocationBasedField(currentPath, cLocation, innerPages, CurrentPageIndex)
-        // if (!Validate) {
-        //     return false;
+        // // If user is on the last page (/Declaration/), set submitFlag to true
+        // if (innerPages[currentIndex+1].route === "/Declaration/") {
+        //     setSubmitFlag(true);
+        //     // return;
         // }
 
-        if (innerPages.length > 1 && CurrentPageIndex < innerPages.length - 1) {
-            // Navigate to the next inner page in the same main page
-            Nev(Pages[MainPageIndex].route + innerPages[CurrentPageIndex + 1].route);
-        } else if (MainPageIndex < Pages.length - 1) {
-            // Navigate to the first filtered inner page of the next main page
-            const nextMainPage = Pages[MainPageIndex + 1];
-
-            const nextInnerPages = nextMainPage.InnerPages.filter(page => page.condition(values));
-
-            if (nextInnerPages.length > 0) {
-                const nextFirstPage = nextInnerPages[0].route;
-                Nev(nextMainPage.route + nextFirstPage);
-            }
+        // Check if there is a next page
+        if (currentIndex < innerPages.length - 1) {
+            // Navigate to the next page
+            Nev(innerPages[currentIndex + 1].route);
         }
     };
+
 
     let CheckLocationBasedField = async (currentPath, cLocation, innerPages, CurrentPageIndex) => {
 
@@ -166,6 +212,19 @@ const QuestionsSet = (props) => {
     }
 
 
+    useEffect(() => {
+        const [currentPath, cLocation] = location.pathname.split("/").slice(1, 3);
+
+        if ("/" + currentPath + "/" + cLocation === "/Declaration/") {
+            setSubmitFlag(true);
+        }
+        else {
+            setSubmitFlag(false);
+        }
+
+    }, [location])
+
+
 
 
     if (props.Data.Title === "Personal Details") {
@@ -197,9 +256,15 @@ const QuestionsSet = (props) => {
                         >Back </Button>
                     </div>
                     <div className='col-md-3 mt-4'>
-                        <Button type='button' className='btn submitBtn w-100' onClick={handleNext} >
-                            Next
-                        </Button>
+                        {submitFlag === true ?
+                            <Button type='submit' className='btn submitBtn w-100' >
+                                Submit
+                            </Button>
+                            :
+                            <Button type='button' className='btn submitBtn w-100' onClick={handleNext} >
+                                Next
+                            </Button>
+                        }
                     </div>
                 </div>
             </div>

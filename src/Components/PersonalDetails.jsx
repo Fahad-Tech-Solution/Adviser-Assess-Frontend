@@ -222,7 +222,7 @@ const PersonalDetails = (props) => {
             const touch = await setFieldTouched("EmailAddress");
             // console.log(errors, touch)
             if (!touch.EmailAddress) {
-              Nev('/OccupationalFinancialInformation');
+              Nev('/OccupationalFinancialInformation/');
             } else {
               console.log("Validation errors:", touch.EmailAddress);
             }

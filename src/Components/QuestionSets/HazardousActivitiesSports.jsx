@@ -12,10 +12,6 @@ import Other from "../../assets/Images/Heart-Disease-Conditions/heartDiseaseCond
 import alpine from "../../assets/Images/alpine.png";
 import travel from "../../assets/Images/travel-and-tourism.png";
 
-// import travel from "../../assets/Images/Hazardous activities or sports/Bull Riding.png";
-// import travel from "../../assets/Images/Hazardous activities or sports/Motor Racing.png";
-// import travel from "../../assets/Images/Hazardous activities or sports/Mountain Biking (2).png";
-
 import Australian from "../../assets/Images/Hazardous activities or sports/Australian Rules Football.png";
 import Base from "../../assets/Images/Hazardous activities or sports/Base Jumping.png";
 import bull from "../../assets/Images/Hazardous activities or sports/bull riding (2).png";
@@ -34,15 +30,9 @@ import Scuba from "../../assets/Images/Hazardous activities or sports/Scuba Divi
 import skydiving from "../../assets/Images/Hazardous activities or sports/skydiving.png";
 import Snowboarding from "../../assets/Images/Hazardous activities or sports/Snowboarding.png";
 import SurfingBigWaves from "../../assets/Images/Hazardous activities or sports/Surfing in Big Waves.png";
-import surfing from "../../assets/Images/Hazardous activities or sports/surfing.png";
+
 import White from "../../assets/Images/Hazardous activities or sports/White Water Rafting.png";
 import Wingsuit from "../../assets/Images/Hazardous activities or sports/Wingsuit Flying.png";
-
-
-
-
-
-
 
 const HazardousActivitiesSports = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
@@ -115,9 +105,7 @@ const HazardousActivitiesSports = (props) => {
 
     let Images = {
         "Surfing": alpine,
-        // surfing
         "Skydiving": skydiving,
-        // "Surfing": ,
         "Scuba Diving": Scuba,
         "Bungee Jumping": Bungee,
         "Motor Racing": motor,

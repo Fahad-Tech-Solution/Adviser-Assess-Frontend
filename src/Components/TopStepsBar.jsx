@@ -201,7 +201,7 @@ const TopStepsBar = (props) => {
         // Flatten all InnerPages from Pages where the condition is true
         const main = Pages.filter(page => page.condition(conditionCheck));
 
-        let SubPages =  main
+        let SubPages = main
             // .filter((Pelem) => Pelem.route === `/Health_MedicalHistory` || Pelem.route === `/LifestyleInformation` || Pelem.route === `/Declaration` || Pelem.route === `/FamilyMedicalHistory`)
             .flatMap((Pelem) =>
                 Pelem.InnerPages.map((innerPage) => ({

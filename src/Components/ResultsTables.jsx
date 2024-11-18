@@ -226,8 +226,7 @@ const ResultsTables = (props) => {
     };
 
     useEffect(() => {
-
-        if (values["heartDiseaseConditions_diseaseAndConditions"]) {
+        if (values["heartDiseaseConditions_diseaseAndConditions"] && values["heartDiseaseConditions_DynamicYesNo"] === "Yes") {
 
             const HeartDiseaseConditions = {
                 "Coronary Artery Disease (CAD)": {
@@ -295,17 +294,16 @@ const ResultsTables = (props) => {
                 // Optionally handle the error by logging or displaying a user-friendly message
             }
         }
+        else {
+            setSelectedConditions([])
+        }
 
         if (values["HighBloodPressureHighCholesterol_DynamicYesNo"]) {
-
-            ///Table Block 2
-
-
             // Check if the user selected "Yes" for High Blood Pressure and High Cholesterol
             setrenderHighBloodPressureCholesterolTable(values?.["HighBloodPressureHighCholesterol_DynamicYesNo"] === "Yes");
         }
 
-        if (values["RespiratoryConditions_diseaseAndConditions"]) {
+        if (values["RespiratoryConditions_diseaseAndConditions"] && values["RespiratoryConditions_DynamicYesNo"] === "Yes") {
             //Table block 3
 
             const PulmonaryConditions = {
@@ -315,7 +313,7 @@ const ResultsTables = (props) => {
                     "incomeProtection": "Exclusions for severe asthma-related claims.",
                     "traumaInsurance": "Exclusions for asthma-related trauma events."
                 },
-                "Chronic Obstructive Pulmonary Disease (COPD)": {
+                "Chronic Obstructive Pulmonary Disease(COPD)": {
                     "lifeInsurance": "Likely exclusions or declined for severe cases.",
                     "tpdInsurance": "Declined due to high disability risk.",
                     "incomeProtection": "Exclusions for COPD-related claims.",
@@ -344,6 +342,12 @@ const ResultsTables = (props) => {
                     "tpdInsurance": "Exclusions for disability related to sleep apnea.",
                     "incomeProtection": "Exclusions for sleep apnea-related claims.",
                     "traumaInsurance": "Exclusions for sleep apnea-related trauma events."
+                },
+                "Tuberculosis": {
+                    "lifeInsurance": "Mild cases accepted with loadings, severe cases face exclusions.",
+                    "tpdInsurance": "Exclusions for disability related to sleep apnea.",
+                    "incomeProtection": "Exclusions for sleep apnea-related claims.",
+                    "traumaInsurance": "Exclusions for sleep apnea-related trauma events."
                 }
             };
 
@@ -366,10 +370,12 @@ const ResultsTables = (props) => {
                 console.error("Error processing conditions:", error);
                 // Optionally handle the error by logging or displaying a user-friendly message
             }
+        } else {
+            setSelectedPulmonaryConditions([])
         }
 
 
-        if (values?.["CancerTumorsCysts_diseaseAndConditions"]) {
+        if (values?.["CancerTumorsCysts_diseaseAndConditions"] && values["CancerTumorsCysts_DynamicYesNo"] === "Yes") {
 
             //table Block 4
 
@@ -435,9 +441,11 @@ const ResultsTables = (props) => {
                 console.error("Error processing conditions:", error);
                 // Optionally handle the error by logging or displaying a user-friendly message
             }
+        } else {
+            setSelectedCancerConditions([])
         }
 
-        if (values["Diabetes_TypeDiabetes-0"]) {
+        if (values["Diabetes_TypeDiabetes-0"] && values["Diabetes_DynamicYesNo"] === "Yes") {
 
             //Table 5
 
@@ -473,10 +481,12 @@ const ResultsTables = (props) => {
                 console.error("Error processing conditions:", error);
                 // Optionally handle the error by logging or displaying a user-friendly message
             }
+        } else {
+            setSelectedDiabetesConditions([])
         }
 
 
-        if (values["MentalHealthConditions_diseaseAndConditions"]) {
+        if (values["MentalHealthConditions_diseaseAndConditions"] && values["MentalHealthConditions_DynamicYesNo"] === "Yes") {
 
             //Table 6
 
@@ -525,9 +535,11 @@ const ResultsTables = (props) => {
                 console.error("Error processing conditions:", error);
                 // Optionally handle the error by logging or displaying a user-friendly message
             }
+        } else {
+            setSelectedMentalHealthConditions([])
         }
 
-        if (values["BackNeckPain_diseaseAndConditions"]) {
+        if (values["BackNeckPain_diseaseAndConditions"] && values["BackNeckPains_DynamicYesNo"] === "Yes") {
             //Table 7
             const SpineAndBackConditions = {
                 "Lower Back Pain": {
@@ -590,9 +602,11 @@ const ResultsTables = (props) => {
                 console.error("Error processing conditions:", error);
                 // Optionally handle the error by logging or displaying a user-friendly message
             }
+        } else {
+            setSelectedSpineAndBackConditions([])
         }
 
-        if (values["StrokeNeurologicalConditions_diseaseAndConditions"]) {
+        if (values["StrokeNeurologicalConditions_diseaseAndConditions"] && values["StrokeNeurologicalConditions_DynamicYesNo"] === "Yes") {
 
             //Table 8
 
@@ -635,8 +649,11 @@ const ResultsTables = (props) => {
             }
 
         }
+        else {
+            setSelectedNeurologicalConditions([])
+        }
 
-        if (values["LiverKidneyGastrointestinalConditions_diseaseAndConditions"]) {
+        if (values["LiverKidneyGastrointestinalConditions_diseaseAndConditions"] && values["LiverKidneyGastrointestinalConditions_DynamicYesNo"] === "Yes") {
 
             //Table 9
 
@@ -681,9 +698,11 @@ const ResultsTables = (props) => {
                 console.error("Error processing conditions:", error);
                 // Optionally handle the error by logging or displaying a user-friendly message
             }
+        } else {
+            setSelectedOrganConditions([])
         }
 
-        if (values["ArthritisJointDisorders_diseaseAndConditions"]) {
+        if (values["ArthritisJointDisorders_diseaseAndConditions"] && values["ArthritisJointDisorders_DynamicYesNo"] === "Yes") {
             //Table 10
 
             const ArthritisConditions = {
@@ -724,11 +743,17 @@ const ResultsTables = (props) => {
                 console.error("Error processing conditions:", error);
                 // Optionally handle the error by logging or displaying a user-friendly message
             }
+        } else {
+            setSelectedArthritisConditions([])
         }
+
         //Table 11
-        if (values?.["HIVAIDSOtherImmuneSystemDisorders_diseaseAndConditions"]) {
+        if (values?.["HIVAIDSOtherImmuneSystemDisorders_diseaseAndConditions"] && values["HIVAIDSOtherImmuneSystemDisorders_DynamicYesNo"] === "Yes") {
 
             setrenderselectedHIVAIDSConditionCondition(values?.["HIVAIDSOtherImmuneSystemDisorders_diseaseAndConditions"].includes("HIV" || "AIDS"));
+        }
+        else {
+            setrenderselectedHIVAIDSConditionCondition(false);
         }
         //Table 12
 
@@ -881,7 +906,7 @@ const ResultsTables = (props) => {
         };
 
 
-        if (values["hazardousActivitiesSports_diseaseAndConditions"]) {
+        if (values["hazardousActivitiesSports_diseaseAndConditions"] && values["hazardousActivitiesSports_DynamicYesNo"] === "Yes") {
             try {
                 let hazardousActivitiesSports_diseaseAndConditions = values?.["hazardousActivitiesSports_diseaseAndConditions"].map(condition => {
                     // Check if the condition exists in HeartDiseaseConditions to avoid undefined values
@@ -899,6 +924,8 @@ const ResultsTables = (props) => {
                 console.error("Error processing conditions:", error);
                 // Optionally handle the error by logging or displaying a user-friendly message
             }
+        } else {
+            setSelectedHighRiskActivityInsuranceImpact([])
         }
 
         if (values?.["FamilyMedicalHistory_HeartDisease`"] === "Yes"
@@ -983,9 +1010,6 @@ const ResultsTables = (props) => {
             console.error("BMI value is not available.");
         }
 
-
-
-
     }, [values]); // Runs when `values` change
 
     return (
@@ -1026,7 +1050,9 @@ const ResultsTables = (props) => {
 
             {/* Render Table 2 */}
 
-            <div className='d-none'>
+            <div
+                className='d-none'
+            >
                 {/* Render Table for High Blood Pressure and High Cholesterol if "Yes" */}
                 {renderHighBloodPressureCholesterolTable && (
                     <Table striped bordered responsive hover id="resultTable2">
@@ -1057,7 +1083,7 @@ const ResultsTables = (props) => {
             {/* Render Table 3 */}
 
             <div
-                className='d-none'
+            className='d-none'
             >
                 <Table striped bordered responsive hover id="resultTable3">
                     <thead>
