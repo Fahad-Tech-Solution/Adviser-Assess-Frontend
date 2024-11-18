@@ -192,6 +192,88 @@ const validateName = (value) => {
     return filteredValue
 };
 
+
+const CheckValidation = async (currentPath, cLocation, validateForm, validateField, setFieldTouched, keyObj, values) => {
+    // Safely access diseaseAndConditions length or default to 0
+    const loopLength = values?.[`${keyObj.key}_diseaseAndConditions`]?.length || 0;
+    let hasErrors = false;
+
+    try {
+        // Iterate through each dynamic field and validate it
+        for (let i = 0; i < loopLength; i++) {
+            const fieldNameActivityType = `${keyObj.key}_ActivityType${i}`;
+            const fieldNameFrequency = `${keyObj.key}_Frequency${i}`;
+
+            // Mark fields as touched
+            await setFieldTouched(fieldNameActivityType, true, false);
+            await setFieldTouched(fieldNameFrequency, true, false);
+
+            // Validate the fields
+            await validateField(fieldNameActivityType);
+            await validateField(fieldNameFrequency);
+
+            // Check if any errors are present
+            const errors = await validateForm();
+            if (
+                errors[fieldNameActivityType] ||
+                errors[fieldNameFrequency]
+            ) {
+                hasErrors = true;
+            }
+        }
+
+        console.log("Validation complete. Errors:", hasErrors);
+    } catch (error) {
+        console.error("An error occurred during validation:", error);
+        hasErrors = true; // Treat exceptions as validation failures
+    }
+
+    // Return whether the form is valid or not
+    return !hasErrors;
+};
+
+const validateDynamicFields = async (
+    keyObj,
+    values,
+    dynamicFields,
+    setFieldTouched,
+    validateField,
+    validateForm
+) => {
+    let hasErrors = false;
+
+    try {
+        // Iterate through each dynamic field and validate it
+        for (let field of dynamicFields) {
+            const fieldName = `${keyObj.key}_${field.name}`;
+
+
+            // Mark the field as touched
+            await setFieldTouched(fieldName, true, false);
+
+            // Validate the field
+            await validateField(fieldName);
+
+            // Check if any errors are present
+            const errors = await validateForm();
+            console.log(errors)
+            if (errors[fieldName]) {
+                hasErrors = true;
+            }
+        }
+
+        console.log("Dynamic field validation complete. Errors:", hasErrors);
+    } catch (error) {
+        console.error("An error occurred during dynamic field validation:", error);
+        hasErrors = true; // Treat exceptions as validation failures
+    }
+
+    // Return whether the form is valid or not
+    return !hasErrors;
+};
+
+
+
 export {
     DeleteAxios,
     GetAxios,
@@ -208,6 +290,8 @@ export {
     handleInputFocus,
     handleInputKeyDown,
     handleInputBlur,
-    validateName
+    validateName,
+    CheckValidation,
+    validateDynamicFields
 };
 

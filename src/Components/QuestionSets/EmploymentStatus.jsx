@@ -7,6 +7,10 @@ import { useNavigate } from 'react-router-dom'
 import employed from "../../assets/Images/Occupational-Financial Information/Emplyment-Icon-1.png"
 import DynamicCard from '../../assets/Custom/DynamicCards/DynamicCard'
 import { Divider } from 'antd'
+import IncomeInformation from './IncomeInformation'
+import WorkEnvironment from './WorkEnvironment'
+import WeeklyWorkHours from './WeeklyWorkHours'
+import SelfEmploymentDetails from './SelfEmploymentDetails'
 
 
 const EmploymentStatus = (props) => {
@@ -63,6 +67,55 @@ const EmploymentStatus = (props) => {
                                 </React.Fragment>
                             }
                         </DynamicCard>
+
+
+
+                        <DynamicCard
+                            iconSrc={employed}
+                            Head={`Second Employment Details`}
+                            altText="Medical History Icon"
+                        >
+                            <div className='col-md-12 my-2'>
+                                <label className='fw-bold w-100 text-center mb-2'>Do you have a second occupation ?</label>
+                                <DynamicYesNo name={`SecondOccupation_DynamicYesNo`} values={values} handleChange={handleChange} />
+                            </div>
+                            {values[`SecondOccupation_DynamicYesNo`] === "Yes" &&
+                                <React.Fragment>
+                                    <div className='col-md-12 mt-2'>
+                                        <CInput name={`SecondOccupation_OccupationJobTitle`} type="text" label="Occupation/Job Title" />
+                                    </div>
+                                    <div className='col-md-12 mt-2'>
+                                        <CInput name={`SecondOccupation_EmploymentType`} options={optionsMultiSelect} className={"form-select"} type="select" label="Employment Type" />
+                                    </div>
+                                    {
+                                        values[`SecondOccupation_EmploymentType`] === "Other" &&
+                                        <div className='col-md-12 mt-2'>
+                                            <CInput name={`SecondOccupation_Other`} type="textarea" rows={2} label="Other" />
+                                        </div>
+                                    }
+                                </React.Fragment>
+                            }
+                        </DynamicCard>
+
+
+                        <IncomeInformation
+                            FormickOBj={props.FormickOBj}
+                            Data={props.Data} />
+
+                        <WorkEnvironment
+                            FormickOBj={props.FormickOBj}
+                            Data={props.Data} />
+
+                        <WeeklyWorkHours
+                            FormickOBj={props.FormickOBj}
+                            Data={props.Data} />
+                        {values[`${Data.key}_EmploymentType`] === "Self-employed" &&
+
+                            <SelfEmploymentDetails
+                                FormickOBj={props.FormickOBj}
+                                Data={props.Data} />
+
+                        }
                     </div>
                 </div>
             </div>

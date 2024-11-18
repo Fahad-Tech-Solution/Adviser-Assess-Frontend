@@ -1,19 +1,16 @@
 import React from 'react'
 import DynamicYesNo from '../../assets/Custom/DynamicYesNo/DynamicYesNo'
 import DynamicTableFields from '../../assets/Custom/DynamicTableFields'
+import DynamicCard from '../../assets/Custom/DynamicCards/DynamicCard'
+import CInput from '../../assets/Custom/CInput'
+
+import surgery from "../../assets/Images/surgery (1).png";
 
 const SurgeriesOperations = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
 
     let Data = props.Data
 
-    let HbA1cReadingOption = [
-        { value: "", label: "Select" },
-        { value: "Less than 5.7% (Normal)", label: "Less than 5.7% (Normal)" },
-        { value: "5.7% - 6.4% (Pre-Diabetes)", label: "5.7% - 6.4% (Pre-Diabetes)" },
-        { value: "6.5% or higher (Diabetes)", label: "6.5% or higher (Diabetes)" },
-        { value: "Unknown", label: "Unknown" },
-    ]
 
     let ElectiveRequiredSurgery = [
         { value: "", label: "Select" },
@@ -34,44 +31,11 @@ const SurgeriesOperations = (props) => {
         { value: "Operation type", label: "operation type" },
     ]
 
-    let TestChange = (e, rowIndex, heading) => {
-        console.log(e, rowIndex, heading.attribute)
-
-        switch (e.target.name) {
-            case Data.key + "_TypeDiabetes-" + rowIndex:
-                let ValueArray = e.target.value.map((item) => item.value)
-                setFieldValue(e.target.name, ValueArray)
-                break;
-            default:
-                setFieldValue(e.target.name, e.target.values)
-                break;
-        }
-    }
-
-    const headings = [
-        { label: "No#", attribute: "renderIndex" },
-        { label: "Type of surgery/operation", attribute: Data.key + "_TypeOfSurgeryOperation", onChange: TestChange, inputType: "select", options: TypeOfSurgeryOperation, styleSet: { minWidth: "13rem" } },
-        { label: "Date of surgery/operation", attribute: Data.key + "_DateOfSurgeryOperation", onChange: TestChange, inputType: "date", showYearPicker: true, placeholder: "yyyy", dateFormat: "yyyy" },
-        { label: "Was it elective or required surgery?", attribute: Data.key + "_ElectiveRequiredSurgery", onChange: TestChange, inputType: "select", options: ElectiveRequiredSurgery, className: "form-select" },
-        { label: "Current status", attribute: Data.key + "_CurrentStatus", attribute2: Data.key + "_CurrentStatusOther", onChange: TestChange, inputType: "select&textArea", options: CurrentStatus, className: "form-select" },
-
-    ];
-
-    const data = [
-        {
-            [`${Data.key}_TypeDiabetes`]: "",
-            [`${Data.key}_DateOfDiagnosis`]: "",
-            [`${Data.key}_Treatment`]: "",
-            [`${Data.key}_TreatmentOther`]: "",
-            [`${Data.key}_HbA1cReading`]: "",
-            [`${Data.key}_GlucoseReading`]: "",
-        }
-    ];
 
 
     return (
         <div className='row'>
-            <div className='col-md-12 pb-4 mb-1'>
+            <div className='col-md-12 pb-4 mb-1 mt-5'>
                 <div className='row justify-content-center d-none'>
                     <div className='col-md-12'>
                         <label htmlFor='yesNo' className='text-center w-100 fw-bold'>
@@ -84,15 +48,38 @@ const SurgeriesOperations = (props) => {
                 </div>
                 {
                     values[`${Data.key}_DynamicYesNo`] === "Yes" &&
-                    <React.Fragment>
-                        <div className='row justify-content-center'>
-                            <div className='col-md-10'>
-                                <div className='mt-4'>
-                                    <DynamicTableFields headings={headings} data={data} onChange={() => { console.log("what the") }} setFieldValue={setFieldValue} handleBlur={handleBlur} values={values} />
-                                </div>
+                    <div className='row justify-content-center'>
+                        <div className='col-md-6'>
+                            <div className='mt-4'>
+
+                                <DynamicCard
+                                    iconSrc={surgery}
+                                    Head={"Surgeries or Operations"}
+                                    altText={"kuch karo"}
+                                >
+                                    <div className='col-md-12 mt-2'>
+                                        <CInput label="Type of surgery/operation" name={Data.key + "_TypeOfSurgeryOperation"} type="Select" options={TypeOfSurgeryOperation} className={"form-select"} />
+                                    </div>
+                                    <div className='col-md-12 mt-2'>
+                                        <CInput setFieldValue={setFieldValue} handleBlur={handleBlur} values={values} name={`${Data.key}_DateOfDiagnosis`} type="date" showYearPicker placeholder="yyyy" dateFormat="yyyy" label="Date of Diagnosis" />
+                                    </div>
+                                    <div className='col-md-12 mt-2'>
+                                        <CInput label="Was it elective or required surgery?" name={Data.key + "_ElectiveRequiredSurgery"} type="Select" options={ElectiveRequiredSurgery} className={"form-select"} />
+                                    </div>
+                                    <div className='col-md-12 mt-2'>
+                                        <CInput label="Current status" name={Data.key + "_CurrentStatus"} type="Select" options={CurrentStatus} className={"form-select"} />
+                                    </div>
+
+                                    {values[Data.key + "_CurrentStatus"] === "Other" &&
+                                        <div className='col-md-12 mt-2'>
+                                            <CInput label="Current status Other" name={Data.key + "_CurrentStatus"} type="textarea" rows={2} />
+                                        </div>
+                                    }
+
+                                </DynamicCard>
                             </div>
                         </div>
-                    </React.Fragment>
+                    </div>
                 }
             </div>
         </div>

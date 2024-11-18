@@ -3,8 +3,46 @@ import DynamicYesNo from '../../assets/Custom/DynamicYesNo/DynamicYesNo'
 import { CreatableMultiSelectField } from '../../assets/Custom/CreateableMultiSelect/CreatableMultiSelectField'
 import { Field } from 'formik'
 import CInput from '../../assets/Custom/CInput'
-import { Table } from 'react-bootstrap'
-import DynamicTableFields from '../../assets/Custom/DynamicTableFields'
+
+import { Divider } from 'antd'
+import DynamicCard from '../../assets/Custom/DynamicCards/DynamicCard'
+
+import Other from "../../assets/Images/Heart-Disease-Conditions/heartDiseaseConditions_icon_8_otherDisease.png";
+
+import alpine from "../../assets/Images/alpine.png";
+import travel from "../../assets/Images/travel-and-tourism.png";
+
+// import travel from "../../assets/Images/Hazardous activities or sports/Bull Riding.png";
+// import travel from "../../assets/Images/Hazardous activities or sports/Motor Racing.png";
+// import travel from "../../assets/Images/Hazardous activities or sports/Mountain Biking (2).png";
+
+import Australian from "../../assets/Images/Hazardous activities or sports/Australian Rules Football.png";
+import Base from "../../assets/Images/Hazardous activities or sports/Base Jumping.png";
+import bull from "../../assets/Images/Hazardous activities or sports/bull riding (2).png";
+import Bungee from "../../assets/Images/Hazardous activities or sports/Bungee Jumping.png";
+import Caving from "../../assets/Images/Hazardous activities or sports/Caving or Spelunking.png";
+import Extreme from "../../assets/Images/Hazardous activities or sports/Extreme Hiking or Mountaineering.png";
+import Hang from "../../assets/Images/Hazardous activities or sports/Hang Gliding.png";
+import Jet from "../../assets/Images/Hazardous activities or sports/Jet Skiing.png";
+import Mixed from "../../assets/Images/Hazardous activities or sports/Mixed Martial Arts.png";
+import motor from "../../assets/Images/Hazardous activities or sports/motor racing .png";
+import Mountain from "../../assets/Images/Hazardous activities or sports/Mountain Biking.png";
+import Parkour from "../../assets/Images/Hazardous activities or sports/Parkour.png";
+import Rock from "../../assets/Images/Hazardous activities or sports/Rock Climbing.png";
+import Rugby from "../../assets/Images/Hazardous activities or sports/Rugby League.png";
+import Scuba from "../../assets/Images/Hazardous activities or sports/Scuba Diving.png";
+import skydiving from "../../assets/Images/Hazardous activities or sports/skydiving.png";
+import Snowboarding from "../../assets/Images/Hazardous activities or sports/Snowboarding.png";
+import SurfingBigWaves from "../../assets/Images/Hazardous activities or sports/Surfing in Big Waves.png";
+import surfing from "../../assets/Images/Hazardous activities or sports/surfing.png";
+import White from "../../assets/Images/Hazardous activities or sports/White Water Rafting.png";
+import Wingsuit from "../../assets/Images/Hazardous activities or sports/Wingsuit Flying.png";
+
+
+
+
+
+
 
 const HazardousActivitiesSports = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
@@ -14,7 +52,7 @@ const HazardousActivitiesSports = (props) => {
     let optionsMultiSelect = [
 
         { value: "Skydiving", label: "Skydiving" },
-        { value: "Surfing ", label: "Surfing " },
+        { value: "Surfing", label: "Surfing" },
         { value: "Scuba Diving", label: "Scuba Diving" },
         { value: "Bungee Jumping", label: "Bungee Jumping" },
         { value: "Motor Racing", label: "Motor Racing" },
@@ -72,45 +110,40 @@ const HazardousActivitiesSports = (props) => {
                 .filter((item) => item.value !== "Other" && item.value !== "Unknown")
                 .map((item) => item.value);
             setFieldValue(target.name, filtered);
-
-            // Update the data rendering array with filtered values
-            let DataRenderArray = [];
-
-            filtered.forEach((element) => {
-                let obj = {
-                    StaticString: element,
-                    [`${Data.key}_DateOfDiagnosis`]: "",
-                    [`${Data.key}_MedicationsTreatment`]: "",
-                    [`${Data.key}_Hospitalizations`]: "",
-                };
-                DataRenderArray.push(obj);
-            });
-
-            setData(DataRenderArray);
         }
     };
 
-    const [headings, setHeadings] = useState([
-        { label: "Name", attribute: "StaticString" },
-        { label: "Activity type", attribute: Data.key + "_ActivityType", inputType: "text", },
-        { label: "Frequency", attribute: Data.key + "_Frequency", inputType: "text", },
-        { label: "Are you insured for this activity?", attribute: Data.key + "_insuredForThisActivity", inputType: "YesNo", },
-    ]);
-
-    const [data, setData] = useState([
-        {
-            StaticString: "",
-            [`${Data.key}_DateOfDiagnosis`]: "",
-            [`${Data.key}_MedicationsTreatment`]: "",
-            [`${Data.key}_Hospitalizations`]: "",
-        }
-    ]);
-
+    let Images = {
+        "Surfing": alpine,
+        // surfing
+        "Skydiving": skydiving,
+        // "Surfing": ,
+        "Scuba Diving": Scuba,
+        "Bungee Jumping": Bungee,
+        "Motor Racing": motor,
+        "Rock Climbing": Rock,
+        "AFL (Australian Rules Football)": Australian,
+        "Rugby League": Rugby,
+        "Extreme Skiing or Snowboarding": Snowboarding,
+        "Mountain Biking": Mountain,
+        "Hang Gliding": Hang,
+        "Base Jumping": Base,
+        "Caving or Spelunking": Caving,
+        "White Water Rafting": White,
+        "Jet Skiing": Jet,
+        "Wingsuit Flying": Wingsuit,
+        "Surfing in Big Waves": SurfingBigWaves,
+        "Bull Riding": bull,
+        "Parkour": Parkour,
+        "Extreme Hiking or Mountaineering": Extreme,
+        "Mixed Martial Arts (MMA)": Mixed,
+        "Other": Other,
+    }
 
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
-                <div className='row justify-content-center'>
+                <div className='row justify-content-center d-none'>
                     <div className='col-md-12'>
                         <label htmlFor='yesNo' className='text-center w-100 fw-bold'>
                             Do you participate in any hazardous activities or sports?
@@ -122,60 +155,90 @@ const HazardousActivitiesSports = (props) => {
                         <DynamicYesNo name={`${Data.key}_DynamicYesNo`} values={values} handleChange={handleChange} />
                     </div>
                 </div>
-                {
-                    values[`${Data.key}_DynamicYesNo`] === "Yes" &&
+
+                {values[`${Data.key}_DynamicYesNo`] === "Yes" &&
                     <React.Fragment>
                         <div className='row justify-content-center mt-4'>
 
-                            <div className='col-md-5 pt-2'>
-                                <label htmlFor={`${Data.key}_diseaseAndConditions`} className='fw-bold'>Select the type of heart disease or condition that applies to you ?</label>
-                            </div>
-                            <div className='col-md-3'>
-                                <Field
-                                    name={`${Data.key}_diseaseAndConditions`}
-                                    component={CreatableMultiSelectField}
-                                    label="Multi Select Field"
-                                    options={optionsMultiSelect}
-                                    onChange={handleMultiSelectChange}
-                                />
-                            </div>
-                            {Array.isArray(values[`${Data.key}_diseaseAndConditions`]) &&
-                                values[`${Data.key}_diseaseAndConditions`].includes("Other") && (
-                                    <React.Fragment>
-                                        <div className='col-md-5 pt-2 mt-2'>
-                                            <label htmlFor={`${Data.key}_diseaseAndConditions`} className='fw-bold'>Other Details</label>
-                                        </div>
-                                        <div className='col-md-3 mt-2'>
-                                            <CInput name={`${Data.key}_Other`} type="textarea" rows={2} />
-                                        </div>
-                                    </React.Fragment>
-                                )}
+                            <Divider orientation="center"
+                                style={{
+                                    color: '#36b446',
+                                    fontWeight: "700",
+                                    fontSize: "16px"
+                                }} >Select the type of heart disease or condition that applies to you ?</Divider>
 
-                        </div>
-                        {(Array.isArray(values[`${Data.key}_diseaseAndConditions`]) && values[`${Data.key}_diseaseAndConditions`].length > 0 && !values[`${Data.key}_diseaseAndConditions`].includes("Other")) &&
-
-                            <div className='row justify-content-center'>
-                                <div className='col-md-8'>
-                                    <div className='mt-4'>
-                                        <DynamicTableFields
-                                            headings={headings}
-                                            data={data}
-                                            onChange={() => { console.log("what the") }}
-                                            setFieldValue={setFieldValue}
-                                            handleBlur={handleBlur}
-                                            values={values}
-                                            handleChange={handleChange}
+                            <div className='col-md-8'>
+                                <div className='d-flex w-100 justify-content-center'>
+                                    <div style={{ minWidth: "25%" }}>
+                                        <Field
+                                            name={`${Data.key}_diseaseAndConditions`}
+                                            component={CreatableMultiSelectField}
+                                            label="Multi Select Field"
+                                            options={optionsMultiSelect}
+                                            onChange={handleMultiSelectChange}
                                         />
                                     </div>
                                 </div>
                             </div>
+
+                            {Array.isArray(values[`${Data.key}_diseaseAndConditions`]) &&
+                                values[`${Data.key}_diseaseAndConditions`].includes("Other") && (
+                                    <div className='row justify-content-center'>
+                                        <div className='col-md-6'>
+                                            <div className='mt-4'>
+                                                {Array.from({ length: values[`${Data.key}_diseaseAndConditions`].length || 0 }).map((elem, i) => {
+                                                    let diseaseAndConditions = values[`${Data.key}_diseaseAndConditions`];
+                                                    return (
+                                                        <DynamicCard
+                                                            iconSrc={Images[diseaseAndConditions[i]]}
+                                                            Head={diseaseAndConditions[i]}
+                                                            altText="Medical History Icon"
+                                                        >
+                                                            <div className='col-md-12 mt-2'>
+                                                                <CInput label={"Other Details"} name={`${Data.key}_Other`} type="textarea" rows={2} />
+                                                            </div>
+                                                        </DynamicCard>
+                                                    )
+                                                })}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                        </div>
+
+                        {(Array.isArray(values[`${Data.key}_diseaseAndConditions`]) && values[`${Data.key}_diseaseAndConditions`].length > 0 && !values[`${Data.key}_diseaseAndConditions`].includes("Other")) &&
+                            <div className='row justify-content-center'>
+                                <div className='col-md-6'>
+                                    <div className='mt-4'>
+                                        {Array.from({ length: values[`${Data.key}_diseaseAndConditions`].length || 0 }).map((elem, i) => {
+                                            let diseaseAndConditions = values[`${Data.key}_diseaseAndConditions`];
+                                            return (
+                                                <DynamicCard
+                                                    iconSrc={Images[diseaseAndConditions[i]]}
+                                                    Head={diseaseAndConditions[i]}
+                                                    altText={diseaseAndConditions[i]}
+                                                >
+                                                    <div className='col-md-12 mt-2'>
+                                                        <CInput label={"Activity type"} name={Data.key + "_ActivityType" + i} type={"text"} />
+                                                    </div>
+                                                    <div className='col-md-12 mt-2'>
+                                                        <CInput label={"Frequency"} name={Data.key + "_Frequency" + i} type={"text"} />
+                                                    </div>
+                                                    <div className='col-md-12 my-2'>
+                                                        <label className='fw-bold w-100 text-center mb-2'>Are you insured for this activity?</label>
+                                                        <DynamicYesNo name={`${Data.key}_insuredForThisActivity${i}`} values={values} handleChange={handleChange} />
+                                                    </div>
+                                                </DynamicCard>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
                         }
-
-
                     </React.Fragment>
                 }
 
-                <div className='row justify-content-center mt-5'>
+                <div className='row justify-content-center mt-5 d-none'>
                     <div className='col-md-12'>
                         <label htmlFor='yesNo' className='text-center w-100 fw-bold'>
                             Have you traveled or do you plan to travel overseas to high-risk regions?
@@ -187,31 +250,38 @@ const HazardousActivitiesSports = (props) => {
                 </div>
 
                 {values[`${Data.key}_travelOverseas`] === "Yes" &&
-                    <React.Fragment>
-                        <div className='row justify-content-center mt-4'>
-                            <div className='col-md-2 pt-2'>
-                                <label className='fw-bold' htmlFor="">Country/region traveled to</label>
-                            </div>
-                            <div className='col-md-3'>
-                                <CInput
-                                    name={Data.key + "_RegionTraveled"}
-                                    type="text"
-                                />
+                    <div className='row justify-content-center'>
+                        <Divider orientation="center"
+                            style={{
+                                color: '#36b446',
+                                fontWeight: "700",
+                                fontSize: "16px"
+                            }} > Have you traveled or do you plan to travel overseas to high-risk regions?</Divider>
+                        <div className='col-md-6'>
+                            <div className='mt-4'>
+                                <DynamicCard
+                                    iconSrc={travel}
+                                    Head={"Travel overseas to high-risk regions"}
+                                    altText={"kuch karo"}
+                                >
+                                    <div className='col-md-12 mt-2'>
+                                        <CInput
+                                            label={"Country/region traveled to"}
+                                            name={Data.key + "_RegionTraveled"}
+                                            type="text"
+                                        />
+                                    </div>
+                                    <div className='col-md-12 mt-2'>
+                                        <CInput
+                                            label={"Date of travel"}
+                                            name={Data.key + "_DateTravel"}
+                                            type="text"
+                                        />
+                                    </div>
+                                </DynamicCard>
                             </div>
                         </div>
-                        <div className='row justify-content-center mt-2'>
-                            <div className='col-md-2 pt-2'>
-                                <label className='fw-bold' htmlFor="">Date of travel</label>
-                            </div>
-                            <div className='col-md-3'>
-                                <CInput
-                                    name={Data.key + "_DateTravel"}
-                                    type="text"
-                                />
-                            </div>
-                        </div>
-
-                    </React.Fragment>
+                    </div>
                 }
 
             </div>

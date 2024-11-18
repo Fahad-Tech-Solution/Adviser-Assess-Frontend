@@ -7,6 +7,8 @@ import smoke from "../../assets/Images/life-Q1-smoke.png";
 import vape from "../../assets/Images/life-Q2-vape.png";
 import alcohal from "../../assets/Images/life-Q3-alcohal.png";
 import drugs from "../../assets/Images/life-Q4-drugs.png";
+import alpine from "../../assets/Images/alpine.png";
+import travel from "../../assets/Images/travel-and-tourism.png";
 
 //SVGs
 import health from "../../assets/SVG/health-monitoring-svgrepo-com.svg";
@@ -19,24 +21,34 @@ const LifestyleInformationQuestions = (props) => {
 
     let QuestionArray = [
         {
-            title: "Do you smoke",
+            title: "Do you Smoke ?",
             img: smoke,
             key: "LifestyleInformation_SmokerYesNo",
         },
         {
-            title: "High Blood Pressure or High Cholesterol",
+            title: "Do you Vape ?",
             img: vape,
             key: "LifestyleInformation_VapeYesNo",
         },
         {
-            title: "Respiratory conditions",
+            title: "Do you consume alcohol ?",
             img: alcohal,
             key: "LifestyleInformation_alcohol",
         },
         {
-            title: "Cancer, Tumors, Cysts",
+            title: "Do you use recreational drugs ?",
             img: drugs,
             key: "LifestyleInformation_RecreationalDrugs",
+        },
+        {
+            title: "Do you participate in any hazardous activities or sports ?",
+            img: alpine,
+            key: "hazardousActivitiesSports_DynamicYesNo",
+        },
+        {
+            title: "Have you traveled or do you plan to travel overseas to high-risk regions?",
+            img: travel,
+            key: "hazardousActivitiesSports_travelOverseas",
         },
     ]
 

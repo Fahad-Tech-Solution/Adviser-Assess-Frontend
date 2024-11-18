@@ -62,7 +62,7 @@ const TopStepsBar = (props) => {
     useEffect(() => {
         const currentPath = location.pathname.split("/")[1] || "";
         const cLocation = location.pathname.split("/")[2] || "";
-        console.log(location.pathname, currentPath);
+        // console.log(location.pathname, currentPath);
 
         let stepComplete = 0;
         let mixCondition = false;
@@ -201,71 +201,26 @@ const TopStepsBar = (props) => {
         // Flatten all InnerPages from Pages where the condition is true
         const main = Pages.filter(page => page.condition(conditionCheck));
 
-        let SubPages = [];
-
-        // Check the condition and generate SubPages with concatenated routes
-        if (mixCondition) {
-            SubPages = main
-                .filter((Pelem) => Pelem.route === `/PersonalDetails` || Pelem.route === `/OccupationalFinancialInformation`)
-                .flatMap((Pelem) =>
-                    Pelem.InnerPages.map((innerPage) => ({
-                        ...innerPage,
-                        route: `${Pelem.route}${innerPage.route}` // Concatenate parent route with inner page route
-                    }))
-                );
-        } else if (mixConditionForLast4) {
-            SubPages = main
-                .filter((Pelem) => Pelem.route === `/Health_MedicalHistory` || Pelem.route === `/LifestyleInformation` || Pelem.route === `/Declaration` || Pelem.route === `/FamilyMedicalHistory`)
-                .flatMap((Pelem) =>
-                    Pelem.InnerPages.map((innerPage) => ({
-                        ...innerPage,
-                        route: `${Pelem.route}${innerPage.route}` // Concatenate parent route with inner page route
-                    }))
-                );
-
-            Health_MedicalHistoryCase.trueArray = main
-                .filter((Pelem) => Pelem.route === `/Health_MedicalHistory`)
-                .flatMap((Pelem) =>
-                    Pelem.InnerPages.map((innerPage) => ({
-                        ...innerPage,
-                        route: `${Pelem.route}${innerPage.route}` // Concatenate parent route with inner page route
-                    }))
-                );
-
-        } else {
-            SubPages = main
-                .filter((Pelem) => Pelem.route === `/${currentPath}`)
-                .flatMap((Pelem) =>
-                    Pelem.InnerPages.map((innerPage) => ({
-                        ...innerPage,
-                        route: `${Pelem.route}${innerPage.route}` // Concatenate parent route with inner page route
-                    }))
-                );
-        }
-
-        // Now SubPages will have the concatenated route structure as required
-
+        let SubPages =  main
+            // .filter((Pelem) => Pelem.route === `/Health_MedicalHistory` || Pelem.route === `/LifestyleInformation` || Pelem.route === `/Declaration` || Pelem.route === `/FamilyMedicalHistory`)
+            .flatMap((Pelem) =>
+                Pelem.InnerPages.map((innerPage) => ({
+                    ...innerPage,
+                    route: `${Pelem.route}${innerPage.route}` // Concatenate parent route with inner page route
+                }))
+            );
 
         let conditionCheck2 = values
 
         let innerPages = SubPages.filter(page => page.condition(conditionCheck2));
-        Health_MedicalHistoryCase.ConditionLength = (Health_MedicalHistoryCase.trueArray.filter(page => page.condition(conditionCheck2))).length;
 
-        // Check if innerPages length is greater than 7
-        if (Health_MedicalHistoryCase.status && innerPages.length > 7) {
-            // Get the current index of the user in the innerPages array (you need to determine the current page index here)
-            const currentIndex = innerPages.findIndex((page) => page.route === `/${currentPath}/${cLocation}`);
+        const currentIndex = innerPages.findIndex((page) => page.route === `/${currentPath}/${cLocation}`);
 
-            // If the user is on index 8 or greater, slice from index 8 to 17
-            if (currentIndex >= 12) {
-                innerPages = innerPages.slice(12, 19);
-            } else if (currentIndex >= 6) {
-                innerPages = innerPages.slice(6, 12);
-            } else {
-                // If the user is on index less than 8, slice the first 8 pages
-                innerPages = innerPages.slice(0, 6);
-            }
-        }
+        // Calculate the chunk (group of 5 pages) based on the current index
+        const chunkIndex = Math.floor(currentIndex / 6);
+
+        // Slice the 6 pages for the current chunk
+        innerPages = innerPages.slice(chunkIndex * 6, chunkIndex * 6 + 6);
 
         const iconMap = {
             FaBriefcase,
@@ -318,12 +273,10 @@ const TopStepsBar = (props) => {
             FaClipboardList
         };
 
-        console.log(innerPages)
+        // console.log(innerPages)
 
-
-
-        const currentIndex = innerPages.findIndex((innerPage) => innerPage.route === `/${currentPath}/${cLocation}`); // Find the current index based on the route
-
+        const chunkStartIndex = chunkIndex * 6;
+        const chunkEndIndex = chunkStartIndex + 6 - 1; // End index of the current chunk
 
         const updatedItems = innerPages.map((item, index) => {
             const IconComponent = iconMap[item.icon] || FaUser; // Default to FaUser if not found
@@ -333,16 +286,20 @@ const TopStepsBar = (props) => {
 
             let status;
 
-            if (index < currentIndex) {
+
+            const globalIndex = chunkStartIndex + index; // Map the local index to the global index
+
+            if (globalIndex < currentIndex) {
                 // Previous pages have been completed
                 status = 'finish';
-            } else if (index === currentIndex) {
+            } else if (globalIndex === currentIndex) {
                 // The current page is in progress
                 status = 'process';
             } else {
                 // Future pages are yet to be completed
                 status = 'wait';
             }
+
 
             return {
                 ...item,

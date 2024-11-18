@@ -101,7 +101,7 @@ const HealthMedicalConditions = (props) => {
 
     return (
         <div className="container">
-            <div className="row mb-3 mt-1 justify-content-center">
+            <div className="row mb-3 mt-1 justify-content-center mt-5">
                 <div className='col-md-12'>
                     <h5 className=' text-center'>Do you have any of the following Health Issues ?</h5>
                 </div>

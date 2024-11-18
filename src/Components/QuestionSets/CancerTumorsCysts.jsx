@@ -9,6 +9,20 @@ import { Divider } from 'antd'
 
 import Other from "../../assets/Images/Heart-Disease-Conditions/heartDiseaseConditions_icon_8_otherDisease.png";
 
+import benign from "../../assets/Images/cancer/benign-Tumor-min.png";
+import brain from "../../assets/Images/cancer/brain-cancer-min.png";
+import breast from "../../assets/Images/cancer/breast-cancer-min.png";
+import cancer from "../../assets/Images/cancer/cancer-ribbon-min.png";
+import colorectal from "../../assets/Images/cancer/colorectal-cancer-min.png";
+import cyst from "../../assets/Images/cancer/cyst-min.png";
+import lung from "../../assets/Images/cancer/lung-cancer-min.png";
+import lymphoma from "../../assets/Images/cancer/lymphoma-min.png";
+import prostate from "../../assets/Images/cancer/prostate-cancer (1)-min.png";
+import prostate_cancer from "../../assets/Images/cancer/prostate-cancer-min.png";
+import skin from "../../assets/Images/cancer/skin-cancer-min.png";
+
+
+
 const CancerTumorsCysts = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
 
@@ -65,46 +79,24 @@ const CancerTumorsCysts = (props) => {
                 .map((item) => item.value);
             setFieldValue(target.name, filtered);
 
-            // Update the data rendering array with filtered values
-            let DataRenderArray = [];
-
-            filtered.forEach((element) => {
-                let obj = {
-                    StaticString: element,
-                    [`${Data.key}_DateOfDiagnosis`]: "",
-                    [`${Data.key}_MedicationsTreatment`]: "",
-                    [`${Data.key}_Hospitalizations`]: "",
-                };
-                DataRenderArray.push(obj);
-            });
-
-            setData(DataRenderArray);
         }
     };
 
-    let TestChange = (e, rowIndex, heading) => {
-        console.log(e, rowIndex, heading.attribute)
-        setFieldValue(e.target.name, e.target.values)
-    }
-
-    const [headings, setHeadings] = useState([
-        { label: "Name", attribute: "StaticString" },
-        { label: "Date of Diagnosis", attribute: Data.key + "_DateOfDiagnosis", onChange: TestChange, inputType: "date", showYearPicker: true, placeholder: "yyyy", dateFormat: "yyyy" },
-        { label: "Treatments or Surgery", attribute: Data.key + "_Treatment", onChange: TestChange, inputType: "textarea", rows: "1" },
-        { label: "Current Condition", attribute: Data.key + "_CurrentCondition", onChange: TestChange, inputType: "textarea", rows: "1" },
-    ]);
-
-    const [data, setData] = useState([
-        {
-            StaticString: "",
-        }
-    ]);
-
-
     let Images = {
+        "Breast Cancer": breast,
+        "Lung Cancer": lung,
+        "Prostate Cancer": prostate,
+        "Colorectal Cancer": colorectal,
+        "Skin Cancer (e.g., Melanoma)": skin,
+        "Lymphoma": lymphoma,
+        "Brain Tumor": brain,
+        "Ovarian Cancer": prostate_cancer,
+        "Benign Tumor": benign,
+        "Cyst (e.g., Ovarian Cyst, Kidney Cyst)": cyst,
         "Other": Other,
     }
-
+    
+    // cancer > eXTRA FOR oTHER
 
     return (
         <div className='row'>

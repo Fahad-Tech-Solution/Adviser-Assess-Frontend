@@ -11,6 +11,15 @@ import { Divider } from 'antd'
 
 import asthma from "../../assets/Images/asthma.png";
 
+import bronchitis from "../../assets/Images/lungs/bronchitis.png";
+import emphysema from "../../assets/Images/lungs/emphysema.png";
+import lungs from "../../assets/Images/lungs/lungs.png";
+import pills from "../../assets/Images/lungs/pills.png";
+import pneumonia from "../../assets/Images/lungs/pneumonia.png";
+import pneumoniaAndPulmonary from "../../assets/Images/lungs/pneumoniaAndPulmonary.png";
+import copd from "../../assets/Images/lungs/copd.png";
+import tuberculosis from "../../assets/Images/lungs/tuberculosis.png";
+
 const RespiratoryConditions = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
 
@@ -85,6 +94,13 @@ const RespiratoryConditions = (props) => {
 
     let Images = {
         "Asthma": asthma,
+        "Chronic Obstructive Pulmonary Disease(COPD)": copd,
+        "Bronchitis": bronchitis,
+        "Emphysema": emphysema,
+        "Pneumonia": pneumonia,
+        "Pulmonary Fibrosis": pneumoniaAndPulmonary,
+        "Sleep Apnea": pills,
+        "Tuberculosis": tuberculosis,
         "Other": Other,
     }
 

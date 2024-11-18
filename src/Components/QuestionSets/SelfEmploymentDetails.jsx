@@ -17,8 +17,6 @@ const SelfEmploymentDetails = (props) => {
             <div className='col-md-12 pb-4 mb-1'>
 
 
-                <div className='row justify-content-center'>
-                    <div className='col-md-6 mt-5'>
                         <DynamicCard
                             iconSrc={WorkFromHome}
                             Head={`Self Employment Details`}
@@ -43,8 +41,7 @@ const SelfEmploymentDetails = (props) => {
                                 <CInput label={"Net Profit"} id={`${Data.key}_NetProfit`} name={`${Data.key}_NetProfit`} type="text" onChangeCallback={(v, setFieldValue, currentInput) => { setFieldValue(currentInput.name, toCommaAndDollar(currentInput.value.replace(/[^0-9.-]+/g, ""))) }} />
                             </div>
                         </DynamicCard>
-                    </div>
-                </div>
+
             </div>
         </div>
     )

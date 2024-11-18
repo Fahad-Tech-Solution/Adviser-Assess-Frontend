@@ -24,8 +24,7 @@ const WorkEnvironment = (props) => {
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
 
-                <div className='row justify-content-center'>
-                    <div className='col-md-6 mt-5'>
+
                         <DynamicCard
                             iconSrc={WorkEnvironmentIcon}
                             Head={`Work Environment`}
@@ -49,8 +48,7 @@ const WorkEnvironment = (props) => {
 
                                 </React.Fragment>}
                         </DynamicCard>
-                    </div>
-                </div>
+
             </div>
         </div>
     )

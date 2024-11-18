@@ -973,7 +973,7 @@ const ResultsTables = (props) => {
             // Retrieve the insurance impact details for the determined category
             const insuranceImpact = BmiInsuranceImpact[bmiCategory];
 
-            console.log(insuranceImpact, bmiCategory)
+            // console.log(insuranceImpact, bmiCategory)
             // Use the insuranceImpact data as needed
             setSelectedBmiInsuranceImpact([{
                 name: bmiCategory,

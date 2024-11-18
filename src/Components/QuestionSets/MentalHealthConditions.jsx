@@ -8,6 +8,17 @@ import DynamicCard from '../../assets/Custom/DynamicCards/DynamicCard'
 import { Divider } from 'antd'
 import Other from "../../assets/Images/Heart-Disease-Conditions/heartDiseaseConditions_icon_8_otherDisease.png";
 
+import anxiety from "../../assets/Images/Mental Health/anxiety.png";
+import bipolar from "../../assets/Images/Mental Health/bipolar.png";
+import loneliness from "../../assets/Images/Mental Health/loneliness.png";
+import medical from "../../assets/Images/Mental Health/medical-report.png";
+import narcissism from "../../assets/Images/Mental Health/narcissism.png";
+import schizophrenia from "../../assets/Images/Mental Health/schizophrenia (1).png";
+import stress from "../../assets/Images/Mental Health/stress.png";
+
+
+
+
 const MentalHealthConditions = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
 
@@ -149,8 +160,15 @@ const MentalHealthConditions = (props) => {
 
 
     let Images = {
+        "Anxiety": anxiety,
+        "Depression": loneliness,
+        "Bipolar Disorder": bipolar,
+        "Schizophrenia": schizophrenia,
+        "Post - Traumatic Stress Disorder(PTSD)": stress,
+        "Obsessive - Compulsive Disorder(OCD)": narcissism,
         "Other": Other,
     }
+    // medical
 
 
     return (
@@ -242,12 +260,12 @@ const MentalHealthConditions = (props) => {
                                                             <DynamicYesNo name={`${Data.key}_Hospitalizations${i}`} values={values} handleChange={handleChange} />
                                                         </div>
                                                         <div className='col-md-12 mt-2'>
-                                                            <CInput label="Medications or Treatment" name={Data.key + "_MedicationsTreatment"} type="Select" options={MedicationOption} className={"form-select"} />
+                                                            <CInput label="Medications or Treatment" name={Data.key + "_MedicationsTreatment" + i} type="Select" options={MedicationOption} className={"form-select"} />
                                                         </div>
 
-                                                        {values[Data.key + "_MedicationsTreatment"] === "Other" &&
+                                                        {values[Data.key + "_MedicationsTreatment" + i] === "Other" &&
                                                             <div className='col-md-12 mt-2'>
-                                                                <CInput label="Other" name={Data.key + "_MedicationsTreatmentOther"} type="textarea" rows={2} />
+                                                                <CInput label="Other" name={Data.key + "_MedicationsTreatmentOther" + i} type="textarea" rows={2} />
                                                             </div>
                                                         }
 
@@ -279,21 +297,21 @@ const MentalHealthConditions = (props) => {
                                         </div>
                                     </div>
 
-                                    {values[`${Data.key}_PsychologistCare`] !== "No, I have not seen a psychologist or undertaken a health care plan" &&
+                                    {values[`${Data.key}_PsychologistCare`] !== "No, I have not seen a psychologist or undertaken a health care plan" && values[`${Data.key}_PsychologistCare`] !== "" &&
                                         <div className='row justify-content-center'>
                                             <div className='col-md-6'>
                                                 <div className='mt-4'>
 
                                                     <DynamicCard
-                                                        // iconSrc={}
-                                                        Head={""}
+                                                        iconSrc={medical}
+                                                        Head={"Mental Health Care Plan"}
                                                         altText={"kuch karo"}
                                                     >
                                                         <div className='col-md-12 mt-2'>
-                                                            <CInput label={"How many sessions have you completed?"} name={"_PsychologistSessions"} type={"number"} />
+                                                            <CInput label={"How many sessions have you completed?"} name={Data.key + "_PsychologistSessions"} type={"number"} />
                                                         </div>
                                                         <div className='col-md-12 mt-2'>
-                                                            <CInput label={"Over what time period (e.g., months or years)?"} name={"_PsychologistTimePeriod"} type={"number"} />
+                                                            <CInput label={"Over what time period (e.g., months or years)?"} name={Data.key + "_PsychologistTimePeriod"} type={"number"} />
                                                         </div>
                                                         <div className='col-md-12 my-2'>
                                                             <label className='fw-bold w-100 text-center mb-2'>Are you undertaking this as part of your employer’s offering due to your occupation ?</label>

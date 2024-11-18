@@ -92,7 +92,7 @@ const Content = {
                     route: '/Q2',
                     key: "SecondOccupation",
                     components: <EmploymentStatus />,
-                    condition: (CRObject) => true,
+                    condition: (CRObject) => false,
                 },
                 {
                     Title: 'Income Information',
@@ -101,7 +101,7 @@ const Content = {
                     route: '/Q3',
                     key: "IncomeInformation",
                     components: <IncomeInformation />,
-                    condition: (CRObject) => true,
+                    condition: (CRObject) => false,
                 },
                 {
                     Title: 'Work Environment',
@@ -110,7 +110,7 @@ const Content = {
                     route: '/Q4',
                     key: "workEnvironment",
                     components: <WorkEnvironment />,
-                    condition: (CRObject) => true,
+                    condition: (CRObject) => false,
                 },
                 {
                     Title: 'Weekly Work Hours',
@@ -119,7 +119,7 @@ const Content = {
                     route: '/Q5',
                     key: "weeklyWorkHours",
                     components: <WeeklyWorkHours />,
-                    condition: (CRObject) => true,
+                    condition: (CRObject) => false,
                 },
                 {
                     Title: 'Self-Employment Details',
@@ -128,7 +128,8 @@ const Content = {
                     route: '/Q6',
                     key: "SelfEmploymentDetails",
                     components: <SelfEmploymentDetails />,
-                    condition: (CRObject) => { return CRObject[`EmploymentStatus_EmploymentType`] === "Self-employed" }
+                    // condition: (CRObject) => { return CRObject[`EmploymentStatus_EmploymentType`] === "Self-employed" }
+                    condition: (CRObject) => false
                 },
             ],
         },
@@ -302,7 +303,13 @@ const Content = {
                     route: '/Q2',
                     key: "hazardousActivitiesSports",
                     components: <HazardousActivitiesSports />,
-                    condition: (CRObject) => true,
+                    // condition: (CRObject) => true,
+                    condition: (CRObject) => {
+                        return (
+                            CRObject[`hazardousActivitiesSports_DynamicYesNo`] === "Yes" ||
+                            CRObject[`hazardousActivitiesSports_travelOverseas`] === "Yes"
+                        )
+                    },
                 },
             ],
         },
