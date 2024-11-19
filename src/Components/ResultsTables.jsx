@@ -658,21 +658,21 @@ const ResultsTables = (props) => {
             //Table 9
 
             const OrganConditions = {
-                "Liver condition": {
+                "Liver Condition": {
                     "condition": "Liver Condition (e.g., Cirrhosis)",
                     "lifeInsurance": "Loadings or exclusions for liver-related conditions. Severe cases may be declined.",
                     "tpdInsurance": "Exclusions or decline for liver-related disabilities.",
                     "incomeProtection": "Exclusions for claims related to liver disease.",
                     "traumaInsurance": "Exclusions for liver-related trauma (e.g., liver failure)."
                 },
-                "Kidney condition": {
+                "Kidney Condition": {
                     "condition": "Kidney Condition (e.g., Kidney Failure)",
                     "lifeInsurance": "Loadings or exclusions based on severity. Severe cases are likely declined.",
                     "tpdInsurance": "Exclusions for disability related to kidney failure or decline if advanced.",
                     "incomeProtection": "Exclusions for kidney-related claims.",
                     "traumaInsurance": "Exclusions for kidney failure-related trauma events."
                 },
-                "Gastrointestinal condition": {
+                "Gastrointestinal Condition": {
                     "condition": "Gastrointestinal Condition (e.g., Crohn’s)",
                     "lifeInsurance": "Loadings or exclusions based on severity and surgical history.",
                     "tpdInsurance": "Exclusions for gastrointestinal-related disabilities.",
@@ -1083,7 +1083,7 @@ const ResultsTables = (props) => {
             {/* Render Table 3 */}
 
             <div
-            className='d-none'
+                className='d-none'
             >
                 <Table striped bordered responsive hover id="resultTable3">
                     <thead>

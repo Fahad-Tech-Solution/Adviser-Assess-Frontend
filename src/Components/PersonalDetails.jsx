@@ -78,7 +78,7 @@ const PersonalDetails = (props) => {
         <div className='col-md-3'></div>
 
         <div className='col-md-3'>
-          <label className="fw-bold" htmlFor='DateBirth'>Date Birth :</label>
+          <label className="fw-bold" htmlFor='DateBirth'>Date of Birth :</label>
         </div>
         <div className="col-md-3">
           <CInput

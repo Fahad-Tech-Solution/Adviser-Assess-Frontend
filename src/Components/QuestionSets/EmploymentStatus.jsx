@@ -4,6 +4,7 @@ import CInput from '../../assets/Custom/CInput'
 import { Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
+import partTime from "../../assets/Images/part-time.png"
 import employed from "../../assets/Images/Occupational-Financial Information/Emplyment-Icon-1.png"
 import DynamicCard from '../../assets/Custom/DynamicCards/DynamicCard'
 import { Divider } from 'antd'
@@ -71,7 +72,7 @@ const EmploymentStatus = (props) => {
 
 
                         <DynamicCard
-                            iconSrc={employed}
+                            iconSrc={partTime}
                             Head={`Second Employment Details`}
                             altText="Medical History Icon"
                         >

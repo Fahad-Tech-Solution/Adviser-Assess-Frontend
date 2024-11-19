@@ -1,26 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import DynamicYesNo from '../../assets/Custom/DynamicYesNo/DynamicYesNo'
-import { CreatableMultiSelectField } from '../../assets/Custom/CreateableMultiSelect/CreatableMultiSelectField'
-import { Field } from 'formik'
 import CInput from '../../assets/Custom/CInput'
-import { Table } from 'react-bootstrap'
-import DynamicTableFields from '../../assets/Custom/DynamicTableFields'
-import { Divider } from 'antd'
 
 
 import smoke from "../../assets/Images/life-Q1-smoke.png";
-import vape from "../../assets/Images/life-Q2-vape.png";
 import alcohal from "../../assets/Images/life-Q3-alcohal.png";
 import drugs from "../../assets/Images/life-Q4-drugs.png";
 import DynamicCard from '../../assets/Custom/DynamicCards/DynamicCard'
 
 
 const LifestyleInformation = (props) => {
-    let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
+    let { setFieldValue, handleBlur, values, handleChange } = props.FormickOBj
 
     let Data = props.Data
-
-
 
     let SmokingOption = [
         { value: "", label: "Select" },
@@ -47,9 +39,6 @@ const LifestyleInformation = (props) => {
 
     }, [values])
 
-
-
-
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
@@ -58,7 +47,6 @@ const LifestyleInformation = (props) => {
                 <div className='row justify-content-center'>
                     <div className='col-md-6'>
                         <div className='mt-4'>
-
                             <DynamicCard
                                 iconSrc={smoke}
                                 Head={"Smoke or Vape"}
@@ -121,7 +109,6 @@ const LifestyleInformation = (props) => {
                     <div className='row justify-content-center'>
                         <div className='col-md-6'>
                             <div className='mt-4'>
-
                                 <DynamicCard
                                     iconSrc={alcohal}
                                     Head={"Alcohol"}
@@ -148,11 +135,10 @@ const LifestyleInformation = (props) => {
                     <div className='row justify-content-center'>
                         <div className='col-md-6'>
                             <div className='mt-4'>
-
                                 <DynamicCard
                                     iconSrc={drugs}
-                                    Head={"Alcohol"}
-                                    altText={"kuch karo"}
+                                    Head={"Drugs"}
+                                    altText={"Drugs"}
                                 >
                                     <div className='col-md-12 mt-2'>
                                         <CInput

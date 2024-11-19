@@ -20,9 +20,9 @@ const LiverKidneyGastrointestinalConditions = (props) => {
     let Data = props.Data
 
     let optionsMultiSelect = [
-        { value: "Liver condition", label: "Liver condition" },
-        { value: "Kidney condition", label: "Kidney condition" },
-        { value: "Gastrointestinal condition", label: "Gastrointestinal condition" },
+        { value: "Liver Condition", label: "Liver Condition" },
+        { value: "Kidney Condition", label: "Kidney Condition" },
+        { value: "Gastrointestinal Condition", label: "Gastrointestinal Condition" },
         { value: "Other", label: "Other" },
     ]
 
@@ -73,9 +73,9 @@ const LiverKidneyGastrointestinalConditions = (props) => {
     ]
 
     let Images = {
-        "Liver condition": Liver,
-        "Kidney condition": Kidney,
-        "Gastrointestinal condition": Gastrointestinal,
+        "Liver Condition": Liver,
+        "Kidney Condition": Kidney,
+        "Gastrointestinal Condition": Gastrointestinal,
         "Other": Other,
     }
 
@@ -102,7 +102,7 @@ const LiverKidneyGastrointestinalConditions = (props) => {
                                     color: '#36b446',
                                     fontWeight: "700",
                                     fontSize: "16px"
-                                }} >Condition diagnosed</Divider>
+                                }} >Condition Diagnosed</Divider>
 
                             <div className='col-md-8'>
                                 <div className='d-flex w-100 justify-content-center'>
