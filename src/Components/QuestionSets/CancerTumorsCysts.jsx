@@ -95,7 +95,7 @@ const CancerTumorsCysts = (props) => {
         "Cyst (e.g., Ovarian Cyst, Kidney Cyst)": cyst,
         "Other": Other,
     }
-    
+
     // cancer > eXTRA FOR oTHER
 
     return (
@@ -121,7 +121,7 @@ const CancerTumorsCysts = (props) => {
                                     color: '#36b446',
                                     fontWeight: "700",
                                     fontSize: "16px"
-                                }} >Select the type of heart disease or condition that applies to you ?</Divider>
+                                }} >Select the type of Cancer, Tumors, or Cysts condition that applies to you ?</Divider>
 
                             <div className='col-md-8'>
                                 <div className='d-flex w-100 justify-content-center'>

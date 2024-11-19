@@ -35,6 +35,7 @@ const Diabetes = (props) => {
     ]
 
     let TypeDiabetesOption = [
+        { value: "", label: "Select" },
         { value: "Type 1 Diabetes", label: "Type 1" },
         { value: "Type 2 Diabetes", label: "Type 2" },
     ]

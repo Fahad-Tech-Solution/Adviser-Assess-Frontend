@@ -54,7 +54,8 @@ const SurgeriesOperations = (props) => {
 
                                 <DynamicCard
                                     iconSrc={surgery}
-                                    Head={"Surgeries or Operations"}
+                                    // Head={"Surgeries or Operations"}
+                                    Head={"Any surgeries or operations in the past 10 years"}
                                     altText={"kuch karo"}
                                 >
                                     <div className='col-md-12 mt-2'>
@@ -72,7 +73,7 @@ const SurgeriesOperations = (props) => {
 
                                     {values[Data.key + "_CurrentStatus"] === "Other" &&
                                         <div className='col-md-12 mt-2'>
-                                            <CInput label="Current status Other" name={Data.key + "_CurrentStatus"} type="textarea" rows={2} />
+                                            <CInput label="Current status Other" name={Data.key + "_CurrentStatusOther"} type="textarea" rows={2} />
                                         </div>
                                     }
 

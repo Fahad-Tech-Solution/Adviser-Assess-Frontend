@@ -43,7 +43,7 @@ import Content from '../assets/Content';
 import { IoBriefcase, IoBriefcaseOutline } from 'react-icons/io5';
 import { AiOutlineDollarCircle } from 'react-icons/ai';
 import { BsClockHistory } from 'react-icons/bs';
-import { openNotification } from '../assets/Api/Api';
+import { handleTouchFields, openNotification } from '../assets/Api/Api';
 import { PiBrain } from 'react-icons/pi';
 import { GiFamilyHouse, GiKidneys, GiKneeCap, GiMeal, GiParachute } from 'react-icons/gi';
 import { FaHeartbeat, FaProcedures } from 'react-icons/fa';
@@ -58,6 +58,9 @@ const TopStepsBar = (props) => {
 
     const location = useLocation();
     const navigate = useNavigate();
+
+    const isMobile = window.innerWidth <= 768;
+
 
     useEffect(() => {
         const currentPath = location.pathname.split("/")[1] || "";
@@ -215,12 +218,23 @@ const TopStepsBar = (props) => {
         let innerPages = SubPages.filter(page => page.condition(conditionCheck2));
 
         const currentIndex = innerPages.findIndex((page) => page.route === `/${currentPath}/${cLocation}`);
+        let chunkIndex
+       
+        if (isMobile) {
 
-        // Calculate the chunk (group of 5 pages) based on the current index
-        const chunkIndex = Math.floor(currentIndex / 6);
+            // Calculate the chunk (group of 5 pages) based on the current index
+            chunkIndex = Math.floor(currentIndex / 3);
 
-        // Slice the 6 pages for the current chunk
-        innerPages = innerPages.slice(chunkIndex * 6, chunkIndex * 6 + 6);
+            // Slice the 6 pages for the current chunk
+            innerPages = innerPages.slice(chunkIndex * 3, chunkIndex * 3 + 3);
+        } else {
+
+            // Calculate the chunk (group of 5 pages) based on the current index
+            chunkIndex = Math.floor(currentIndex / 6);
+
+            // Slice the 6 pages for the current chunk
+            innerPages = innerPages.slice(chunkIndex * 6, chunkIndex * 6 + 6);
+        }
 
         const iconMap = {
             FaBriefcase,
@@ -273,10 +287,20 @@ const TopStepsBar = (props) => {
             FaClipboardList
         };
 
-        // console.log(innerPages)
+        let chunkStartIndex;
+        let chunkEndIndex;
 
-        const chunkStartIndex = chunkIndex * 6;
-        const chunkEndIndex = chunkStartIndex + 6 - 1; // End index of the current chunk
+        // console.log(innerPages)
+        if (isMobile) {
+            chunkStartIndex = chunkIndex * 3;
+            chunkEndIndex = chunkStartIndex + 3 - 1; // End index of the current chunk
+        }
+        else {
+            chunkStartIndex = chunkIndex * 6;
+            chunkEndIndex = chunkStartIndex + 6 - 1; // End index of the current chunk
+        }
+
+
 
         const updatedItems = innerPages.map((item, index) => {
             const IconComponent = iconMap[item.icon] || FaUser; // Default to FaUser if not found
@@ -285,7 +309,6 @@ const TopStepsBar = (props) => {
             const isCurrentStep = fullRoute === item.route;
 
             let status;
-
 
             const globalIndex = chunkStartIndex + index; // Map the local index to the global index
 
@@ -324,6 +347,11 @@ const TopStepsBar = (props) => {
                                 }
                             }
                             else {
+
+                                let handleTouchFieldsResult = await handleTouchFields(location, setFieldTouched, values, validateForm);
+
+                                if (!handleTouchFieldsResult) return false;
+
                                 handleStepClick(`${item.route}`)
                             }
                         }}
@@ -348,7 +376,7 @@ const TopStepsBar = (props) => {
         });
 
         setItems(updatedItems);
-    }, [location, Pages, values]);
+    }, [location, Pages, values, isMobile]);
 
     const handleStepClick = (path) => {
         navigate(path);

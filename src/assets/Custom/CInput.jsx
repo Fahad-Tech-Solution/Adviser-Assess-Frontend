@@ -155,27 +155,32 @@ const CInput = ({ label, className, ...props }) => {
                 <div className="input-wrapper">
                     {label && <label className="fw-bold text-center mb-2 w-100" htmlFor={props.name}>{label}</label>}
                     <Field name={props.name}>
-                        {() => (
-                            <DatePicker
-                                className={`form-control ${className} DateInputPadding`}
-                                selected={
-                                    (props.values?.[props.name] || null)
-                                }
-                                onChange={(date) => {
-                                    const fieldName = props.name;
-                                    props.setFieldValue(fieldName, date);
-                                }}
-                                dateFormat={props.dateFormat ? props.dateFormat : "dd/MM/yyyy"}
-                                placeholderText={props.placeholder}
-                                onBlur={props.handleBlur}
-                                showIcon
-                                maxDate={new Date()}
-                                {...props}
-                                id={props.name}
-                                name={props.name}
-                                wrapperClassName="w-100"
-                                disabled={props?.disabled ?? false}
-                            />
+                        {({ field, form, meta }) => (
+                            <React.Fragment>
+                                <DatePicker
+                                    className={`form-control ${className} DateInputPadding ${meta.touched && meta.error ? "is-invalid" : ""}`}
+                                    selected={
+                                        (props.values?.[props.name] || props.customSelect || null)
+                                    }
+                                    onChange={(date) => {
+                                        const fieldName = props.name;
+                                        props.setFieldValue(fieldName, date);
+                                    }}
+                                    dateFormat={props.dateFormat ? props.dateFormat : "dd/MM/yyyy"}
+                                    placeholderText={props.placeholder}
+                                    onBlur={props.handleBlur}
+                                    showIcon
+                                    maxDate={new Date()}
+                                    {...props}
+                                    id={props.name}
+                                    name={props.name}
+                                    wrapperClassName="w-100"
+                                    disabled={props?.disabled ?? false}
+                                />
+                                {meta.touched && meta.error ? (
+                                    <div className="error-text">{meta.error}</div>
+                                ) : null}
+                            </React.Fragment>
                         )}
                     </Field>
                 </div>

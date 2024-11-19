@@ -110,6 +110,7 @@ const EmploymentStatus = (props) => {
                         <WeeklyWorkHours
                             FormickOBj={props.FormickOBj}
                             Data={props.Data} />
+                        
                         {values[`${Data.key}_EmploymentType`] === "Self-employed" &&
 
                             <SelfEmploymentDetails

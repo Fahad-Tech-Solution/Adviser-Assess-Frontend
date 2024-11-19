@@ -43,6 +43,7 @@ const Declaration = (props) => {
                                             name={Data.key + "_FinalDate"}
                                             type="Date"
                                             placeholder="DD/MM/YYYY"
+                                            customSelect={new Date()}
                                             className="form-control"
                                             setFieldValue={setFieldValue} handleBlur={handleBlur} values={values}
                                         />

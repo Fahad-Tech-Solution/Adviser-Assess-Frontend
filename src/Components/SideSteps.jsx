@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Anchor, ConfigProvider } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Content from '../assets/Content';
-import { openNotification } from '../assets/Api/Api';
+import { handleTouchFields, openNotification } from '../assets/Api/Api';
 
 const SideSteps = (props) => {
     const { Link } = Anchor;
@@ -46,6 +46,11 @@ const SideSteps = (props) => {
                                 }
                             }
                             else {
+
+                                let handleTouchFieldsResult = await handleTouchFields(location, setFieldTouched, values, validateForm);
+
+                                if (!handleTouchFieldsResult) return false;
+
                                 handleStepClick(item.route);
                             }
 

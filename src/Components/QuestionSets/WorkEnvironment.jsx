@@ -25,29 +25,29 @@ const WorkEnvironment = (props) => {
             <div className='col-md-12 pb-4 mb-1'>
 
 
-                        <DynamicCard
-                            iconSrc={WorkEnvironmentIcon}
-                            Head={`Work Environment`}
-                            altText="Medical History Icon"
-                        >
-                            <div className='col-md-12 my-2'>
-                                <label className='fw-bold w-100 text-center mb-2'> Do you perform any hazardous duties ?</label>
-                                <DynamicYesNo name={`${Data.key}_hazardousDuties`} values={values} handleChange={handleChange} />
+                <DynamicCard
+                    iconSrc={WorkEnvironmentIcon}
+                    Head={`Weekly Work Hours`}
+                    altText="Medical History Icon"
+                >
+                    <div className='col-md-12 my-2'>
+                        <label className='fw-bold w-100 text-center mb-2'> Do you perform any hazardous duties ?</label>
+                        <DynamicYesNo name={`${Data.key}_hazardousDuties`} values={values} handleChange={handleChange} />
+                    </div>
+                    {values[`${Data.key}_hazardousDuties`] === "Yes" &&
+                        <React.Fragment>
+                            <div className='col-md-12 mt-2'>
+                                <CInput label={"Please Specify"} name={`${Data.key}_Specify`} options={optionsMultiSelect} className={"form-select"} type="select" />
                             </div>
-                            {values[`${Data.key}_hazardousDuties`] === "Yes" &&
-                                <React.Fragment>
-                                    <div className='col-md-12 mt-2'>
-                                        <CInput label={"Please Specify"} name={`${Data.key}_Specify`} options={optionsMultiSelect} className={"form-select"} type="select" />
-                                    </div>
-                                    {
-                                        values[`${Data.key}_Specify`] === "Other" &&
-                                        <div className='col-md-12 mt-2'>
-                                            <CInput label={"Other income structured"} id={`${Data.key}_otherIncomeStructured`} name={`${Data.key}_otherIncomeStructured`} type="textarea" rows={2} />
-                                        </div>
-                                    }
+                            {
+                                values[`${Data.key}_Specify`] === "Other" &&
+                                <div className='col-md-12 mt-2'>
+                                    <CInput label={"Other income structured"} id={`${Data.key}_otherPleaseSpecify`} name={`${Data.key}_otherPleaseSpecify`} type="textarea" rows={2} />
+                                </div>
+                            }
 
-                                </React.Fragment>}
-                        </DynamicCard>
+                        </React.Fragment>}
+                </DynamicCard>
 
             </div>
         </div>

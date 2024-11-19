@@ -159,10 +159,10 @@ const HeartDiseaseConditions = (props) => {
                                                         <CInput setFieldValue={setFieldValue} handleBlur={handleBlur} values={values} name={`${Data.key}_DateOfDiagnosis${i}`} type="date" showYearPicker placeholder="yyyy" dateFormat="yyyy" label="Date of Diagnosis" />
                                                     </div>
                                                     <div className='col-md-12 mt-2'>
-                                                        <CInput name={Data.key + "ongoingResolved" + i} type="Select" options={ongoingResolvedOption} className={"form-select"} label="Condition Status" />
+                                                        <CInput name={Data.key + "_ongoingResolved" + i} type="Select" options={ongoingResolvedOption} className={"form-select"} label="Condition Status" />
                                                     </div>
                                                     <div className='col-md-12 mt-2'>
-                                                        <CInput name={Data.key + "treatmentsMedications" + i} type="textarea" placeholder="Treatments or medications" rows={1} label="Treatments/Medications" />
+                                                        <CInput name={Data.key + "_treatmentsMedications" + i} type="textarea" placeholder="Treatments or medications" rows={1} label="Treatments/Medications" />
                                                     </div>
                                                 </DynamicCard>
                                             )

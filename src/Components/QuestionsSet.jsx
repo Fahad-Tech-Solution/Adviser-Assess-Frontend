@@ -6,7 +6,7 @@ import { Button, Image } from 'react-bootstrap'
 import logo from "../assets/Images/Logo.png"
 import Content from '../assets/Content'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { CheckValidation, validateDynamicFields } from '../assets/Api/Api'
+import { handleTouchFields, touchFields } from '../assets/Api/Api'
 
 const QuestionsSet = (props) => {
     const { Pages } = Content;
@@ -42,41 +42,6 @@ const QuestionsSet = (props) => {
         }
     };
 
-    // const handleNext = async () => {
-    //     localStorage.setItem("AdviserAssess", JSON.stringify(props.FormickOBj.values));
-
-    //     const [currentPath, cLocation] = location.pathname.split("/").slice(1, 3);
-
-
-
-    //     const MainPageIndex = Pages.findIndex(item => item.route === `/${currentPath}`);
-
-    //     if (MainPageIndex === -1) return; // Exit if main page not found
-
-    //     const innerPages = Pages[MainPageIndex].InnerPages.filter(page => page.condition(values));
-    //     const CurrentPageIndex = innerPages.findIndex(item => item.route === `/${cLocation}`);
-
-    //     // let Validate = await CheckLocationBasedField(currentPath, cLocation, innerPages, CurrentPageIndex)
-    //     // if (!Validate) {
-    //     //     return false;
-    //     // }
-
-    //     if (innerPages.length > 1 && CurrentPageIndex < innerPages.length - 1) {
-    //         // Navigate to the next inner page in the same main page
-    //         Nev(Pages[MainPageIndex].route + innerPages[CurrentPageIndex + 1].route);
-    //     } else if (MainPageIndex < Pages.length - 1) {
-    //         // Navigate to the first filtered inner page of the next main page
-    //         const nextMainPage = Pages[MainPageIndex + 1];
-
-    //         const nextInnerPages = nextMainPage.InnerPages.filter(page => page.condition(values));
-
-    //         if (nextInnerPages.length > 0) {
-    //             const nextFirstPage = nextInnerPages[0].route;
-    //             Nev(nextMainPage.route + nextFirstPage);
-    //         }
-    //     }
-    // };
-
     const handleNext = async () => {
         // Save the form values to localStorage
         localStorage.setItem("AdviserAssess", JSON.stringify(props.FormickOBj.values));
@@ -85,7 +50,6 @@ const QuestionsSet = (props) => {
 
         const main = Pages.filter(page => page.condition(true));
 
-        // alert("jump");
         // Flatten the main pages and their inner pages into a single array with full routes
         const SubPages = main.flatMap((elem) => {
             return elem.InnerPages.map((innerPage) => ({
@@ -99,19 +63,16 @@ const QuestionsSet = (props) => {
 
         let innerPages = SubPages.filter(page => page.condition(conditionCheck2));
 
-
         // Find the current page's index in SubPages
         const currentIndex = innerPages.findIndex((page) => page.route === `/${currentPath}/${cLocation || ""}`);
 
-        console.log(currentIndex, `/${currentPath}/${cLocation}`, innerPages[currentIndex + 1])
+        console.log(currentIndex, `/${currentPath}/${cLocation || ""}`, innerPages[currentIndex + 1])
 
         if (currentIndex === -1) return; // Exit if the current page is not found
 
-        // // If user is on the last page (/Declaration/), set submitFlag to true
-        // if (innerPages[currentIndex+1].route === "/Declaration/") {
-        //     setSubmitFlag(true);
-        //     // return;
-        // }
+        let handleTouchFieldsResult = await handleTouchFields(location, setFieldTouched, values, validateForm);
+
+        if (!handleTouchFieldsResult) return false;
 
         // Check if there is a next page
         if (currentIndex < innerPages.length - 1) {
@@ -120,102 +81,10 @@ const QuestionsSet = (props) => {
         }
     };
 
-
-    let CheckLocationBasedField = async (currentPath, cLocation, innerPages, CurrentPageIndex) => {
-
-        let fullCorse = currentPath + "/" + cLocation;
-        let dynamicFields = [];
-        let switchValidationFunction = false;
-
-
-        // Dynamically pushing fields based on the selected conditions
-        switch (fullCorse) {
-            case "LifestyleInformation/Q2":
-                dynamicFields.push({ name: "ActivityType" });
-                dynamicFields.push({ name: "Frequency" });
-                break;
-            case "FamilyMedicalHistory/Q1":
-                switchValidationFunction = true;
-                let key = innerPages[CurrentPageIndex].key;
-
-                // Validate based on Heart Disease condition
-                if (values[key + "_HeartDisease"] === "Yes") {
-                    dynamicFields.push({ name: "FamilyMemberAffected" });
-                    dynamicFields.push({ name: "AgeDiagnosis" });
-                }
-
-                // Validate based on Cancer condition
-                if (values[key + "_Cancer"] === "Yes") {
-                    dynamicFields.push({ name: "CancerType" });
-                    dynamicFields.push({ name: "FamilyMemberAffectedCancer" });
-                    dynamicFields.push({ name: "AgeDiagnosisCancer" });
-                }
-
-                // Validate based on Diabetes condition
-                if (values[key + "_Diabetes"] === "Yes") {
-                    dynamicFields.push({ name: "DiabetesType" });
-                    dynamicFields.push({ name: "FamilyMemberAffectedDiabetes" });
-                    dynamicFields.push({ name: "AgeDiagnosisDiabetes" });
-                }
-
-                // Validate based on Mental Health Conditions
-                if (values[key + "_MentalHealthConditions"] === "Yes") {
-                    dynamicFields.push({ name: "MentalHealthConditionsType" });
-                    dynamicFields.push({ name: "FamilyMemberAffectedMentalHealthConditions" });
-                    dynamicFields.push({ name: "AgeDiagnosisMentalHealthConditions" });
-                }
-                break;
-
-            default:
-                break;
-        }
-
-        // If dynamic fields are present, call CheckValidation
-        if (dynamicFields.length > 0) {
-            let Validate
-
-            if (switchValidationFunction) {
-                Validate = await validateDynamicFields(
-                    innerPages[CurrentPageIndex],
-                    values,
-                    dynamicFields,
-                    setFieldTouched,
-                    validateField,
-                    validateForm // Pass the dynamic fields to the validation function
-                );
-            }
-            else {
-
-                Validate = await CheckValidation(
-                    currentPath,
-                    cLocation,
-                    validateForm,
-                    validateField,
-                    setFieldTouched,
-                    innerPages[CurrentPageIndex],
-                    values,
-                    dynamicFields // Pass the dynamic fields to the validation function
-                );
-
-            }
-
-            console.log(Validate)
-
-
-            if (!Validate) {
-                return false;
-            }
-            return false;
-        } else {
-            return false; // No dynamic fields to validate
-        }
-    }
-
-
     useEffect(() => {
         const [currentPath, cLocation] = location.pathname.split("/").slice(1, 3);
 
-        if ("/" + currentPath + "/" + cLocation === "/Declaration/") {
+        if (`/${currentPath}/${cLocation || ""}` === "/Declaration/" || `/${currentPath}/${cLocation || ""}` === "/Declaration") {
             setSubmitFlag(true);
         }
         else {
@@ -223,8 +92,6 @@ const QuestionsSet = (props) => {
         }
 
     }, [location])
-
-
 
 
     if (props.Data.Title === "Personal Details") {

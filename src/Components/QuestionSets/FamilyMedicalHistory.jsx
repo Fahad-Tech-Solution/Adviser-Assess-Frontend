@@ -16,7 +16,7 @@ const FamilyMedicalHistory = (props) => {
 
     return (
         <div className='row'>
-            <div className='col-md-12 pb-4 mb-1 mt-5'>
+            <div className='col-md-12 mt-2 pb-4 mb-1 mt-5'>
                 <div className='row justify-content-center d-none'>
                     <div className='col-md-4 pt-2'>
                         <label className='fw-bold' htmlFor="">Do anyone had Heart Disease or Stroke?</label>
@@ -35,14 +35,14 @@ const FamilyMedicalHistory = (props) => {
                                     Head={"History of Heart disease or Stroke in Family"}
                                     altText={"kuch karo"}
                                 >
-                                    <div className='col-md-12 mt-2'>
+                                    <div className='col-md-12 mt-2 mt-2'>
                                         <CInput
                                             name={Data.key + "_FamilyMemberAffected"}
                                             type="text"
                                             label={"Family member affected"}
                                         />
                                     </div>
-                                    <div className='col-md-12 mt-2'>
+                                    <div className='col-md-12 mt-2 mt-2'>
                                         <CInput
                                             name={Data.key + "_AgeDiagnosis"}
                                             type="number"
@@ -65,54 +65,6 @@ const FamilyMedicalHistory = (props) => {
                     </div>
                 </div>
 
-                {/*
-                
-                {values[`${Data.key}_Cancer`] === "Yes" &&
-                    <React.Fragment>
-                        <Divider orientation="left"
-                            style={{
-                                color: '#36b446',
-                                fontWeight: "700",
-                                fontSize: "16px"
-                            }}
-                        >If they had Cancer:</Divider>
-                        <div className='row justify-content-center mt-2'>
-                            <div className='col-md-4 pt-2'>
-                                <label className='fw-bold' htmlFor="">Type of cancer</label>
-                            </div>
-                            <div className='col-md-3'>
-                                <CInput
-                                    name={Data.key + "_CancerType"}
-                                    type="text"
-                                />
-                            </div>
-                        </div>
-                        <div className='row justify-content-center mt-2'>
-                            <div className='col-md-4 pt-2'>
-                                <label className='fw-bold' htmlFor="">Family member affected</label>
-                            </div>
-                            <div className='col-md-3'>
-                                <CInput
-                                    name={Data.key + "_FamilyMemberAffectedCancer"}
-                                    type="text"
-                                />
-                            </div>
-                        </div>
-                        <div className='row justify-content-center mt-2'>
-                            <div className='col-md-4 pt-2'>
-                                <label className='fw-bold' htmlFor="">Age of diagnosis</label>
-                            </div>
-                            <div className='col-md-3'>
-                                <CInput
-                                    name={Data.key + "_AgeDiagnosisCancer"}
-                                    type="number"
-                                />
-                            </div>
-                        </div>
-                        
-                    </React.Fragment>
-                }     
-                    */}
 
                 {values[`${Data.key}_Cancer`] === "Yes" &&
                     <React.Fragment>
@@ -121,24 +73,24 @@ const FamilyMedicalHistory = (props) => {
 
                                 <DynamicCard
                                     iconSrc={lung_cancer}
-                                    Head={"If they had Cancer"}
+                                    Head={"History of Cancer in Family"}
                                     altText={"kuch karo"}
                                 >
-                                    <div className='col-md-12'>
+                                    <div className='col-md-12 mt-2'>
                                         <CInput
                                             name={Data.key + "_CancerType"}
                                             type="text"
                                             label={"Type of cancer"}
                                         />
                                     </div>
-                                    <div className='col-md-12'>
+                                    <div className='col-md-12 mt-2'>
                                         <CInput
                                             name={Data.key + "_FamilyMemberAffectedCancer"}
                                             type="text"
                                             label={"Family member affected"}
                                         />
                                     </div>
-                                    <div className='col-md-12'>
+                                    <div className='col-md-12 mt-2'>
                                         <CInput
                                             name={Data.key + "_AgeDiagnosisCancer"}
                                             type="number"
@@ -169,24 +121,24 @@ const FamilyMedicalHistory = (props) => {
                             <div className='col-md-6'>
                                 <DynamicCard
                                     iconSrc={Diabetes}
-                                    Head={"If they had Diabetes"}
+                                    Head={"History of Diabetes in Family"}
                                     altText={"kuch karo"}
                                 >
-                                    <div className='col-md-12'>
+                                    <div className='col-md-12 mt-2'>
                                         <CInput
                                             name={Data.key + "_DiabetesType"}
                                             type="text"
                                             label={"Type of diabetes"}
                                         />
                                     </div>
-                                    <div className='col-md-12'>
+                                    <div className='col-md-12 mt-2'>
                                         <CInput
                                             name={Data.key + "_FamilyMemberAffectedDiabetes"}
                                             type="text"
                                             label={"Family member affected"}
                                         />
                                     </div>
-                                    <div className='col-md-12'>
+                                    <div className='col-md-12 mt-2'>
                                         <CInput
                                             name={Data.key + "_AgeDiagnosisDiabetes"}
                                             type="number"
@@ -217,24 +169,24 @@ const FamilyMedicalHistory = (props) => {
                             <div className='col-md-6'>
                                 <DynamicCard
                                     iconSrc={psychology}
-                                    Head={"If they had Mental Health Conditions"}
+                                    Head={"History of Mental Health Conditions in Family"}
                                     altText={"kuch karo"}
                                 >
-                                    <div className='col-md-12'>
+                                    <div className='col-md-12 mt-2'>
                                         <CInput
                                             name={Data.key + "_MentalHealthConditionsType"}
                                             type="text"
                                             label={"Type of Mental Health Conditions"}
                                         />
                                     </div>
-                                    <div className='col-md-12'>
+                                    <div className='col-md-12 mt-2'>
                                         <CInput
                                             name={Data.key + "_FamilyMemberAffectedMentalHealthConditions"}
                                             type="text"
                                             label={"Family member affected"}
                                         />
                                     </div>
-                                    <div className='col-md-12'>
+                                    <div className='col-md-12 mt-2'>
                                         <CInput
                                             name={Data.key + "_AgeDiagnosisMentalHealthConditions"}
                                             type="number"

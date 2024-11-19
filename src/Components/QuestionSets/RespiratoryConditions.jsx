@@ -13,7 +13,6 @@ import asthma from "../../assets/Images/asthma.png";
 
 import bronchitis from "../../assets/Images/lungs/bronchitis.png";
 import emphysema from "../../assets/Images/lungs/emphysema.png";
-import lungs from "../../assets/Images/lungs/lungs.png";
 import pills from "../../assets/Images/lungs/pills.png";
 import pneumonia from "../../assets/Images/lungs/pneumonia.png";
 import pneumoniaAndPulmonary from "../../assets/Images/lungs/pneumoniaAndPulmonary.png";
@@ -107,7 +106,6 @@ const RespiratoryConditions = (props) => {
     return (
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
-
                 <div className='row justify-content-center d-none'>
                     <div className='col-md-12'>
                         <label htmlFor='yesNo' className='text-center w-100 fw-bold'>
@@ -129,7 +127,7 @@ const RespiratoryConditions = (props) => {
                                     color: '#36b446',
                                     fontWeight: "700",
                                     fontSize: "16px"
-                                }} >Select the type of heart disease or condition that applies to you ?</Divider>
+                                }} >Select the type of Respiratory conditions that applies to you ?</Divider>
 
                             <div className='col-md-8'>
                                 <div className='d-flex w-100 justify-content-center'>

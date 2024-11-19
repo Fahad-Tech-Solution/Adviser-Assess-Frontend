@@ -99,7 +99,7 @@ const HIVAIDSOtherImmuneSystemDisorders = (props) => {
                                     color: '#36b446',
                                     fontWeight: "700",
                                     fontSize: "16px"
-                                }} >Condition diagnosed</Divider>
+                                }} >Select any HIV/AIDS or other Immune System Disorders condition that applies to you ?</Divider>
 
                             <div className='col-md-8'>
                                 <div className='d-flex w-100 justify-content-center'>

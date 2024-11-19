@@ -143,7 +143,7 @@ const LifestyleInformation = (props) => {
                                     <div className='col-md-12 mt-2'>
                                         <CInput
                                             name={Data.key + "_drugType"}
-                                            label={"Number of standard drinks per week"}
+                                            label={"Type of drug(s) used"}
                                             type="text"
                                         />
                                     </div>

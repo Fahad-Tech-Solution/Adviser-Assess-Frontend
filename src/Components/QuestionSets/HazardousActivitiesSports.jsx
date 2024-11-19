@@ -263,7 +263,10 @@ const HazardousActivitiesSports = (props) => {
                                         <CInput
                                             label={"Date of travel"}
                                             name={Data.key + "_DateTravel"}
-                                            type="text"
+                                            type="Date"
+                                            placeholder="DD/MM/YYYY"
+                                            className="form-control"
+                                            setFieldValue={setFieldValue} handleBlur={handleBlur} values={values}
                                         />
                                     </div>
                                 </DynamicCard>

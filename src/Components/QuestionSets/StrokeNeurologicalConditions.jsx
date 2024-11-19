@@ -12,7 +12,6 @@ import Other from "../../assets/Images/Heart-Disease-Conditions/heartDiseaseCond
 
 import epilepsy from "../../assets/Images/stroke/epilepsy-min.png";
 import multiple from "../../assets/Images/stroke/multiple-min.png";
-import neurology from "../../assets/Images/stroke/neurology-min.png";
 import stroke from "../../assets/Images/stroke/stroke-min.png";
 
 
