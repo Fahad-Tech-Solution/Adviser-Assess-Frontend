@@ -257,6 +257,7 @@ const touchFields = async (setFieldTouched, fieldNames, values, validateForm) =>
 };
 
 async function handleTouchFields(location, setFieldTouched, values, validateForm) {
+
     // Extract currentPath and cLocation from the provided location
     const [currentPath, cLocation] = location.pathname.split("/").slice(1, 3);
 
@@ -716,6 +717,25 @@ async function handleTouchFields(location, setFieldTouched, values, validateForm
             "FamilyMedicalHistory_AgeDiagnosisMentalHealthConditions",
 
         ],
+        "/FamilyMedicalHistory/Q1": [
+
+            //set 0
+            "FamilyMedicalHistory_FamilyMemberAffected",
+            "FamilyMedicalHistory_AgeDiagnosis",
+
+            "FamilyMedicalHistory_CancerType",
+            "FamilyMedicalHistory_FamilyMemberAffectedCancer",
+            "FamilyMedicalHistory_AgeDiagnosisCancer",
+
+            "FamilyMedicalHistory_DiabetesType",
+            "FamilyMedicalHistory_FamilyMemberAffectedDiabetes",
+            "FamilyMedicalHistory_AgeDiagnosisDiabetes",
+
+            "FamilyMedicalHistory_MentalHealthConditionsType",
+            "FamilyMedicalHistory_FamilyMemberAffectedMentalHealthConditions",
+            "FamilyMedicalHistory_AgeDiagnosisMentalHealthConditions",
+
+        ],
     };
 
     // Determine the fields to be validated based on the current path
@@ -724,6 +744,7 @@ async function handleTouchFields(location, setFieldTouched, values, validateForm
     // Use the touchFields helper to validate and touch the fields
     const touchFieldsResult = await touchFields(setFieldTouched, fieldsToTouch, values, validateForm);
 
+    console.log(values, `/${currentPath}/${cLocation || ""}`, fieldsToTouch);
     console.log(touchFieldsResult); // Log the validation result
 
     return touchFieldsResult; // Return true if all fields are valid, false otherwise

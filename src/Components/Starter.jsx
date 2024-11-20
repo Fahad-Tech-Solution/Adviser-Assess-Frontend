@@ -216,9 +216,11 @@ const validateForm = (values) => {
                         );
                     }
                 });
+
                 requiredFields.push(
                     { name: "MentalHealthConditions_PsychologistCare", label: "Have you seen a Psychologist or undertaken a Mental Health Care Plan ?" },
                 )
+
                 if (values[`MentalHealthConditions_PsychologistCare`] !== "No, I have not seen a psychologist or undertaken a health care plan" && values[`MentalHealthConditions_PsychologistCare`] !== "") {
                     requiredFields.push(
                         { name: "MentalHealthConditions_PsychologistSessions", label: "How many sessions have you completed?" },
@@ -491,10 +493,6 @@ const validateForm = (values) => {
             );
         }
 
-        // requiredFields.push(
-        //     { name: "Declaration_Signature", label: "Signature " },
-        // );
-        // Validate required fields
         requiredFields.forEach(({ name, label }) => {
             // if (!values[name] || values[name].trim() === "") {
             if (!values[name] || (typeof values[name] === "string" && values[name].trim() === "")) {
@@ -527,7 +525,8 @@ const Starter = () => {
     let [initialValues, setInitialValues] = useState({
         disclosureAccept: false,
         DateBirth: "",
-        "Declaration_FinalDate": ""
+        "Declaration_FinalDate": "",
+        "Declaration_Signature": "",
     })
 
     useEffect(() => {
@@ -570,7 +569,7 @@ const Starter = () => {
                     'Report has been Sent',
                     `Check your email for report`,
                 );
-                localStorage.clear()
+                // localStorage.clear()
             }
 
 
@@ -881,7 +880,7 @@ const Starter = () => {
             onSubmit={onSubmit}
             enableReinitialize
         >
-            {({ isSubmitting, values, setFieldValue, handleChange, handleBlur, validateForm, validateField, setFieldTouched }) => (
+            {({ resetForm, isSubmitting, values, setFieldValue, handleChange, handleBlur, validateForm, validateField, setFieldTouched }) => (
                 <Form className="position-relative">
                     {loadingState &&
                         <div className='position-absolute top-0 d-flex justify-content-center align-items-center bg-gray' style={{ width: '100%', height: "100%", zIndex: "1000" }}>
@@ -906,7 +905,8 @@ const Starter = () => {
                                     handleBlur,
                                     validateForm,
                                     validateField,
-                                    setFieldTouched
+                                    setFieldTouched,
+                                    resetForm
                                 }} />} />)
                             }
                         })}

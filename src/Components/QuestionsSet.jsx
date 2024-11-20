@@ -11,7 +11,7 @@ import { handleTouchFields, touchFields } from '../assets/Api/Api'
 const QuestionsSet = (props) => {
     const { Pages } = Content;
 
-    let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
+    let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange, resetForm } = props.FormickOBj
 
     let [submitFlag, setSubmitFlag] = useState(false);
 
@@ -40,6 +40,12 @@ const QuestionsSet = (props) => {
                 Nev(previousMainPage.route + previousLastPage);
             }
         }
+    };
+
+    const StartAgain = async () => {
+        localStorage.clear();
+        resetForm();
+        Nev("/PersonalDetails/");
     };
 
     const handleNext = async () => {
@@ -117,14 +123,28 @@ const QuestionsSet = (props) => {
 
                 <div className='row justify-content-center align-item-center gap-2 mb-4'>
 
-                    <div className='col-md-3 mt-4'>
-                        <Button className='w-100 backBtn'
-                            onClick={handleBack}
-                        >Back </Button>
-                    </div>
-                    <div className='col-md-3 mt-4'>
+                    <div className='col-md-3 mt-md-4'>
                         {submitFlag === true ?
-                            <Button type='submit' className='btn submitBtn w-100' >
+                            <Button
+                                type='button'
+                                className='btn backBtn w-100'
+                                onClick={StartAgain}
+                            >
+                                Start Again
+                            </Button>
+                            :
+                            <Button className='w-100 backBtn'
+                                onClick={handleBack}
+                            >Back </Button>
+                        }
+
+                    </div>
+                    <div className='col-md-3 mt-md-4'>
+                        {submitFlag === true ?
+                            <Button
+                                // type='button' onClick={SubmitForm}
+                                type='submit'
+                                className='btn submitBtn w-100' >
                                 Submit
                             </Button>
                             :

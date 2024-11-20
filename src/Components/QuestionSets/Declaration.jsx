@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CInput from '../../assets/Custom/CInput'
+import { NavLink } from 'react-router-dom'
 
 const Declaration = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
+
+    let [inputFlag, setInputFlag] = useState(false)
+    let [MessageFlag, setMessageFlag] = useState(false)
 
     let Data = props.Data
     return (
@@ -50,6 +54,37 @@ const Declaration = (props) => {
                                     </div>
                                 </div>
                             </div>
+
+
+                        </div>
+                    </div>
+                    <div className='col-md-8'>
+                        <div className='row justify-content-center'>
+                            <div className='col-md-12'>
+                                {MessageFlag ?
+                                    <p className='text-center fw-bold'> Update successfully, {values.Full_Name || ""}! your new email is {values.EmailAddress || ""}. Click submit for the report</p>
+                                    :
+                                    <p className='text-center fw-bold'> Thank you, {values.Full_Name || ""}! We will send an email to {values.EmailAddress || ""} shortly.</p>
+                                }
+                            </div>
+                            {inputFlag &&
+                                <div className='col-md-4'>
+                                    <CInput
+                                        name="EmailAddress"
+                                        type="email"
+                                        placeholder="Email Address"
+                                    />
+                                </div>
+                            }
+                            <div className='col-md-12 mt-2'>
+                                <p className='text-center'> <span role='button' className={"text-center fw-bold Head1 w-100 "} onClick={() => {
+                                    setInputFlag(!inputFlag)
+                                    if (inputFlag) {
+                                        setMessageFlag(true);
+                                    }
+                                }}>   {inputFlag ? "Update Email" : "Edit email"}</span></p>
+                            </div>
+
                         </div>
                     </div>
                 </div>

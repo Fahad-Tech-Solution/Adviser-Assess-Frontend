@@ -47,6 +47,7 @@ const SideSteps = (props) => {
                             }
                             else {
 
+
                                 let handleTouchFieldsResult = await handleTouchFields(location, setFieldTouched, values, validateForm);
 
                                 if (!handleTouchFieldsResult) return false;
@@ -63,7 +64,7 @@ const SideSteps = (props) => {
         });
 
         setItems(updatedItems);
-    }, [location.pathname]);  // Update items when location changes
+    }, [location.pathname, values]);  // Update items when location changes
 
     const handleStepClick = (route) => {
         navigate(route);
