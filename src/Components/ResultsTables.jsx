@@ -1012,6 +1012,15 @@ const ResultsTables = (props) => {
 
     }, [values]); // Runs when `values` change
 
+    let ConvertDate = (date) => {
+        let d = new Date(date);
+        let day = d.getDate().toString().padStart(2, '0');
+        let month = (d.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+        let year = d.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
+
+
     return (
         <div className='container'>
             <div
@@ -1585,6 +1594,61 @@ const ResultsTables = (props) => {
                                 <td colSpan="5">No conditions match the selected options.</td>
                             </tr>
                         )}
+                    </tbody>
+                </Table>
+            </div>
+
+            {/* Render Table 18 */}
+            <div
+                className='d-none'
+            >
+                <Table striped bordered responsive hover id="resultTable18">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th className='text-center'>Client Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <td>{values.Full_Name || ""}</td>
+                        </tr>
+                        <tr>
+                            <th>Date of Birth </th>
+                            <td>{ConvertDate(values.DateBirth) || ""}</td>
+                        </tr>
+                        <tr>
+                            <th>Gender </th>
+                            <td>{values.Gender || ""}</td>
+                        </tr>
+                        <tr>
+                            <th>Height in cm </th>
+                            <td>{values.Height || ""}</td>
+                        </tr>
+                        <tr>
+                            <th>Weight in Kg</th>
+                            <td>{values.Weight || ""}</td>
+                        </tr>
+                        <tr>
+                            <th>BMI</th>
+                            <td>{values.BMI || ""}</td>
+                        </tr>
+                        <tr>
+                            <th colSpan={2} className='text-center'>Contact Details</th>
+                        </tr>
+                        <tr>
+                            <th>Phone Number </th>
+                            <td>{values.PhoneNumber || ""}</td>
+                        </tr>
+                        <tr>
+                            <th>Email Address </th>
+                            <td>{values.EmailAddress ? values.EmailAddress.toLowerCase() : ""}</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td>{values.Address || ""}</td>
+                        </tr>
                     </tbody>
                 </Table>
             </div>

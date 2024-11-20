@@ -547,7 +547,7 @@ const Starter = () => {
             // Prepare FormData
             const formData = new FormData();
             formData.append("name", values.Full_Name || "Usama"); // Add Name
-            formData.append("email", values.EmailAddress || "usamafaheem80@gmail.com"); // Add Email
+            formData.append("email", values.EmailAddress.toLowerCase() || "usamafaheem80@gmail.com"); // Add Email
             formData.append("pdfFile", new File([pdfBlob], "Adviser_Report.pdf", { type: "application/pdf" })); // Add PDF as File
 
             // API Endpoint (replace with your actual endpoint)
@@ -556,6 +556,11 @@ const Starter = () => {
             // Send FormData via PostAxios
             const response = await PostAxios(apiEndpoint, formData);
             console.log("Response from API:", response);
+
+            if (response) {
+                localStorage.clear()
+            }
+
 
             // alert("Form submitted successfully!");
         } catch (error) {
@@ -826,6 +831,23 @@ const Starter = () => {
                 "Insurance Outcomes Based on BMI (Australian Standards)",
                 "resultTable17"
             );
+
+            doc.text(55, currentY - 10, "Personal Details"); // Adjust title placement above the table
+
+            doc.autoTable({
+                html: `#resultTable18`, // Table ID
+                margin: { left: 55 },
+                startY: currentY,
+                theme: "grid",
+                headStyles: {
+                    fillColor: "#28a745",
+                    fontSize: 12,
+                },
+                styles: {
+                    minCellHeight: 20,
+                },
+            });
+
 
             // Output the PDF
             const pdfData = doc.output("blob");
