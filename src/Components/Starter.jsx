@@ -553,7 +553,7 @@ const Starter = () => {
             const formData = new FormData();
             formData.append("name", values.Full_Name || "Usama"); // Add Name
             formData.append("email", values.EmailAddress.toLowerCase() || "usamafaheem80@gmail.com"); // Add Email
-            formData.append("pdfFile", new File([pdfBlob], "Adviser_Report.pdf", { type: "application/pdf" })); // Add PDF as File
+            formData.append("pdfFile", new File([pdfBlob], "AdviserAssess_Report.pdf", { type: "application/pdf" })); // Add PDF as File
 
             // API Endpoint (replace with your actual endpoint)
             const apiEndpoint = "http://ec2-3-25-227-176.ap-southeast-2.compute.amazonaws.com:7000/api/preAssessInsuranceEmail/";
