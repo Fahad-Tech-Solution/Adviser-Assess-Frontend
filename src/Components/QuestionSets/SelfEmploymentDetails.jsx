@@ -17,30 +17,37 @@ const SelfEmploymentDetails = (props) => {
             <div className='col-md-12 pb-4 mb-1'>
 
 
-                        <DynamicCard
-                            iconSrc={WorkFromHome}
-                            Head={`Self Employment Details`}
-                            altText="Medical History Icon"
-                        >
-                            {/*
+                <DynamicCard
+                    iconSrc={WorkFromHome}
+                    Head={`Self Employment Details`}
+                    altText="Medical History Icon"
+                >
+                    {/*
                              label={"Business Name"} 
                                  */}
-                            <div className='col-md-12 mt-2'>
-                                <CInput label={"Business Name"} id={`${Data.key}_BusinessName`} name={`${Data.key}_BusinessName`} type="text" />
-                            </div>
+                    <div className='col-md-12 mt-2'>
+                        <CInput label={"Business Name"} id={`${Data.key}_BusinessName`} name={`${Data.key}_BusinessName`} type="text" />
+                    </div>
 
-                            <div className='col-md-12 mt-2'>
-                                <CInput label={"Nature of Business"} id={`${Data.key}_NatureOfBusiness`} name={`${Data.key}_NatureOfBusiness`} type="text" />
-                            </div>
+                    <div className='col-md-12 mt-2'>
+                        <CInput label={"Nature of Business"} id={`${Data.key}_NatureOfBusiness`} name={`${Data.key}_NatureOfBusiness`} type="text" />
+                    </div>
 
-                            <div className='col-md-12 mt-2'>
-                                <CInput label={"Start Date of Business"} id={`${Data.key}_StartDateOfBusiness`} name={`${Data.key}_StartDateOfBusiness`} type="text" />
-                            </div>
+                    <div className='col-md-12 mt-2'>
+                        <CInput
+                            label={"Start Date of Business"}
+                            id={`${Data.key}_StartDateOfBusiness`}
+                            name={`${Data.key}_StartDateOfBusiness`}
+                            type="date"
+                            placeholder="DD/MM/YYYY"
+                            className="form-control"
+                            setFieldValue={setFieldValue} handleBlur={handleBlur} values={values} />
+                    </div>
 
-                            <div className='col-md-12 mt-2'>
-                                <CInput label={"Net Profit"} id={`${Data.key}_NetProfit`} name={`${Data.key}_NetProfit`} type="text" onChangeCallback={(v, setFieldValue, currentInput) => { setFieldValue(currentInput.name, toCommaAndDollar(currentInput.value.replace(/[^0-9.-]+/g, ""))) }} />
-                            </div>
-                        </DynamicCard>
+                    <div className='col-md-12 mt-2'>
+                        <CInput label={"Net Profit"} id={`${Data.key}_NetProfit`} name={`${Data.key}_NetProfit`} type="text" onChangeCallback={(v, setFieldValue, currentInput) => { setFieldValue(currentInput.name, toCommaAndDollar(currentInput.value.replace(/[^0-9.-]+/g, ""))) }} />
+                    </div>
+                </DynamicCard>
 
             </div>
         </div>

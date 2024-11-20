@@ -69,6 +69,26 @@ const EmploymentStatus = (props) => {
                             }
                         </DynamicCard>
 
+                        <IncomeInformation
+                            FormickOBj={props.FormickOBj}
+                            Data={props.Data} />
+
+                        <WorkEnvironment
+                            FormickOBj={props.FormickOBj}
+                            Data={props.Data} />
+
+                        <WeeklyWorkHours
+                            FormickOBj={props.FormickOBj}
+                            Data={props.Data} />
+
+                        {values[`${Data.key}_EmploymentType`] === "Self-employed" &&
+
+                            <SelfEmploymentDetails
+                                FormickOBj={props.FormickOBj}
+                                Data={props.Data} />
+
+                        }
+
 
 
                         <DynamicCard
@@ -98,26 +118,6 @@ const EmploymentStatus = (props) => {
                             }
                         </DynamicCard>
 
-
-                        <IncomeInformation
-                            FormickOBj={props.FormickOBj}
-                            Data={props.Data} />
-
-                        <WorkEnvironment
-                            FormickOBj={props.FormickOBj}
-                            Data={props.Data} />
-
-                        <WeeklyWorkHours
-                            FormickOBj={props.FormickOBj}
-                            Data={props.Data} />
-                        
-                        {values[`${Data.key}_EmploymentType`] === "Self-employed" &&
-
-                            <SelfEmploymentDetails
-                                FormickOBj={props.FormickOBj}
-                                Data={props.Data} />
-
-                        }
                     </div>
                 </div>
             </div>

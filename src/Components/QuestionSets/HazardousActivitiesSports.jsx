@@ -153,7 +153,7 @@ const HazardousActivitiesSports = (props) => {
                                     color: '#36b446',
                                     fontWeight: "700",
                                     fontSize: "16px"
-                                }} >Select the type of heart disease or condition that applies to you ?</Divider>
+                                }} >Select the type of hazardous activities or sports that applies to you ?</Divider>
 
                             <div className='col-md-8'>
                                 <div className='d-flex w-100 justify-content-center'>

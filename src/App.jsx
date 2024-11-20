@@ -6,6 +6,7 @@ import Starter from './Components/Starter'
 
 import Aos from "aos";
 import "aos/dist/aos.css";
+import { Element, scroller } from 'react-scroll'
 
 function App() {
 
@@ -15,6 +16,14 @@ function App() {
     let cLocation = location.pathname;
 
     console.log(cLocation)
+
+    // Automatically scroll to "test1" when the component mounts
+    scroller.scrollTo("test1", {
+      duration: 800, // Animation duration in milliseconds
+      delay: 0, // Delay before scroll starts
+      smooth: "easeInOutQuart", // Smooth scroll effect
+      offset: -70, // Adjust for fixed headers (if any)
+    });
 
   }, [location])
 
@@ -26,8 +35,12 @@ function App() {
     });
   }, []);
 
+
+
+
   return (
     <div>
+      <Element name="test1" className="element"></Element>
       <Routes>
         <Route path="/ResourceBlock/*" element={<ResourceBlock />} />
         <Route path="/*" element={<Starter />} />

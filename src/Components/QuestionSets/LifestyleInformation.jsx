@@ -43,57 +43,57 @@ const LifestyleInformation = (props) => {
         <div className='row'>
             <div className='col-md-12 pb-4 mb-1'>
 
+                {(values["LifestyleInformation_SmokerYesNo"] === "Yes" || values["LifestyleInformation_VapeYesNo"] === "Yes") &&
+                    <div className='row justify-content-center'>
+                        <div className='col-md-6'>
+                            <div className='mt-4'>
+                                <DynamicCard
+                                    iconSrc={smoke}
+                                    Head={"Smoke or Vape"}
+                                    altText={"kuch karo"}
+                                >
 
-                <div className='row justify-content-center'>
-                    <div className='col-md-6'>
-                        <div className='mt-4'>
-                            <DynamicCard
-                                iconSrc={smoke}
-                                Head={"Smoke or Vape"}
-                                altText={"kuch karo"}
-                            >
+                                    {values["LifestyleInformation_SmokerYesNo"] === "Yes" &&
+                                        <div className='col-md-12 mt-2'>
+                                            <CInput label={"Do you smoke or have you ever smoked ?"} name={Data.key + "_Smoker"} type="select" options={SmokingOption} className={"form-select"} />
+                                        </div>
+                                    }
+                                    {values["LifestyleInformation_VapeYesNo"] === "Yes" && <div className='col-md-12 mt-2'>
+                                        <CInput label={"Do you vape or have you ever vaped ?"} name={Data.key + "_Vape"} type="select" options={VapingOption} className={"form-select"} />
+                                    </div>}
 
-                                {values["LifestyleInformation_SmokerYesNo"] === "Yes" &&
-                                    <div className='col-md-12 mt-2'>
-                                        <CInput label={"Do you smoke or have you ever smoked ?"} name={Data.key + "_Smoker"} type="select" options={SmokingOption} className={"form-select"} />
-                                    </div>
-                                }
-                                {values["LifestyleInformation_VapeYesNo"] === "Yes" && <div className='col-md-12 mt-2'>
-                                    <CInput label={"Do you vape or have you ever vaped ?"} name={Data.key + "_Vape"} type="select" options={VapingOption} className={"form-select"} />
-                                </div>}
+                                    {(
+                                        (values?.[Data.key + "_Smoker"] === "Yes, I currently smoke" || values?.[Data.key + "_Smoker"] === "Yes, I used to smoke") ||
+                                        (values?.[Data.key + "_Vape"] === "Yes, I currently vape" || values?.[Data.key + "_Vape"] === "Yes, I used to vape")
+                                    ) && (
+                                            <React.Fragment>
+                                                <div className="col-md-12 mt-2">
+                                                    <CInput
+                                                        label={" Number of cigarettes or vape units per day"}
+                                                        name={Data.key + "_NumberOfCigarettes"}
+                                                        type="number"
+                                                    />
+                                                </div>
 
-                                {(
-                                    (values?.[Data.key + "_Smoker"] === "Yes, I currently smoke" || values?.[Data.key + "_Smoker"] === "Yes, I used to smoke") ||
-                                    (values?.[Data.key + "_Vape"] === "Yes, I currently vape" || values?.[Data.key + "_Vape"] === "Yes, I used to vape")
-                                ) && (
-                                        <React.Fragment>
-                                            <div className="col-md-12 mt-2">
-                                                <CInput
-                                                    label={" Number of cigarettes or vape units per day"}
-                                                    name={Data.key + "_NumberOfCigarettes"}
-                                                    type="number"
-                                                />
-                                            </div>
-
-                                            <div className="col-md-12 mt-2">
-                                                <CInput
-                                                    label={"Year you quit (if applicable)"}
-                                                    name={Data.key + "_YearQuit"}
-                                                    type="date"
-                                                    showYearPicker
-                                                    placeholder="yyyy"
-                                                    dateFormat="yyyy"
-                                                    setFieldValue={setFieldValue}
-                                                    handleBlur={handleBlur}
-                                                    values={values}
-                                                />
-                                            </div>
-                                        </React.Fragment>
-                                    )}
-                            </DynamicCard>
+                                                <div className="col-md-12 mt-2">
+                                                    <CInput
+                                                        label={"Year you quit (if applicable)"}
+                                                        name={Data.key + "_YearQuit"}
+                                                        type="date"
+                                                        showYearPicker
+                                                        placeholder="yyyy"
+                                                        dateFormat="yyyy"
+                                                        setFieldValue={setFieldValue}
+                                                        handleBlur={handleBlur}
+                                                        values={values}
+                                                    />
+                                                </div>
+                                            </React.Fragment>
+                                        )}
+                                </DynamicCard>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </div>}
 
 
                 <div className='row justify-content-center mt-2 d-none'>
