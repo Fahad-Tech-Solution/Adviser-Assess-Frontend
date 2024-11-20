@@ -11,7 +11,8 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 
 import logo from "../assets/Images/Logo-2.png";
-import { PostAxios } from '../assets/Api/Api';
+import { openNotification, PostAxios } from '../assets/Api/Api';
+import { Spin } from 'antd';
 
 const validateDeclarationSignature = (value) => {
     if (!value || value.trim() === "") {
@@ -519,6 +520,8 @@ const validateForm = (values) => {
 
 const Starter = () => {
 
+    let [loadingState, setLoadingState] = useState(false)
+
     let { Pages } = Content;
 
     let [initialValues, setInitialValues] = useState({
@@ -533,8 +536,10 @@ const Starter = () => {
         }
     }, [])
 
+
     let onSubmit = async (values) => {
         try {
+            setLoadingState(true);
             console.log("Form Values:", values);
 
             // Generate the PDF
@@ -558,6 +563,13 @@ const Starter = () => {
             console.log("Response from API:", response);
 
             if (response) {
+                setLoadingState(false);
+                openNotification(
+                    'success',
+                    'topRight',
+                    'Report has been Sent',
+                    `Check your email for report`,
+                );
                 localStorage.clear()
             }
 
@@ -870,7 +882,12 @@ const Starter = () => {
             enableReinitialize
         >
             {({ isSubmitting, values, setFieldValue, handleChange, handleBlur, validateForm, validateField, setFieldTouched }) => (
-                <Form className="">
+                <Form className="position-relative">
+                    {loadingState &&
+                        <div className='position-absolute top-0 d-flex justify-content-center align-items-center bg-gray' style={{ width: '100%', height: "100%", zIndex: "1000" }}>
+                            <Spin size="large" style={{ width: 'fit-content', height: "fit-content" }}></Spin>
+                        </div>
+                    }
 
                     <Routes>
                         {Pages.map((elem, index) => {

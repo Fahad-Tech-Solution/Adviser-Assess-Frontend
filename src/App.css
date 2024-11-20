@@ -127,6 +127,10 @@
   width: 15vw;
 }
 
+.bg-gray{
+  background: #c2c2c23f;
+}
+
 
 @media only screen and (max-width: 761px) {
   .Head1 {
