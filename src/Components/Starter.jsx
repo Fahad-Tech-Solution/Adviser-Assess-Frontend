@@ -666,6 +666,29 @@ const Starter = () => {
                 { align: "center", maxWidth: 400 }
             );
 
+
+            doc.addPage();
+
+            doc.setFontSize(18);
+            doc.setTextColor("#28a745");
+            doc.text(55, 100 - 10, "Personal Details"); // Adjust title placement above the table
+
+            doc.autoTable({
+                html: `#resultTable18`, // Table ID
+                margin: { left: 55 },
+                startY: 100,
+                theme: "grid",
+                headStyles: {
+                    fillColor: "#28a745",
+                    fontSize: 12,
+                },
+                styles: {
+                    minCellHeight: 20,
+                },
+            });
+
+
+
             // Add new page and table
             doc.addPage();
             doc.setFontSize(18);
@@ -680,9 +703,10 @@ const Starter = () => {
             doc.setFillColor(54, 180, 70);
             doc.rect(55, 80, 530, 2, "F");
 
+
             // Function to check if a new page is needed
             const checkAndAddPage = () => {
-                if (currentY + 200 > pageHeight) {
+                if (currentY + 150 > pageHeight) {
                     doc.addPage(); // Add a new page
                     currentY = 60; // Reset Y-coordinate for new page
                 }
@@ -698,7 +722,13 @@ const Starter = () => {
 
 
                     doc.setFontSize(14);
-                    doc.text(55, currentY - 10, title); // Adjust title placement above the table
+                    if (title === "Impact of Family History on Specific Cancers and Conditions on Insurance Premiums") {
+
+                        doc.text(55, currentY - 20, title, { align: "left", maxWidth: 500 }); // Adjust title placement above the table
+                    }
+                    else {
+                        doc.text(55, currentY - 10, title, { align: "left", maxWidth: 500 }); // Adjust title placement above the table
+                    }
 
                     doc.autoTable({
                         html: `#${tableId}`, // Table ID
@@ -718,6 +748,7 @@ const Starter = () => {
                     currentY = doc.lastAutoTable.finalY + 50; // Add padding below the table
                 }
             };
+
 
             // Table 1
             renderTableIfCondition(
@@ -750,7 +781,7 @@ const Starter = () => {
 
             // Table 5
             renderTableIfCondition(
-                values["Diabetes_TypeDiabetes-0"] && values["Diabetes_DynamicYesNo"] === "Yes",
+                values["Diabetes_DynamicYesNo"] === "Yes",
                 "Diabetes (Type 1 or Type 2)",
                 "resultTable5"
             );
@@ -764,7 +795,7 @@ const Starter = () => {
 
             // Table 7
             renderTableIfCondition(
-                values["BackNeckPain_diseaseAndConditions"] && values["BackNeckPains_DynamicYesNo"] === "Yes",
+                values["BackNeckPain_diseaseAndConditions"] && values["BackNeckPain_DynamicYesNo"] === "Yes",
                 "Back or Neck Pain",
                 "resultTable7"
             );
@@ -799,7 +830,7 @@ const Starter = () => {
 
             // Table 12
             renderTableIfCondition(
-                values?.["LifestyleInformation_Smoker"] === "Yes" || values?.["LifestyleInformation_Vape"] === "Yes",
+                values?.["LifestyleInformation_SmokerYesNo"] === "Yes" || values?.["LifestyleInformation_VapeYesNo"] === "Yes",
                 "Impact of Smoking on Insurance Premiums",
                 "resultTable12"
             );
@@ -827,11 +858,10 @@ const Starter = () => {
 
             // Table 16
             renderTableIfCondition(
-                values?.["FamilyMedicalHistory_HeartDisease`"] === "Yes"
-                || values?.["FamilyMedicalHistory_Cancer`"] === "Yes"
-                || values?.["FamilyMedicalHistory_Diabetes`"] === "Yes"
-                || values?.["FamilyMedicalHistory_MentalHealthConditions`"] === "Yes"
-                || values?.["FamilyMedicalHistory_Vape"] === "Yes",
+                values?.["FamilyMedicalHistory_HeartDisease"] === "Yes"
+                || values?.["FamilyMedicalHistory_Cancer"] === "Yes"
+                || values?.["FamilyMedicalHistory_Diabetes"] === "Yes"
+                || values?.["FamilyMedicalHistory_MentalHealthConditions"] === "Yes",
                 "Impact of Family History on Specific Cancers and Conditions on Insurance Premiums",
                 "resultTable16"
             );
@@ -843,21 +873,6 @@ const Starter = () => {
                 "resultTable17"
             );
 
-            doc.text(55, currentY - 10, "Personal Details"); // Adjust title placement above the table
-
-            doc.autoTable({
-                html: `#resultTable18`, // Table ID
-                margin: { left: 55 },
-                startY: currentY,
-                theme: "grid",
-                headStyles: {
-                    fillColor: "#28a745",
-                    fontSize: 12,
-                },
-                styles: {
-                    minCellHeight: 20,
-                },
-            });
 
 
             // Output the PDF

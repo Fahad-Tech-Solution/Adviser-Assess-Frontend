@@ -1,6 +1,7 @@
 import React from "react";
 import { Field } from "formik";
 import DatePicker from "react-datepicker";
+import { differenceInYears } from "date-fns";
 import { Button, InputGroup } from "react-bootstrap";
 
 const CInput = ({ label, className, ...props }) => {
@@ -165,6 +166,10 @@ const CInput = ({ label, className, ...props }) => {
                                     onChange={(date) => {
                                         const fieldName = props.name;
                                         props.setFieldValue(fieldName, date);
+                                        if (props.ageFlag) {
+                                            const age = differenceInYears(new Date(), date) || 0;
+                                           props.setFieldValue("Age", age);
+                                        }
                                     }}
                                     dateFormat={props.dateFormat ? props.dateFormat : "dd/MM/yyyy"}
                                     placeholderText={props.placeholder}

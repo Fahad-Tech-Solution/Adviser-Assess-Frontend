@@ -54,6 +54,10 @@ const PersonalDetails = (props) => {
   };
 
 
+  let changeFunc = (date) => {
+
+  }
+
 
   return (
     <div className="container mt-4">
@@ -86,7 +90,24 @@ const PersonalDetails = (props) => {
             type="Date"
             placeholder="DD/MM/YYYY"
             className="form-control"
-            setFieldValue={setFieldValue} handleBlur={handleBlur} values={values}
+            setFieldValue={setFieldValue}
+            handleBlur={handleBlur}
+            values={values}
+            ageFlag={true}
+          />
+        </div>
+
+        <div className='col-md-3'></div>
+        <div className='col-md-3'></div>
+
+        <div className='col-md-3'>
+          <label className="fw-bold" htmlFor='DateBirth'>Age :</label>
+        </div>
+        <div className="col-md-3">
+          <CInput
+            name="Age"
+            type="text"
+            disabled
           />
         </div>
 

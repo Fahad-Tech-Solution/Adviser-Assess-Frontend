@@ -404,7 +404,7 @@ const ResultsTables = (props) => {
                     "incomeProtection": "Exclusions for cancer-related claims.",
                     "traumaInsurance": "Exclusions for colorectal cancer recurrence."
                 },
-                "Skin Cancer (Melanoma)": {
+                "Skin Cancer (e.g., Melanoma)": {
                     "lifeInsurance": "Loadings or exclusions for melanoma. Non-invasive types are more favorable.",
                     "tpdInsurance": "Exclusions for melanoma-related disability.",
                     "incomeProtection": "Exclusions for melanoma-related claims.",
@@ -416,7 +416,7 @@ const ResultsTables = (props) => {
                     "incomeProtection": "Exclusions for tumor-related claims.",
                     "traumaInsurance": "Exclusions if the tumor poses a risk of trauma."
                 },
-                "Cyst (Ovarian/Kidney)": {
+                "Cyst (e.g., Ovarian Cyst, Kidney Cyst)": {
                     "lifeInsurance": "Mild cases are accepted, severe cases face loadings or exclusions.",
                     "tpdInsurance": "Exclusions for disability from complications.",
                     "incomeProtection": "Exclusions for cyst-related claims.",
@@ -445,7 +445,7 @@ const ResultsTables = (props) => {
             setSelectedCancerConditions([])
         }
 
-        if (values["Diabetes_TypeDiabetes-0"] && values["Diabetes_DynamicYesNo"] === "Yes") {
+        if (values["Diabetes_DynamicYesNo"] === "Yes") {
 
             //Table 5
 
@@ -465,16 +465,29 @@ const ResultsTables = (props) => {
             };
 
             try {
-                let DiabetesConditionsArray = values?.["Diabetes_TypeDiabetes-0"].map(condition => {
-                    // Check if the condition exists in HeartDiseaseConditions to avoid undefined values
-                    if (DiabetesConditions.hasOwnProperty(condition)) {
-                        return {
-                            name: condition,
-                            details: DiabetesConditions[condition]
-                        };
+
+                // let DiabetesConditionsArray = values?.["Diabetes_TypeDiabetes"].map(condition => {
+                //     // Check if the condition exists in HeartDiseaseConditions to avoid undefined values
+                //     if (DiabetesConditions.hasOwnProperty(condition)) {
+                //         return {
+                //             name: condition,
+                //             details: DiabetesConditions[condition]
+                //         };
+                //     }
+                //     return null; // Return null if the condition does not exist
+                // }).filter(condition => condition !== null); // Remove null entries
+                let DiabetesConditionsArray = []
+
+                if (values?.["Diabetes_TypeDiabetes"] !== "") {
+
+                    if (DiabetesConditions.hasOwnProperty(values?.["Diabetes_TypeDiabetes"])) {
+                        DiabetesConditionsArray = [{
+                            name: values?.["Diabetes_TypeDiabetes"],
+                            details: DiabetesConditions[values?.["Diabetes_TypeDiabetes"]]
+                        }];
                     }
-                    return null; // Return null if the condition does not exist
-                }).filter(condition => condition !== null); // Remove null entries
+                    // return null;
+                }
 
                 setSelectedDiabetesConditions(DiabetesConditionsArray)
             } catch (error) {
@@ -539,7 +552,9 @@ const ResultsTables = (props) => {
             setSelectedMentalHealthConditions([])
         }
 
-        if (values["BackNeckPain_diseaseAndConditions"] && values["BackNeckPains_DynamicYesNo"] === "Yes") {
+        if (values["BackNeckPain_diseaseAndConditions"] && values["BackNeckPain_DynamicYesNo"] === "Yes") {
+
+
             //Table 7
             const SpineAndBackConditions = {
                 "Lower Back Pain": {
@@ -759,7 +774,7 @@ const ResultsTables = (props) => {
 
 
 
-        if (values?.["LifestyleInformation_Smoker"] || values?.["LifestyleInformation_Vape"]) {
+        if (values?.["LifestyleInformation_SmokerYesNo"] || values?.["LifestyleInformation_VapeYesNo"]) {
             setselectedSmokingInsuranceImpact(((values?.["LifestyleInformation_Smoker"] !== "No, I have never smoked") || (values?.["LifestyleInformation_Vape"] !== "No, I have never vaped")));
 
         }
@@ -928,12 +943,13 @@ const ResultsTables = (props) => {
             setSelectedHighRiskActivityInsuranceImpact([])
         }
 
-        if (values?.["FamilyMedicalHistory_HeartDisease`"] === "Yes"
-            || values?.["FamilyMedicalHistory_Cancer`"] === "Yes"
-            || values?.["FamilyMedicalHistory_Diabetes`"] === "Yes"
-            || values?.["FamilyMedicalHistory_MentalHealthConditions`"] === "Yes"
-            || values?.["FamilyMedicalHistory_Vape"] === "Yes"
+        // alert(values?.["FamilyMedicalHistory_HeartDisease"] === "Yes")
+        if (values?.["FamilyMedicalHistory_HeartDisease"] === "Yes"
+            || values?.["FamilyMedicalHistory_Cancer"] === "Yes"
+            || values?.["FamilyMedicalHistory_Diabetes"] === "Yes"
+            || values?.["FamilyMedicalHistory_MentalHealthConditions"] === "Yes"
         ) {
+
             setFamilyMedicalHistory_HeartDisease(true);
         }
 

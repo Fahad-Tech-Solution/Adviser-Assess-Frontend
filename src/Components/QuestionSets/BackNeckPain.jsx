@@ -67,21 +67,6 @@ const BackNeckPain = (props) => {
                 .filter((item) => item.value !== "Other" && item.value !== "Unknown")
                 .map((item) => item.value);
             setFieldValue(target.name, filtered);
-
-            // Update the data rendering array with filtered values
-            let DataRenderArray = [];
-
-            filtered.forEach((element) => {
-                let obj = {
-                    StaticString: element,
-                    [`${Data.key}_DateOfDiagnosis`]: "",
-                    [`${Data.key}_MedicationsTreatment`]: "",
-                    [`${Data.key}_Hospitalizations`]: "",
-                };
-                DataRenderArray.push(obj);
-            });
-
-            setData(DataRenderArray);
         }
     };
 
