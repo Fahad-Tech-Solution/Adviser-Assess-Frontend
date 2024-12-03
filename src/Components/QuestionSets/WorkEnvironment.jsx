@@ -27,8 +27,8 @@ const WorkEnvironment = (props) => {
 
                 <DynamicCard
                     iconSrc={WorkEnvironmentIcon}
-                    Head={`Weekly Work Hours`}
-                    altText="Medical History Icon"
+                    Head={`Work Environment`}
+                    altText="Work Environment Icon"
                 >
                     <div className='col-md-12 my-2'>
                         <label className='fw-bold w-100 text-center mb-2'> Do you perform any hazardous duties ?</label>
@@ -42,7 +42,7 @@ const WorkEnvironment = (props) => {
                             {
                                 values[`${Data.key}_Specify`] === "Other" &&
                                 <div className='col-md-12 mt-2'>
-                                    <CInput label={"Other income structured"} id={`${Data.key}_otherPleaseSpecify`} name={`${Data.key}_otherPleaseSpecify`} type="textarea" rows={2} />
+                                    <CInput label={"Please Specify Others"} id={`${Data.key}_otherPleaseSpecify`} name={`${Data.key}_otherPleaseSpecify`} type="textarea" rows={2} />
                                 </div>
                             }
 

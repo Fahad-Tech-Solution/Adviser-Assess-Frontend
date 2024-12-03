@@ -544,6 +544,14 @@ const Starter = () => {
             // Generate the PDF
             const pdfBlob = await generatePDF(values);
 
+            setLoadingState(false);
+            openNotification(
+                'success',
+                'topRight',
+                'Report has been Sent',
+                `Check your email for report`,
+            );
+            
             // Convert Blob to Base64 (optional, if needed elsewhere)
             const base64PDF = await convertBlobToBase64(pdfBlob);
             console.log("Base64 PDF:", base64PDF);
@@ -675,6 +683,28 @@ const Starter = () => {
 
             doc.autoTable({
                 html: `#resultTable18`, // Table ID
+                margin: { left: 55 },
+                startY: 100,
+                theme: "grid",
+                headStyles: {
+                    fillColor: "#28a745",
+                    fontSize: 12,
+                },
+                styles: {
+                    minCellHeight: 20,
+                },
+            });
+
+            // adding employment income table
+
+            doc.addPage();
+
+            doc.setFontSize(18);
+            doc.setTextColor("#28a745");
+            doc.text(55, 100 - 10, "Employment Income"); // Adjust title placement above the table
+
+            doc.autoTable({
+                html: `#resultTable19`, // Table ID
                 margin: { left: 55 },
                 startY: 100,
                 theme: "grid",

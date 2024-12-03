@@ -16,7 +16,7 @@ const WeeklyWorkHours = (props) => {
 
                 <DynamicCard
                     iconSrc={WorkHoure}
-                    Head={`Work Environment`}
+                    Head={`Work Hours`}
                     altText="Medical History Icon"
                 >
                     <div className='col-md-12 mt-2'>

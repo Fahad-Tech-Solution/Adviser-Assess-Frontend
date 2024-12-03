@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table'
+import { DateHandler } from '../assets/Api/Api'
 
 const ResultsTables = (props) => {
     let { setFieldValue, handleBlur, values, validateForm, validateField, setFieldTouched, handleChange } = props.FormickOBj
@@ -1665,6 +1666,161 @@ const ResultsTables = (props) => {
                             <th>Address</th>
                             <td>{values.Address || ""}</td>
                         </tr>
+                    </tbody>
+                </Table>
+            </div>
+
+            {/* Render Table 19 / Financial Information */}
+            <div
+                className='d-none'
+            >
+                <Table striped bordered responsive hover id="resultTable19">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th className='text-center'>Financial Information</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <th>Currently Working</th>
+                            <td>{values.EmploymentStatus_DynamicYesNo || ""}</td>
+                        </tr>
+
+                        {/* Currently Working dynamic inputs*/}
+
+                        {values.EmploymentStatus_DynamicYesNo === "Yes" ?
+                            <React.Fragment>
+
+                                <tr>
+                                    <th>Title</th>
+                                    <td>{values.EmploymentStatus_OccupationJobTitle || ""}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Employment Type</th>
+                                    <td>{values.EmploymentStatus_EmploymentType || ""}</td>
+                                </tr>
+                                {
+                                    values.EmploymentStatus_EmploymentType === "Self-employed" &&
+                                    <React.Fragment>
+
+                                        <tr>
+                                            <th>Business Name</th>
+                                            <td>{values.EmploymentStatus_BusinessName || ""}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Nature of Business</th>
+                                            <td>{values.EmploymentStatus_NatureOfBusiness || ""}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Start Date of Business</th>
+                                            <td>{ConvertDate(values.EmploymentStatus_StartDateOfBusiness) || ""}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Net Profit</th>
+                                            <td>{values.EmploymentStatus_NetProfit || ""}</td>
+                                        </tr>
+                                    </React.Fragment>
+
+                                }
+                            </React.Fragment> :
+                            <React.Fragment>
+                                <tr>
+                                    <th>Current Situation</th>
+                                    <td>{values.EmploymentStatus_Situation || ""}</td>
+                                </tr>
+
+                            </React.Fragment>
+                        }
+                        <tr>
+                            <th>Annual Pre-tax Income Primary </th>
+                            <td>{values.EmploymentStatus_primaryOccupation || ""}</td>
+                        </tr>
+                        <tr>
+                            <th>Income Structure </th>
+                            <td>{values.EmploymentStatus_incomeStructured || ""}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Hazardous Duties</th>
+                            <td>{values.EmploymentStatus_hazardousDuties || ""}</td>
+                        </tr>
+
+                        {/* Currently Working dynamic inputs*/}
+
+                        {values.EmploymentStatus_hazardousDuties === "Yes" &&
+                            <React.Fragment>
+
+                                <tr>
+                                    <th>Specify Hazardous Duty</th>
+                                    <td>{values.EmploymentStatus_Specify || ""}</td>
+                                </tr>
+                                {values.EmploymentStatus_Specify === "Other" &&
+                                    <React.Fragment>
+
+                                        <tr>
+                                            <th>Specify Other Hazard Duty</th>
+                                            <td>{values.EmploymentStatus_otherPleaseSpecify || ""}</td>
+                                        </tr>
+                                    </React.Fragment>
+                                }
+                            </React.Fragment>
+
+                        }
+
+                        <tr>
+                            <th>Weekly Work Hours Primary</th>
+                            <td>{values.EmploymentStatus_primaryWorkHours || ""}</td>
+                        </tr>
+                        <tr>
+                            <th>Work Weeks Per Year Primary</th>
+                            <td>{values.EmploymentStatus_workPerYear || ""}</td>
+                        </tr>
+                        <tr>
+                            <th>FIFO (Fly-In Fly-Out)</th>
+                            <td>{values.EmploymentStatus_FIFO || ""}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Second Occupation</th>
+                            <td>{values.SecondOccupation_DynamicYesNo || ""}</td>
+                        </tr>
+                        {
+                            values.SecondOccupation_DynamicYesNo === "Yes" &&
+
+                            <React.Fragment>
+                                <tr>
+                                    <th>Occupation Job/Title Secondary</th>
+                                    <td>{values.SecondOccupation_OccupationJobTitle || ""}</td>
+                                </tr>
+                                <tr>
+                                    <th>Secondary Employment Type</th>
+                                    <td>{values.SecondOccupation_EmploymentType || ""}</td>
+                                </tr>
+
+                                {values.SecondOccupation_EmploymentType === "Other" &&
+                                    <React.Fragment>
+
+                                        <tr>
+                                            <th>Employment Type Detail</th>
+                                            <td>{values.SecondOccupation_Other || ""}</td>
+                                        </tr>
+                                    </React.Fragment>
+                                }
+
+                                <tr>
+                                    <th>Annual Pre-tax Income Secondary </th>
+                                    <td>{values.EmploymentStatus_SecondaryOccupation || ""}</td>
+                                </tr>
+                                <tr>
+                                    <th>Hours/Week Secondary </th>
+                                    <td>{values.EmploymentStatus_SecondWorkHours || ""}</td>
+                                </tr>
+
+                            </React.Fragment>
+                        }
                     </tbody>
                 </Table>
             </div>
